@@ -29,6 +29,8 @@
 
   <body>
     
+
+    <!-- Logo Drive&Ride -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">Drive<span>&Ride</span></a>

@@ -14,6 +14,14 @@
         </x-slot>
     </x-sidebar.link>
 
+    <!-- Link para a página principal -->
+    <x-sidebar.link title="Página Principal" href="{{ route('welcome') }}">
+        <x-slot name="icon">
+            <x-heroicon-o-logout class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+        </x-slot>
+    </x-sidebar.link>
+    
+        
     <!-- Dropdown de botões -->
     <x-sidebar.dropdown
         title="Outros"
