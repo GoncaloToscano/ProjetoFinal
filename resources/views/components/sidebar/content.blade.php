@@ -3,7 +3,7 @@
     aria-label="main"
     class="flex flex-col flex-1 gap-4 px-3"
 >
-
+    <!-- Link para o Dashboard -->
     <x-sidebar.link
         title="Dashboard"
         href="{{ route('dashboard') }}"
@@ -14,45 +14,38 @@
         </x-slot>
     </x-sidebar.link>
 
+    <!-- Dropdown de botões -->
     <x-sidebar.dropdown
-        title="Buttons"
+        title="Outros"
         :active="Str::startsWith(request()->route()->uri(), 'buttons')"
     >
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
 
-        <x-sidebar.sublink
-            title="Text button"
-            href="{{ route('buttons.text') }}"
-            :active="request()->routeIs('buttons.text')"
-        />
-        <x-sidebar.sublink
-            title="Icon button"
-            href="{{ route('buttons.icon') }}"
-            :active="request()->routeIs('buttons.icon')"
-        />
-        <x-sidebar.sublink
-            title="Text with icon"
-            href="{{ route('buttons.text-icon') }}"
-            :active="request()->routeIs('buttons.text-icon')"
-        />
+        <x-sidebar.link title="Tabelas" href="#" />
+
+        <x-sidebar.link title="Notas" href="#" />
+
+
     </x-sidebar.dropdown>
 
+    <!-- Links -->
     <div
         x-transition
         x-show="isSidebarOpen || isSidebarHovered"
         class="text-sm text-gray-500"
     >
-        Dummy Links
+        Links
     </div>
 
-    @php
-        $links = array_fill(0, 20, '');
-    @endphp
-
-    @foreach ($links as $index => $link)
-        <x-sidebar.link title="Dummy link {{ $index + 1 }}" href="#" />
-    @endforeach
+    <!-- Definição dos 6 links -->
+    <x-sidebar.link title="Clientes" href="#" />
+    <x-sidebar.link title="Funcionários" href="#" />
+    <x-sidebar.link title="Carros" href="#" />
+    <x-sidebar.link title="Test-Drives" href="#" />
+    <x-sidebar.link title="Serviços" href="#" />
+    <x-sidebar.link title="Descontos" href="#" />
+    <x-sidebar.link title="Concessionárias" href="#" />
 
 </x-perfect-scrollbar>
