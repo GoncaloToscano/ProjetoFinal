@@ -54,6 +54,7 @@ Route::get('/buttons/text-icon', function () {
 use App\Http\Controllers\CarController;
 
 Route::resource('cars', CarController::class);
+Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
 
 
 // Carregar as rotas de autenticação (login, registro, etc.)

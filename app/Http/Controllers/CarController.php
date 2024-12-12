@@ -23,6 +23,10 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
+        // Log para verificar se o método foi chamado
+        \Log::info('Método store chamado.');
+
+        // Validação dos dados do formulário
         $request->validate([
             'name' => 'required',
             'brand' => 'required',
@@ -30,13 +34,26 @@ class CarController extends Controller
             'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-    
+
+        // Verifique se a imagem foi enviada
         $imagePath = null;
         if ($request->hasFile('image')) {
             // Armazena a imagem no diretório 'cars' dentro de 'storage/app/public'
             $imagePath = $request->file('image')->store('cars', 'public');
+            \Log::info('Imagem recebida: ' . $imagePath);  // Log do caminho da imagem
+        } else {
+            \Log::info('Nenhuma imagem enviada.');
         }
-    
+
+        // Dados que serão criados
+        \Log::info('Dados do carro:', [
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'year' => $request->year,
+            'price' => $request->price,
+            'image' => $imagePath,
+        ]);
+
         // Cria o carro com os dados, incluindo o caminho da imagem
         Car::create([
             'name' => $request->name,
@@ -45,9 +62,14 @@ class CarController extends Controller
             'price' => $request->price,
             'image' => $imagePath,
         ]);
-    
+
+        // Log para garantir que a criação foi concluída
+        \Log::info('Carro criado com sucesso!');
+
         return redirect()->route('cars.index')->with('success', 'Carro criado com sucesso!');
     }
+
+    
     
 
     public function edit(Car $car)

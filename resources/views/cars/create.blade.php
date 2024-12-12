@@ -6,8 +6,9 @@
     </x-slot>
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-gray-800">
-        <form action="{{ route('cars.store') }}" method="POST">
+        <form action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+        
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>
                 <input 
@@ -48,13 +49,15 @@
 
             <!-- Campo para imagem -->
             <div class="mb-4">
-                <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem</label>
+                <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem do Carro</label>
                 <input 
                     type="file" 
                     name="image" 
                     id="image" 
+                    accept="image/*" 
                     class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 
                         dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Escolha uma imagem para o carro (JPG, JPEG, PNG)</p>
             </div>
 
             <button 
