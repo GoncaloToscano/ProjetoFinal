@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+        // Adiciona a coluna 'role' na tabela 'users' existente
+        Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('user'); // Adicionando coluna de role
-            $table->rememberToken();
-            $table->timestamps();
         });
     }
 
@@ -28,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        // Remove a coluna 'role' se necessário
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
     }
 };

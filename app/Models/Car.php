@@ -9,11 +9,8 @@ class Car extends Model
 {
     use HasFactory;
 
-    // Campos permitidos para atribuição em massa
+    // Campos que podem ser preenchidos em massa
     protected $fillable = [
-        'name',
-        'brand',
-        'year',
-        'price',
+        'name', 'brand', 'year', 'price', 'image',
     ];
 }

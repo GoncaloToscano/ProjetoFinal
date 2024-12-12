@@ -50,7 +50,7 @@
     <!-- Definição dos 6 links -->
     <x-sidebar.link title="Clientes" href="#" />
     <x-sidebar.link title="Funcionários" href="#" />
-    <x-sidebar.link title="Carros" href="{{ route('cars.index') }}" />
+    <x-sidebar.link title="Carro" href="{{ route('cars.index') }}" />
     <x-sidebar.link title="Test-Drives" href="#" />
     <x-sidebar.link title="Serviços" href="#" />
     <x-sidebar.link title="Descontos" href="#" />
