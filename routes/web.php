@@ -49,5 +49,12 @@ Route::get('/buttons/text-icon', function () {
     return view('buttons-showcase.text-icon');
 })->middleware(['auth'])->name('buttons.text-icon');
 
+
+//Cars CRUD
+use App\Http\Controllers\CarController;
+
+Route::resource('cars', CarController::class);
+
+
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';
