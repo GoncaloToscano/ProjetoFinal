@@ -8,38 +8,37 @@ use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
-    public function index()
-    {
-    // Buscar todos os carros no banco de dados
-    $cars = Car::all(); // Use o modelo correspondente, ajustando o nome, se necessário.
-
-    // Retornar a view com os carros
-    return view('cars.index', compact('cars'));
-    }
-
-
-    //mostrar carros publico
+    // No seu CarController, a função publicIndex
     public function publicIndex()
     {
-        // Buscar todos os carros no banco de dados
-        $cars = Car::all(); // Ajuste se necessário para filtrar apenas os carros disponíveis.
+        // Buscar os 4 carros mais recentes
+        $recentCars = Car::latest()->take(4)->get(); 
 
-        // Retornar a view pública com os carros
-        return view('cars.public', compact('cars'));
+        // Passar os carros para a view
+        return view('welcome', compact('recentCars'));
     }
 
 
+    // Método para exibir todos os carros (pode ser usado para a página de administração)
+    public function index()
+    {
+        // Buscar todos os carros no banco de dados
+        $cars = Car::all();
+
+        // Retornar a view com todos os carros
+        return view('cars.index', compact('cars'));
+    }
+
+    // Método para exibir o formulário de criação de um carro
     public function create()
     {
         // Exibe a view para criar um novo carro
         return view('cars.create');
     }
 
+    // Método para armazenar um novo carro no banco de dados
     public function store(Request $request)
     {
-        // Log para verificar se o método foi chamado
-        \Log::info('Método store chamado.');
-
         // Validação dos dados do formulário
         $request->validate([
             'name' => 'required',
@@ -54,19 +53,7 @@ class CarController extends Controller
         if ($request->hasFile('image')) {
             // Armazena a imagem no diretório 'cars' dentro de 'storage/app/public'
             $imagePath = $request->file('image')->store('cars', 'public');
-            \Log::info('Imagem recebida: ' . $imagePath);  // Log do caminho da imagem
-        } else {
-            \Log::info('Nenhuma imagem enviada.');
         }
-
-        // Dados que serão criados
-        \Log::info('Dados do carro:', [
-            'name' => $request->name,
-            'brand' => $request->brand,
-            'year' => $request->year,
-            'price' => $request->price,
-            'image' => $imagePath,
-        ]);
 
         // Cria o carro com os dados, incluindo o caminho da imagem
         Car::create([
@@ -77,21 +64,18 @@ class CarController extends Controller
             'image' => $imagePath,
         ]);
 
-        // Log para garantir que a criação foi concluída
-        \Log::info('Carro criado com sucesso!');
-
+        // Redireciona para a lista de carros com uma mensagem de sucesso
         return redirect()->route('cars.index')->with('success', 'Carro criado com sucesso!');
     }
 
-    
-    
-
+    // Método para exibir o formulário de edição de um carro
     public function edit(Car $car)
     {
         // Exibe a view de edição do carro com os dados do carro atual
         return view('cars.edit', compact('car'));
     }
 
+    // Método para atualizar um carro no banco de dados
     public function update(Request $request, Car $car)
     {
         // Validação dos dados do formulário
@@ -120,6 +104,7 @@ class CarController extends Controller
         return redirect()->route('cars.index')->with('success', 'Carro atualizado com sucesso!');
     }
 
+    // Método para excluir um carro
     public function destroy(Car $car)
     {
         // Remove a imagem associada ao carro, se houver

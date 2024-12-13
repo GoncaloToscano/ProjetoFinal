@@ -9,7 +9,8 @@ class Car extends Model
 {
     use HasFactory;
 
-    // Campos que podem ser preenchidos em massa
+    protected $table = 'cars';
+
     protected $fillable = [
         'name', 'brand', 'year', 'price', 'image',
     ];

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CarController;
 
 /*
 |---------------------------------------------------------------------------
@@ -14,10 +15,8 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-// Definir a rota nomeada 'welcome'
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome'); // Agora a rota 'welcome' está definida corretamente
+// Definir a rota nomeada 'welcome' (página inicial)
+Route::get('/', [CarController::class, 'publicIndex'])->name('welcome'); // Agora usamos o CarController para a página inicial
 
 // Rota para o Dashboard, com middleware de autenticação
 Route::get('/dashboard', function () {
@@ -49,16 +48,11 @@ Route::get('/buttons/text-icon', function () {
     return view('buttons-showcase.text-icon');
 })->middleware(['auth'])->name('buttons.text-icon');
 
-
-//Cars CRUD
-use App\Http\Controllers\CarController;
-
+// Cars CRUD - Rotas para gerenciamento de carros no admin
 Route::resource('cars', CarController::class);
-//rotas para carro dashboard admin
-Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
-//Rota para ver carros publica
-Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
 
+// Rota para ver os carros na página pública
+Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
 
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';

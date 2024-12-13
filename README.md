@@ -10,3 +10,7 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 php artisan serve
+
+
+php artisan storage:link
+(Para as imagens certificar que o storage ta todo configurado e o link criado)
