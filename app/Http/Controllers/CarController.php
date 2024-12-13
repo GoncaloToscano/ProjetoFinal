@@ -10,10 +10,24 @@ class CarController extends Controller
 {
     public function index()
     {
-        // Recupera todos os carros
-        $cars = Car::all();
-        return view('cars.index', compact('cars'));
+    // Buscar todos os carros no banco de dados
+    $cars = Car::all(); // Use o modelo correspondente, ajustando o nome, se necessário.
+
+    // Retornar a view com os carros
+    return view('cars.index', compact('cars'));
     }
+
+
+    //mostrar carros publico
+    public function publicIndex()
+    {
+        // Buscar todos os carros no banco de dados
+        $cars = Car::all(); // Ajuste se necessário para filtrar apenas os carros disponíveis.
+
+        // Retornar a view pública com os carros
+        return view('cars.public', compact('cars'));
+    }
+
 
     public function create()
     {

@@ -54,7 +54,10 @@ Route::get('/buttons/text-icon', function () {
 use App\Http\Controllers\CarController;
 
 Route::resource('cars', CarController::class);
+//rotas para carro dashboard admin
 Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
+//Rota para ver carros publica
+Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
 
 
 // Carregar as rotas de autenticação (login, registro, etc.)
