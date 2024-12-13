@@ -23,14 +23,14 @@
   
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">Drive&<span>Ride</span></a>
+      <a class="navbar-brand" href="{{ url('/') }}">Drive&<span>Ride</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="{{ url('/welcome') }}" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
           <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
           <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
@@ -47,7 +47,7 @@
     <div class="container">
       <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
         <div class="col-md-9 ftco-animate pb-5">
-          <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('welcome') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
+          <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
           <h1 class="mb-3 bread">Choose Your Car</h1>
         </div>
       </div>
@@ -55,40 +55,36 @@
   </section>
 
   <!-- Car listing section starts here -->
-  <section class="ftco-section ftco-no-pt bg-light">
+<section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-
           <h2 class="mb-2">Todos os nossos veículos disponíveis!</h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="carousel-car owl-carousel">
-            @foreach($cars as $car)
-              <div class="item">
-                <div class="car-wrap rounded ftco-animate">
-                  <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('storage/'.$car->image) }});"></div>
-                  <div class="text">
-                    <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
-                    <div class="d-flex mb-3">
-                      <span class="cat">{{ $car->brand }}</span>
-                      <p class="price ml-auto">${{ $car->price }} <span>/day</span></p>
-                    </div>
-                    <p class="d-flex mb-0 d-block">
-                      <a href="#" class="btn btn-primary py-2 mr-1">Favorito</a>
-                      <a href="#" class="btn btn-secondary py-2 ml-1">Detalhes</a>
-                    </p>
-                  </div>
+        @foreach($cars as $car)
+          <div class="col-md-4 mb-4"> <!-- Cada carro ocupa 1/3 da largura -->
+            <div class="car-wrap rounded ftco-animate">
+              <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('storage/'.$car->image) }}); height: 200px; background-size: cover;"></div>
+              <div class="text">
+                <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
+                <div class="d-flex mb-3">
+                  <span class="cat">{{ $car->brand }}</span>
+                  <p class="price ml-auto">${{ $car->price }} <span>/day</span></p>
                 </div>
+                <p class="d-flex mb-0 d-block">
+                  <a href="#" class="btn btn-primary py-2 mr-1">Favorito</a>
+                  <a href="#" class="btn btn-secondary py-2 ml-1">Detalhes</a>
+                </p>
               </div>
-            @endforeach
+            </div>
           </div>
-        </div>
+        @endforeach
       </div>
     </div>
   </section>
+  
 
   <!-- Pagination section -->
   <div class="row mt-5">

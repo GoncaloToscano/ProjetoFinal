@@ -40,15 +40,15 @@
     
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="#aboutus" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
 
                     <li class="nav-item">
                       <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
                     </li>
 
-                  <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                  <li class="nav-item"><a href="concesisonarias.html" class="nav-link">Concessionárias</a></li>
+                    <li class="nav-item"><a href="contactos.html" class="nav-link">Contactos</a></li>
     
                     <ul class="navbar-nav ml-auto">
                         @guest
@@ -225,14 +225,10 @@
       </div>
   </div>
 </section>
+
+
 <!--Recenetemente adicionados 4 - Fim -->
-
-
-
-
-
-
-    <section class="ftco-section ftco-about">
+    <section class="ftco-section ftco-about" id="aboutus">
 			<div class="container">
 				<div class="row no-gutters">
 					<div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(assets/images/about.jpg);">
@@ -251,7 +247,7 @@
 			</div>
 		</section>
 
-		<section class="ftco-section">
+		<section class="ftco-section" id="services">
 			<div class="container">
 				<div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
@@ -305,8 +301,8 @@
 			<div class="container">
 				<div class="row justify-content-end">
 					<div class="col-md-6 heading-section heading-section-white ftco-animate">
-            <h2 class="mb-3">Do You Want To Earn With Us? So Don't Be Late.</h2>
-            <a href="#" class="btn btn-primary btn-lg">Become A Driver</a>
+            <h2 class="mb-3">Queres ver mais dos nossos carros</h2>
+            <a href="{{ route('cars.public.cars') }}" class="btn btn-primary btn-lg">Vem conhecer!</a>
           </div>
 				</div>
 			</div>
@@ -443,7 +439,50 @@
       </div>
     </section>	
 
-    <section class="ftco-counter ftco-section img bg-light" id="section-counter">
+
+<!-- Concessionárias -->
+<section class="ftco-section testimony-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">Visite-nos</span>
+        <h2 class="mb-3">Onde estamos?</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h3 class="text-center">Porto</h3>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d206695.99637812872!2d-8.7310956125!3d40.961916675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU3JzQyLjkiTiA4wrAzNSc0Mi4wIlc!5e0!3m2!1spt-PT!2spt!4v1700000000000" 
+          width="100%" 
+          height="300" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <h3 class="text-center">Setúbal</h3>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d408.1657437553885!2d-9.052974231!3d38.597278415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd194936ca2a12b3%3A0xb6d61a200ad7f69f!2sBR%20Autos!5e0!3m2!1spt-PT!2spt!4v1700000000000" 
+          width="100%" 
+          height="300" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fim concessionária -->
+
+    <section class="ftco-counter ftco-section img bg-white" id="section-counter">
 			<div class="overlay"></div>
     	<div class="container">
     		<div class="row">
