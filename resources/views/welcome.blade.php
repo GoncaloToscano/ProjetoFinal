@@ -44,7 +44,7 @@
                     <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
 
                     <li class="nav-item">
-                      <a href="{{ route('cars.public') }}" class="nav-link">Cars</a>
+                      <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
                     </li>
 
                   <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -210,11 +210,11 @@
                                   <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
                                   <div class="d-flex mb-3">
                                       <span class="cat">{{ $car->brand }}</span>
-                                      <p class="price ml-auto">${{ $car->price }} <span>/day</span></p>
+                                      <p class="price ml-auto">{{ $car->price }}€ <span></span></p>
                                   </div>
                                   <p class="d-flex mb-0 d-block">
-                                      <a href="#" class="btn btn-primary py-2 mr-1">Book now</a> 
-                                      <a href="#" class="btn btn-secondary py-2 ml-1">Details</a>
+                                    <a href="{{ route('cars.public') }}" class="btn btn-primary py-2 mr-1">Ver Mais Carros</a>
+                                    <a href="#" class="btn btn-secondary py-2 ml-1">Detalhes</a>
                                   </p>
                               </div>
                           </div>
@@ -225,6 +225,7 @@
       </div>
   </div>
 </section>
+<!--Recenetemente adicionados 4 - Fim -->
 
 
 

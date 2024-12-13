@@ -51,8 +51,13 @@ Route::get('/buttons/text-icon', function () {
 // Cars CRUD - Rotas para gerenciamento de carros no admin
 Route::resource('cars', CarController::class);
 
-// Rota para ver os carros na página pública
+//Rota para os 4 recentes na pagina principal
 Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
+
+//Rota para ver os carros na página pública
+Route::get('/carros-publicos', [CarController::class, 'publicCars'])->name('cars.public.cars');
+
+
 
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
-    // No seu CarController, a função publicIndex
+    // 4 recentes carros
     public function publicIndex()
     {
         // Buscar os 4 carros mais recentes
@@ -17,6 +17,16 @@ class CarController extends Controller
         // Passar os carros para a view
         return view('welcome', compact('recentCars'));
     }
+
+    //Vai para a página publica dos carros
+    public function publicCars()
+{
+    // Buscar todos os carros (ou você pode filtrar por condição, por exemplo, somente os disponíveis)
+    $cars = Car::all(); // Ou, se necessário, você pode adicionar filtros, como Car::where('status', 'disponível')->get();
+
+    // Passar os carros para a view cars.public
+    return view('cars.public', compact('cars'));
+}
 
 
     // Método para exibir todos os carros (pode ser usado para a página de administração)
