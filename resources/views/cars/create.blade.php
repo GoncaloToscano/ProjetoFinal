@@ -47,19 +47,22 @@
                            dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
-            <!-- Campo para imagem -->
+            <!-- Campo para múltiplas imagens -->
             <div class="mb-4">
-                <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem do Carro</label>
+                <label for="images" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagens do Carro</label>
                 <input 
                     type="file" 
-                    name="image" 
-                    id="image" 
+                    name="images[]" 
+                    id="images" 
                     accept="image/*" 
+                    multiple 
                     class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 
                         dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Escolha uma imagem para o carro (JPG, JPEG, PNG)</p>
+                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    Escolha uma ou mais imagens para o carro (JPG, JPEG, PNG)
+                </p>
             </div>
-
+            
             <button 
                 type="submit" 
                 class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none 

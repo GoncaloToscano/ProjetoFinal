@@ -57,6 +57,14 @@ Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public'
 //Rota para ver os carros na página pública
 Route::get('/carros-publicos', [CarController::class, 'publicCars'])->name('cars.public.cars');
 
+Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+
+//excluir imagens
+use App\Http\Controllers\ImageController;
+Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+
+Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
+
 
 //Funcionários
 use App\Http\Controllers\EmployeeController;

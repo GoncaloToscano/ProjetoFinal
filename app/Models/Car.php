@@ -1,5 +1,7 @@
 <?php
 
+// app/Models/Car.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,9 +11,13 @@ class Car extends Model
 {
     use HasFactory;
 
-    protected $table = 'cars';
+    protected $fillable = ['name', 'brand', 'year', 'price'];
 
-    protected $fillable = [
-        'name', 'brand', 'year', 'price', 'image',
-    ];
+    // Relacionamento com as imagens
+        // Car.php (Modelo Car)
+        public function images()
+        {
+            return $this->hasMany(Image::class); // Relacionamento com o modelo Image
+        }
+
 }

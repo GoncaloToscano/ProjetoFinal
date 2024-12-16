@@ -204,7 +204,7 @@
                   @foreach($recentCars as $car)
                       <div class="item">
                           <div class="car-wrap rounded ftco-animate">
-                              <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('storage/'.$car->image) }});">
+                              <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('storage/'.$car->images->first()->path) }});">
                               </div>
                               <div class="text">
                                   <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
@@ -225,6 +225,7 @@
       </div>
   </div>
 </section>
+
 
 
 <!--Recenetemente adicionados 4 - Fim -->

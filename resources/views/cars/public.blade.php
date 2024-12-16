@@ -91,7 +91,7 @@
     </div>
   </section>
 
-  <!-- Car listing section starts here -->
+<!-- Car listing section starts here -->
 <section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
       <div class="row justify-content-center">
@@ -103,8 +103,29 @@
         @foreach($cars as $car)
           <div class="col-md-4 mb-4"> <!-- Cada carro ocupa 1/3 da largura -->
             <div class="car-wrap rounded ftco-animate">
-              <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('storage/'.$car->image) }}); height: 200px; background-size: cover;"></div>
-              <div class="text">
+              <!-- Carrossel de imagens -->
+              <div id="carousel-{{ $car->id }}" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" style="height: 200px; background-size: cover;">
+                  @foreach($car->images as $index => $image)
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                      <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="Car Image" style="height: 200px; object-fit: cover;">
+                    </div>
+                  @endforeach
+                </div>
+                <!-- Controles do carrossel -->
+                <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <!-- Fim do carrossel -->
+
+              <!-- Informações do carro -->
+              <div class="text mt-3">
                 <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
                 <div class="d-flex mb-3">
                   <span class="cat">{{ $car->brand }}</span>
@@ -120,7 +141,8 @@
         @endforeach
       </div>
     </div>
-  </section>
+</section>
+
   
 
   <!-- Pagination section -->
