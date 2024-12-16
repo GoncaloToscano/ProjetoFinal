@@ -58,6 +58,9 @@ Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public'
 Route::get('/carros-publicos', [CarController::class, 'publicCars'])->name('cars.public.cars');
 
 
+//Funcionários
+use App\Http\Controllers\EmployeeController;
+Route::resource('employees', EmployeeController::class);
 
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';
