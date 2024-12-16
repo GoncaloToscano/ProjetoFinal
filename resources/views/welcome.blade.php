@@ -30,7 +30,7 @@
   <body>
     
 
-    <!-- Logo Drive&Ride -->
+    <!-- Navbar Drive&Ride -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="#">Drive<span>&Ride</span></a>
@@ -47,7 +47,7 @@
                       <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
                     </li>
 
-                  <li class="nav-item"><a href="concesisonarias.html" class="nav-link">Concessionárias</a></li>
+                  <li class="nav-item"><a href="#concessionarias" class="nav-link">Concessionárias</a></li>
                     <li class="nav-item"><a href="contactos.html" class="nav-link">Contactos</a></li>
     
                     <ul class="navbar-nav ml-auto">
@@ -441,7 +441,7 @@
 
 
 <!-- Concessionárias -->
-<section class="ftco-section testimony-section bg-light">
+<section class="ftco-section testimony-section bg-light" id="concessionarias">
   <div class="container">
     <div class="row justify-content-center mb-5">
       <div class="col-md-7 text-center heading-section ftco-animate">
