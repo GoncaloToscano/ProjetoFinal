@@ -11,6 +11,25 @@
     </x-slot>
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+        <!-- Formulário de Pesquisa -->
+        <form method="GET" action="{{ route('employees.index') }}" class="mb-4 flex justify-between">
+            <input 
+                type="text" 
+                name="search" 
+                value="{{ request('search') }}" 
+                placeholder="Pesquisar por nome, email ou cargo..." 
+                class="w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+            <div class="flex items-center space-x-2">
+
+                <!-- Botão para limpar a pesquisa -->
+                <a href="{{ route('employees.index') }}" class="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-gray-300 focus:outline-none dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                    Limpar Pesquisa
+                </a>
+
+                <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md">Pesquisar</button>
+            </div>
+        </form>
+
         <table class="w-full border-collapse">
             <thead>
                 <tr>
@@ -40,8 +59,9 @@
                 @endforeach
             </tbody>
         </table>
+
         <div class="mt-4">
-            {{ $employees->links() }}
+            {{ $employees->appends(['search' => request('search')])->links() }}
         </div>
 
     </div>

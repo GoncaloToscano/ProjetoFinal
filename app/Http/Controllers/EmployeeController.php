@@ -7,14 +7,22 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    // Listar todos os funcionários
-    public function index()
+    // Listar todos os funcionários com possibilidade de pesquisa
+    public function index(Request $request)
     {
-        $employees = Employee::paginate(10); // Pagina os resultados, mostrando 10 por página
+        // Captura o termo de pesquisa, se existir
+        $search = $request->input('search');
+
+        // Consulta os funcionários com base no nome, email ou cargo, se o termo de pesquisa for fornecido
+        $employees = Employee::when($search, function($query, $search) {
+            return $query->where('name', 'like', "%$search%")
+                         ->orWhere('email', 'like', "%$search%")
+                         ->orWhere('position', 'like', "%$search%");
+        })->paginate(10); // Pagina os resultados
+
         return view('employees.index', compact('employees'));
     }
     
-
     // Mostrar formulário para criar um novo funcionário
     public function create()
     {
