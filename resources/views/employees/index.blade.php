@@ -27,7 +27,7 @@
                     <td class="border p-2">{{ $employee->name }}</td>
                     <td class="border p-2">{{ $employee->email }}</td>
                     <td class="border p-2">{{ $employee->position }}</td>
-                    <td class="border p-2">{{ $employee->salary }}</td>
+                    <td class="border p-2">{{ $employee->salary }} €</td>
                     <td class="border p-2">
                         <a href="{{ route('employees.edit', $employee) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
                         <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline">

@@ -33,14 +33,25 @@
 
             <div class="mb-4">
                 <label for="position" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cargo</label>
-                <input 
-                    type="text" 
+                <select 
                     name="position" 
                     id="position" 
                     required
                     class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 
-                           dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            </div>
+                        dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="vendedor">Vendedor</option>
+                    <option value="chefe_concessionaria">Chefe de Concessionária</option>
+                    <option value="fundador">Fundador</option>
+                    <option value="diretor_marketing">Diretor de Marketing</option>
+                    <option value="gerente_financeiro">Gerente Financeiro</option>
+                    <option value="gerente_vendas">Gerente de Vendas</option>
+                    <option value="assistente_administrativo">Assistente Administrativo</option>
+                    <option value="supervisor_oficina">Supervisor de Oficina</option>
+                    <option value="consultor_comercial">Consultor Comercial</option>
+                    <option value="assessor_marketing">Assessor de Marketing</option>
+                </select>
+        </div>
+
 
             <div class="mb-4">
                 <label for="salary" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Salário</label>
