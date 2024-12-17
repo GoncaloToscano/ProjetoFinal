@@ -97,6 +97,6 @@ class UserController extends Controller
         // Exclui o usuário
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'Usuário removido com sucesso!');
+        return redirect()->route('users.index')->with('success', 'Utilizador removido com sucesso!');
     }
 }

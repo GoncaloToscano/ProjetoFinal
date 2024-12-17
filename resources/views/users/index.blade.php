@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ __('Gestão de Usuários') }}
+                {{ __('Gestão de Utilizadores') }}
             </h2>
         </div>
     </x-slot>
@@ -55,13 +55,13 @@
                     <td class="border p-2">{{ $user->email }}</td>
                     <td class="border p-2">{{ $user->role }}</td>
                     <td class="border p-2">
-                        <!-- Não permite editar ou excluir o próprio usuário -->
+                        <!-- Não permite editar ou excluir o próprio utilizador -->
                         @if (Auth::id() !== $user->id)
                             <a href="{{ route('users.edit', $user) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
-                            <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline">
+                            <form action="{{ route('users.destroy', $user) }}" method="POST" class="delete-form" style="display:inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="px-2 py-1 text-white bg-red-500 rounded-md" onclick="return confirm('Tem certeza que deseja remover?')">Remover</button>
+                                <button type="submit" class="px-2 py-1 text-white bg-red-500 rounded-md">Remover</button>
                             </form>
                         @else
                             <span class="px-2 py-1 text-gray-400">Para editares a tua conta acessa o teu perfil</span>
@@ -76,4 +76,31 @@
             {{ $users->appends(['search' => request('search')])->links() }}
         </div>
     </div>
+
+    <!-- Adicionando o script SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Confirmar exclusão com SweetAlert
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Impede o envio do formulário imediatamente
+                const form = this;
+                
+                Swal.fire({
+                    title: 'Tens a certeza?',
+                    text: 'Não podes reverter esta ação!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sim, apagar!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Envia o formulário após confirmação
+                    }
+                });
+            });
+        });
+    </script>
 </x-app-layout>
