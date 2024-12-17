@@ -9,5 +9,6 @@ To make duplicate of .env.example: cp .env.example .env (configurar base de dado
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
-php artisan serve
+php artisan db:seed --class=EmployeeSeeder
 php artisan storage:link
+php artisan serve

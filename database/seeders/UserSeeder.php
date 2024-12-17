@@ -28,5 +28,14 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'password' => bcrypt('admin'),
         ]);
+
+             // Criar 10 usuários aleatórios com e-mails predefinidos e senha 'user'
+        for ($i = 1; $i <= 10; $i++) {
+            User::factory()->create([
+                'name' => 'Teste ' . $i,
+                'email' => 'teste' . $i . '@gmail.com',
+                'password' => bcrypt('utilizador'),  // Senha fixa para todos os usuários
+            ]);
+        }
     }
 }

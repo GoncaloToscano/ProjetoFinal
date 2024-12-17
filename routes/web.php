@@ -70,5 +70,10 @@ Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit'
 use App\Http\Controllers\EmployeeController;
 Route::resource('employees', EmployeeController::class);
 
+//Users
+use App\Http\Controllers\UserController;
+Route::resource('users', UserController::class);
+
+
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';

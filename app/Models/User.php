@@ -21,7 +21,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', 
     ];
+
+    public function updateUser(Request $request, User $user)
+        {
+            $user->update($request->only(['name', 'email', 'role']));
+
+            return $user;
+        }
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -48,7 +48,7 @@
     </div>
 
     <!-- Definição dos 6 links -->
-    <x-sidebar.link title="Clientes" href="#" />
+    <x-sidebar.link title="Utilizadores" href="{{ route('users.index') }}" />
     <x-sidebar.link title="Funcionários" href="{{ route('employees.index') }}" />
     <x-sidebar.link title="Carro" href="{{ route('cars.index') }}" />
     <x-sidebar.link title="Test-Drives" href="#" />
