@@ -28,10 +28,10 @@
                     <td class="border p-2">{{ $car->price }}</td>
                     <td class="border p-2">
                         <a href="{{ route('cars.edit', $car) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
-                        <form action="{{ route('cars.destroy', $car) }}" method="POST" style="display:inline">
+                        <form action="{{ route('cars.destroy', $car) }}" method="POST" style="display:inline" id="deleteForm-{{ $car->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-2 py-1 text-white bg-red-500 rounded-md">Remover</button>
+                            <button type="button" class="px-2 py-1 text-white bg-red-500 rounded-md" onclick="confirmDelete({{ $car->id }})">Remover</button>
                         </form>
                     </td>
                 </tr>
@@ -39,4 +39,25 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        function confirmDelete(carId) {
+            // Use SweetAlert2 to confirm delete
+            Swal.fire({
+                title: 'Tens a certeza?',
+                text: 'Não podes reverter esta ação!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, apagar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, submit the form
+                    document.getElementById('deleteForm-' + carId).submit();
+                }
+            });
+        }
+    </script>
 </x-app-layout>

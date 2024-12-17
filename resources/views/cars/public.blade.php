@@ -129,11 +129,11 @@
                 <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
                 <div class="d-flex mb-3">
                   <span class="cat">{{ $car->brand }}</span>
-                  <p class="price ml-auto">${{ $car->price }} <span>/day</span></p>
+                  <p class="price ml-auto">{{ $car->price }}€</p>
                 </div>
                 <p class="d-flex mb-0 d-block">
-                  <a href="#" class="btn btn-primary py-2 mr-1">Favorito</a>
-                  <a href="#" class="btn btn-secondary py-2 ml-1">Detalhes</a>
+                  <a href="#" class="btn btn-primary py-2 mr-1">Contactar</a>
+                  <a href="#" class="btn btn-secondary py-2 ml-1">Ver</a>
                 </p>
               </div>
             </div>
