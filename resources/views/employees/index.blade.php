@@ -49,10 +49,10 @@
                     <td class="border p-2">{{ $employee->salary }} €</td>
                     <td class="border p-2">
                         <a href="{{ route('employees.edit', $employee) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
-                        <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline">
+                        <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline" id="deleteForm-{{ $employee->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-2 py-1 text-white bg-red-500 rounded-md" onclick="return confirm('Tem a certeza que deseja remover?')">Remover</button>
+                            <button type="button" class="px-2 py-1 text-white bg-red-500 rounded-md" onclick="confirmDelete({{ $employee->id }})">Remover</button>
                         </form>
                     </td>
                 </tr>
@@ -63,6 +63,26 @@
         <div class="mt-4">
             {{ $employees->appends(['search' => request('search')])->links() }}
         </div>
-
     </div>
+
+    <script>
+        function confirmDelete(employeeId) {
+            // Usando SweetAlert2 para confirmar a exclusão
+            Swal.fire({
+                title: 'Tens a certeza?',
+                text: 'Não podes reverter esta ação!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, apagar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Se confirmado, envia o formulário de exclusão
+                    document.getElementById('deleteForm-' + employeeId).submit();
+                }
+            });
+        }
+    </script>
 </x-app-layout>
