@@ -44,6 +44,12 @@ class CarController extends Controller
             'brand' => 'required|string|max:255',
             'year' => 'required|integer|min:1900|max:' . date('Y'),
             'price' => 'required|numeric|min:0',
+            'fuel' => 'required|string|max:255', // Combustível
+            'kms' => 'required|integer|min:0', // Quilometragem
+            'color' => 'required|string|max:255', // Cor
+            'power' => 'required|integer|min:0', // Potência
+            'engine_capacity' => 'required|integer|min:0', // Cilindrada
+            'gearbox' => 'required|string|in:manual,automatic', // Caixa de velocidades
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -53,6 +59,12 @@ class CarController extends Controller
             'brand' => $validatedData['brand'],
             'year' => $validatedData['year'],
             'price' => $validatedData['price'],
+            'fuel' => $validatedData['fuel'],
+            'kms' => $validatedData['kms'],
+            'color' => $validatedData['color'],
+            'power' => $validatedData['power'],
+            'engine_capacity' => $validatedData['engine_capacity'],
+            'gearbox' => $validatedData['gearbox'],
         ]);
 
         // Armazenar as imagens se houver
@@ -66,61 +78,71 @@ class CarController extends Controller
         return redirect()->route('cars.index')->with('success', 'Carro adicionado com sucesso!');
     }
 
+    // Em CarController.php
+    public function show(Car $car)
+    {
+        // Retorna a view com o carro específico
+        return view('cars.show', compact('car'));
+    }
+
+
+
     // Exibir o formulário de edição de um carro
     public function edit(Car $car)
     {
         return view('cars.edit', compact('car'));
     }
 
-
-
-
-
-
     // Atualizar os dados de um carro
     public function update(Request $request, Car $car)
     {
-        // Validação
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:'.date('Y'),
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
             'price' => 'required|numeric|min:0',
+            'fuel' => 'required|string|max:255',
+            'kms' => 'required|integer|min:0',
+            'color' => 'required|string|max:255',
+            'power' => 'required|integer|min:0',
+            'engine_capacity' => 'required|integer|min:0',
+            'gearbox' => 'required|string|in:manual,automatic',
             'images' => 'nullable|array',
-            'images.*' => 'mimes:jpeg,jpg,png|max:10240', // Limite de 10MB por imagem
+            'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
-    
-        // Atualizar os dados do carro (sem imagens)
+
+        // Atualizar os dados do carro
         $car->update([
             'name' => $validated['name'],
             'brand' => $validated['brand'],
             'year' => $validated['year'],
             'price' => $validated['price'],
+            'fuel' => $validated['fuel'],
+            'kms' => $validated['kms'],
+            'color' => $validated['color'],
+            'power' => $validated['power'],
+            'engine_capacity' => $validated['engine_capacity'],
+            'gearbox' => $validated['gearbox'],
         ]);
-    
+
         // Salvar imagens, se houver
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('car_images', 'public');
-                $car->images()->create(['path' => $path]); // Associar a imagem ao carro
+                $car->images()->create(['path' => $path]);
             }
         }
-    
+
         return redirect()->route('cars.index')->with('success', 'Carro atualizado com sucesso!');
     }
-    
-
-
-
-
 
     // Excluir um carro
     public function destroy(Car $car)
     {
         // Remover as imagens associadas ao carro
         foreach ($car->images as $image) {
-            Storage::disk('public')->delete($image->path); // Remover o arquivo
-            $image->delete(); // Remover do banco de dados
+            Storage::disk('public')->delete($image->path);
+            $image->delete();
         }
 
         // Excluir o carro do banco de dados

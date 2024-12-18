@@ -49,9 +49,9 @@
                 </select>
             </div>
 
-            <!-- Senha -->
+            <!-- Password -->
             <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha (deixe em branco para não alterar)</label>
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password (deixe em branco para não alterar)</label>
                 <input 
                     type="password" 
                     name="password" 
@@ -66,7 +66,7 @@
 
             <!-- Confirmar Senha -->
             <div class="mb-4">
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmar Senha</label>
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmar Password</label>
                 <input 
                     type="password" 
                     name="password_confirmation" 

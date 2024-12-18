@@ -50,6 +50,8 @@ Route::get('/buttons/text-icon', function () {
 
 // Cars CRUD - Rotas para gerenciamento de carros no admin
 Route::resource('cars', CarController::class);
+// ver mais
+Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
 
 //Rota para os 4 recentes na pagina principal
 Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');

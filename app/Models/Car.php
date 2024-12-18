@@ -11,13 +11,11 @@ class Car extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'brand', 'year', 'price'];
+    protected $fillable = ['name', 'brand', 'year', 'price', 'fuel', 'kms', 'color', 'power', 'engine_capacity', 'gearbox'];
 
     // Relacionamento com as imagens
-        // Car.php (Modelo Car)
-        public function images()
-        {
-            return $this->hasMany(Image::class); // Relacionamento com o modelo Image
-        }
-
+    public function images()
+    {
+        return $this->hasMany(Image::class); // Relacionamento com o modelo Image
+    }
 }
