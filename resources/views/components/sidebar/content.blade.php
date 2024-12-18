@@ -3,6 +3,8 @@
     aria-label="main"
     class="flex flex-col flex-1 gap-4 px-3"
 >
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <!-- Link para o Dashboard -->
     <x-sidebar.link
         title="Dashboard"
@@ -48,12 +50,47 @@
     </div>
 
     <!-- Definição dos 6 links -->
-    <x-sidebar.link title="Utilizadores" href="{{ route('users.index') }}" />
-    <x-sidebar.link title="Funcionários" href="{{ route('employees.index') }}" />
-    <x-sidebar.link title="Carro" href="{{ route('cars.index') }}" />
-    <x-sidebar.link title="Test-Drives" href="#" />
-    <x-sidebar.link title="Serviços" href="#" />
-    <x-sidebar.link title="Descontos" href="#" />
-    <x-sidebar.link title="Concessionárias" href="#" />
+    <x-sidebar.link title="Utilizadores" href="{{ route('users.index') }}">
+    <x-slot name="icon">
+        <i class="fas fa-users"></i>
+    </x-slot>
+</x-sidebar.link>
+
+<x-sidebar.link title="Funcionários" href="{{ route('employees.index') }}">
+    <x-slot name="icon">
+        <i class="fas fa-user-tie"></i>
+    </x-slot>
+</x-sidebar.link>
+
+<x-sidebar.link title="Carro" href="{{ route('cars.index') }}">
+    <x-slot name="icon">
+        <i class="fas fa-car"></i>
+    </x-slot>
+</x-sidebar.link>
+
+<x-sidebar.link title="Test-Drives" href="#">
+    <x-slot name="icon">
+        <i class="fas fa-clipboard-list"></i>
+    </x-slot>
+</x-sidebar.link>
+
+<x-sidebar.link title="Serviços" href="#">
+    <x-slot name="icon">
+        <i class="fas fa-cogs"></i>
+    </x-slot>
+</x-sidebar.link>
+
+<x-sidebar.link title="Descontos" href="#">
+    <x-slot name="icon">
+        <i class="fas fa-tags"></i>
+    </x-slot>
+</x-sidebar.link>
+
+<x-sidebar.link title="Concessionárias" href="#">
+    <x-slot name="icon">
+        <i class="fas fa-store"></i>
+    </x-slot>
+</x-sidebar.link>
+
 
 </x-perfect-scrollbar>
