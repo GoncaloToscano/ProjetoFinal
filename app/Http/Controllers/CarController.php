@@ -150,6 +150,7 @@ public function getModelsByBrand(Request $request)
     // Atualizar os dados de um carro
     public function update(Request $request, Car $car)
     {
+        // Validar os dados recebidos
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
@@ -160,35 +161,44 @@ public function getModelsByBrand(Request $request)
             'color' => 'required|string|max:255',
             'power' => 'required|integer|min:0',
             'engine_capacity' => 'required|integer|min:0',
-            'gearbox' => 'required|string|in:manual,automatic',
+            'gearbox' => 'required|string|in:manual,automatica',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
-
-        // Atualizar os dados do carro
-        $car->update([
-            'name' => $validated['name'],
-            'brand' => $validated['brand'],
-            'year' => $validated['year'],
-            'price' => $validated['price'],
-            'fuel' => $validated['fuel'],
-            'kms' => $validated['kms'],
-            'color' => $validated['color'],
-            'power' => $validated['power'],
-            'engine_capacity' => $validated['engine_capacity'],
-            'gearbox' => $validated['gearbox'],
-        ]);
-
-        // Salvar imagens, se houver
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('car_images', 'public');
-                $car->images()->create(['path' => $path]);
+    
+        try {
+            // Atualizar os dados do carro
+            $car->update([
+                'name' => $validated['name'],
+                'brand' => $validated['brand'],
+                'year' => $validated['year'],
+                'price' => $validated['price'],
+                'fuel' => $validated['fuel'],
+                'kms' => $validated['kms'],
+                'color' => $validated['color'],
+                'power' => $validated['power'],
+                'engine_capacity' => $validated['engine_capacity'],
+                'gearbox' => $validated['gearbox'],
+            ]);
+    
+            // Salvar imagens, se houver
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $path = $image->store('car_images', 'public');
+                    $car->images()->create(['path' => $path]);
+                }
             }
+    
+            return redirect()->route('cars.index')->with('success', 'Carro atualizado com sucesso!');
+        } catch (\Exception $e) {
+            // Registra o erro no log para rastreamento
+            \Log::error('Erro ao atualizar o carro: ' . $e->getMessage());
+    
+            // Retorna um erro detalhado para o usuário
+            return back()->withErrors(['error' => 'Ocorreu um erro ao tentar atualizar o carro. ' . $e->getMessage()])->withInput();
         }
-
-        return redirect()->route('cars.index')->with('success', 'Carro atualizado com sucesso!');
     }
+    
 
     // Excluir um carro
     public function destroy(Car $car)

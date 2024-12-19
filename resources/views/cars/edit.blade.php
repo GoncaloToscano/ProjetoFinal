@@ -120,6 +120,25 @@
                 @enderror
             </div>
 
+            <!-- Campo Combustível -->
+            <div class="mb-4">
+                <label for="fuel" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Combustível</label>
+                <select 
+                    name="fuel" 
+                    id="fuel" 
+                    class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 
+                        dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+                    <option value="gasolina" {{ old('fuel', $car->fuel) == 'gasolina' ? 'selected' : '' }}>Gasolina</option>
+                    <option value="diesel" {{ old('fuel', $car->fuel) == 'diesel' ? 'selected' : '' }}>Diesel</option>
+                    <option value="hibrido" {{ old('fuel', $car->fuel) == 'hibrido' ? 'selected' : '' }}>Híbrido</option>
+                    <option value="eletrico" {{ old('fuel', $car->fuel) == 'eletrico' ? 'selected' : '' }}>Elétrico</option>
+                </select>
+                @error('fuel')
+                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                @enderror
+            </div>
+
             <!-- Campo Cilindrada -->
             <div class="mb-4">
                 <label for="engine_capacity" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cilindrada (cm³)</label>
