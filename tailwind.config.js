@@ -24,6 +24,9 @@ module.exports = {
                     'eval-2': '#2A2F42',
                     'eval-3': '#2C3142',
                 },
+
+                // Adicionar a cor azul
+                primary: '#3B82F6',  // Azul (pode mudar para o tom desejado)
             },
         },
     },

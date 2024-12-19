@@ -53,6 +53,9 @@ Route::resource('cars', CarController::class);
 // ver mais
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
 
+// modelbybrandname
+Route::get('/models-by-brand', [CarController::class, 'getModelsByBrand'])->name('cars.models.byBrand');
+
 //Rota para os 4 recentes na pagina principal
 Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
 

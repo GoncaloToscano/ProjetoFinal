@@ -56,7 +56,7 @@
     
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <!-- Link de Dashboard para administradores -->
-                                    @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
+                                    @if(Auth::user()->role == 'admin')  <!-- Verifica a role do utilizador -->
                                         <a class="dropdown-item" href="{{ route('dashboard') }}">
                                             {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
                                         </a>
@@ -79,6 +79,8 @@
         </div>
     </nav>
 
+
+    
   <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -90,6 +92,93 @@
       </div>
     </div>
   </section>
+
+
+  <!-- filtrar INICIO -->
+  <section class="ftco-section ftco-no-pt bg-light filter-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+        <h2 class="mb-2">Filtrar Carros</h2>
+        <form action="{{ route('cars.public.cars') }}" method="GET" class="row">
+          <!-- Campo Marca -->
+          <div class="col-md-3 mb-3">
+            <select name="brand" id="brand" class="form-control">
+              <option value="">Marca</option>
+              @foreach($brands as $brand)
+                <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>{{ $brand->brand }}</option>
+              @endforeach
+            </select>
+          </div>
+          
+          <!-- Campo Modelo (será preenchido com base na marca selecionada) -->
+          <div class="col-md-3 mb-3">
+            <select name="name" id="model" class="form-control">
+              <option value="">Modelo</option>
+              <!-- Os modelos serão carregados dinamicamente via JavaScript -->
+            </select>
+          </div>
+
+          <div class="col-md-2 mb-3">
+            <input type="number" name="min_price" class="form-control" placeholder="Preço Mín." value="{{ request('min_price') }}">
+          </div>
+          <div class="col-md-2 mb-3">
+            <input type="number" name="max_price" class="form-control" placeholder="Preço Máx." value="{{ request('max_price') }}">
+          </div>
+          <div class="col-md-2 mb-3">
+            <select name="fuel_type" class="form-control">
+              <option value="">Combustível</option>
+              <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
+              <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+              <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
+              <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
+            </select>
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary filter-btn">Pesquisar</button>
+            <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn">Resetar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Função para atualizar os modelos com base na marca selecionada
+  document.getElementById('brand').addEventListener('change', function () {
+    var brand = this.value;
+
+    // Se não houver marca selecionada, limpar o campo de modelos
+    if (brand === '') {
+      document.getElementById('model').innerHTML = '<option value="">Modelo</option>';
+      return;
+    }
+
+    // Fazer uma requisição AJAX para obter os modelos da marca selecionada
+    fetch("{{ route('cars.models.byBrand') }}?brand=" + brand)
+      .then(response => response.json())
+      .then(models => {
+        var modelSelect = document.getElementById('model');
+        
+        // Limpar os modelos existentes
+        modelSelect.innerHTML = '<option value="">Modelo</option>';
+
+        // Preencher o select com os modelos retornados
+        models.forEach(function(model) {
+          var option = document.createElement('option');
+          option.value = model.name;
+          option.textContent = model.name;
+          modelSelect.appendChild(option);
+        });
+      });
+  });
+</script>
+
+
+<!-- filtrar FIM -->
+
+
 
 <!-- Car listing section starts here -->
 <section class="ftco-section ftco-no-pt bg-light">
@@ -223,5 +312,6 @@
   <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
   <script src="{{ asset('assets/js/scrollax.min.js') }}"></script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
+
 </body>
 </html>

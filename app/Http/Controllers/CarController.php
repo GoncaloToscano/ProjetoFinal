@@ -17,17 +17,70 @@ class CarController extends Controller
     }
 
     // Exibir todos os carros
-    public function publicCars()
-    {
-        $cars = Car::all();
-        return view('cars.public', compact('cars'));
+ // Exibir todos os carros com filtros opcionais
+ public function publicCars(Request $request)
+ {
+     $query = Car::query(); // Inicia a consulta para o modelo Car
+ 
+     // Aplica filtros dinamicamente com base nos parâmetros recebidos
+     if ($request->filled('name')) {
+         $query->where('name', 'like', '%' . $request->name . '%');
+     }
+ 
+     if ($request->filled('brand')) {
+         $query->where('brand', 'like', '%' . $request->brand . '%');
+     }
+ 
+     if ($request->filled('min_price')) {
+         $query->where('price', '>=', $request->min_price);
+     }
+ 
+     if ($request->filled('max_price')) {
+         $query->where('price', '<=', $request->max_price);
+     }
+ 
+     if ($request->filled('fuel_type')) {
+         $query->where('fuel', $request->fuel_type);
+     }
+ 
+     // Obter os carros filtrados
+     $cars = $query->paginate(12); // Paginação
+ 
+     // Obter as marcas distintas
+     $brands = Car::select('brand')->distinct()->get();
+ 
+     // Obter todos os modelos, caso você queira mostrar todos os modelos no início
+     $models = Car::select('name')->distinct()->get();
+ 
+     // Retornar a view com os carros filtrados, marcas e modelos
+     return view('cars.public', compact('cars', 'brands', 'models'));
+ }
+ 
+
+
+ // modelsbybrand
+
+public function getModelsByBrand(Request $request)
+{
+    // Verifica se a marca foi passada na requisição
+    $brand = $request->input('brand');
+
+    if ($brand) {
+        // Busca os modelos da marca selecionada
+        $models = Car::where('brand', $brand)->select('name')->distinct()->get();
+        return response()->json($models);
     }
+
+    return response()->json([]);
+}
 
     // Exibir lista de carros com imagens
     public function index()
     {
         $cars = Car::with('images')->get();
         return view('cars.index', compact('cars'));
+
+        
     }
 
     // Exibir formulário de criação de carro
@@ -49,7 +102,7 @@ class CarController extends Controller
             'color' => 'required|string|max:255', // Cor
             'power' => 'required|integer|min:0', // Potência
             'engine_capacity' => 'required|integer|min:0', // Cilindrada
-            'gearbox' => 'required|string|in:manual,automatic', // Caixa de velocidades
+            'gearbox' => 'required|string|in:manual,automatica', // Caixa de velocidades
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -85,6 +138,7 @@ class CarController extends Controller
         return view('cars.show', compact('car'));
     }
 
+    
 
 
     // Exibir o formulário de edição de um carro

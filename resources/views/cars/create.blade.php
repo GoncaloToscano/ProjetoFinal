@@ -14,6 +14,9 @@
                 <label for="brand" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Marca</label>
                 <input type="text" name="brand" id="brand" value="{{ old('brand') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('brand')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Nome -->
@@ -21,6 +24,9 @@
                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Modelo</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('name')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Ano -->
@@ -28,6 +34,9 @@
                 <label for="year" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ano</label>
                 <input type="number" name="year" id="year" value="{{ old('year') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('year')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Preço -->
@@ -35,6 +44,9 @@
                 <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Preço</label>
                 <input type="number" name="price" id="price" value="{{ old('price') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('price')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Combustível -->
@@ -43,11 +55,14 @@
                 <select name="fuel" id="fuel" 
                         class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
                     <option value="" disabled selected>Selecione o tipo de combustível</option>
-                    <option value="gasolina">Gasolina</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="eletrico">Elétrico</option>
-                    <option value="hibrido">Híbrido</option>
+                    <option value="gasolina" {{ old('fuel') == 'gasolina' ? 'selected' : '' }}>Gasolina</option>
+                    <option value="diesel" {{ old('fuel') == 'diesel' ? 'selected' : '' }}>Diesel</option>
+                    <option value="eletrico" {{ old('fuel') == 'eletrico' ? 'selected' : '' }}>Elétrico</option>
+                    <option value="hibrido" {{ old('fuel') == 'hibrido' ? 'selected' : '' }}>Híbrido</option>
                 </select>
+                @error('fuel')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Quilometragem -->
@@ -55,6 +70,9 @@
                 <label for="kms" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Quilometragem (km)</label>
                 <input type="number" name="kms" id="kms" value="{{ old('kms') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('kms')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Cor -->
@@ -62,6 +80,9 @@
                 <label for="color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cor</label>
                 <input type="text" name="color" id="color" value="{{ old('color') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('color')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Potência -->
@@ -69,6 +90,9 @@
                 <label for="power" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Potência (cv)</label>
                 <input type="number" name="power" id="power" value="{{ old('power') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('power')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Cilindrada -->
@@ -76,6 +100,9 @@
                 <label for="engine_capacity" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cilindrada (cm³)</label>
                 <input type="number" name="engine_capacity" id="engine_capacity" value="{{ old('engine_capacity') }}" 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('engine_capacity')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Câmbio/Transmissão -->
@@ -84,9 +111,12 @@
                 <select name="gearbox" id="gearbox" 
                         class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
                     <option value="" disabled selected>Selecione o tipo de câmbio</option>
-                    <option value="manual">Manual</option>
-                    <option value="automatica">Automática</option>
+                    <option value="manual" {{ old('gearbox') == 'manual' ? 'selected' : '' }}>Manual</option>
+                    <option value="automatica" {{ old('gearbox') == 'automatica' ? 'selected' : '' }}>Automática</option>
                 </select>
+                @error('gearbox')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Campo para múltiplas imagens -->
@@ -94,6 +124,9 @@
                 <label for="images" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagens do Carro</label>
                 <input type="file" name="images[]" id="images" accept="image/*" multiple 
                        class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+                @error('images')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
                 <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Escolha uma ou mais imagens para o carro (JPG, JPEG, PNG)</p>
             </div>
 

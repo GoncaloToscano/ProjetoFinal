@@ -9965,3 +9965,35 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+
+/* Estilo para botões apenas na seção de filtro */
+.filter-section .filter-btn {
+  background-color: #007bff; /* Azul vibrante */
+  border-color: #007bff;
+  color: #fff;
+  padding: 12px 30px; /* Mais espaçamento interno */
+  font-size: 16px; /* Tamanho da fonte maior */
+  font-weight: bold;
+  transition: all 0.3s ease; /* Efeito de hover suave */
+  border-radius: 30px; /* Bordas arredondadas */
+  margin: 10px 10px; /* Espaçamento entre os botões */
+}
+
+.filter-section .filter-btn:hover {
+  background-color: #0056b3; /* Azul mais escuro no hover */
+  border-color: #0056b3;
+}
+
+.filter-section .filter-btn + .filter-btn {
+  margin-left: 20px; /* Espaço horizontal entre os botões */
+}
+
+@media (max-width: 768px) {
+  .filter-section .filter-btn {
+      margin-bottom: 10px; /* Espaço entre os botões em telas menores */
+  }
+  .filter-section .filter-btn + .filter-btn {
+      margin-left: 0;
+  }
+}
