@@ -97,14 +97,14 @@
           	<div class="text w-100 text-center mb-md-5 pb-md-5">
 	            <h1 class="mb-4">Bem vindos ao nosso stand automóvel!</h1>
 	            <p style="font-size: 18px;">Uma pequena concessionária pronta a ajudar e a realizar o seu sonho</p>
-	            <a href="https://www.youtube.com/watch?v=x87ycEyqL00" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
-	            	<div class="icon d-flex align-items-center justify-content-center">
-	            		<span class="ion-ios-play"></span>
-	            	</div>
-	            	<div class="heading-title ml-5">
-		            	<span>Conhece o nosso espaço</span>
-	            	</div>
-	            </a>
+                <a href="{{ route('cars.public.cars') }}" class="icon-wrap d-flex align-items-center mt-4 justify-content-center">
+                  <div class="icon d-flex align-items-center justify-content-center">
+                      <span class="ion-ios-car"></span>
+                  </div>
+                  <div class="heading-title ml-5">
+                      <span>Conheça os nossos carros</span>
+                  </div>
+                </a>
             </div>
           </div>
         </div>
@@ -541,10 +541,9 @@
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Information</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Services</a></li>
+                <li><a href="#aboutus" class="py-2 d-block">About</a></li>
+                <li><a href="#services" class="py-2 d-block">Services</a></li>
                 <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
                 <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
               </ul>
             </div>
@@ -554,8 +553,8 @@
               <h2 class="ftco-heading-2">Customer Support</h2>
               <ul class="list-unstyled">
                 <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
+                <li><a href="#" class="py-2 d-block">Buy a Car</a></li>
+                <li><a href="#" class="py-2 d-block">Test Drive</a></li>
                 <li><a href="#" class="py-2 d-block">How it works</a></li>
                 <li><a href="#" class="py-2 d-block">Contact Us</a></li>
               </ul>
@@ -567,8 +566,8 @@
             	<div class="block-23 mb-3">
 	              <ul>
 	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+351913588321</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">driveride@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
