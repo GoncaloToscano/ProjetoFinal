@@ -138,6 +138,23 @@ public function getModelsByBrand(Request $request)
         return view('cars.show', compact('car'));
     }
 
+    // Mostrar detalhes pelo ID do carro (para o botão "Ver mais")
+    public function showById($id)
+    {
+        // Busca o carro pelo ID
+        $car = Car::with('images')->find($id);
+    
+        // Verifique se o carro foi encontrado
+        if (!$car) {
+            return redirect()->route('cars.index')->with('error', 'Carro não encontrado');
+        }
+    
+        // Defina a variável $header
+        $header = "Detalhes do Veículo";
+    
+        // Retorna a view com os detalhes do carro
+        return view('cars.show', compact('car', 'header'));
+    }
     
 
 

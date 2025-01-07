@@ -222,7 +222,7 @@
                 </div>
                 <p class="d-flex mb-0 d-block">
                   <a href="#" class="btn btn-primary py-2 mr-1">Contactar</a>
-                  <a href="#" class="btn btn-secondary py-2 ml-1">Ver</a>
+                  <a href="{{ route('cars.show', $car->id) }}" class="btn btn-secondary py-2 ml-1">Ver</a>
                 </p>
               </div>
             </div>

@@ -53,6 +53,10 @@ Route::resource('cars', CarController::class);
 // ver mais
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
 
+
+//carsid Ver Mais
+Route::get('/cars/{id}', [CarController::class, 'showById'])->name('cars.show');
+
 // modelbybrandname
 Route::get('/models-by-brand', [CarController::class, 'getModelsByBrand'])->name('cars.models.byBrand');
 
