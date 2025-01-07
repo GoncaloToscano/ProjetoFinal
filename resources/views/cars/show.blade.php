@@ -146,7 +146,7 @@
               <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary">Voltar</a>
               <a href="#" class="btn btn-primary">Contactar</a>
 
-<!-- Test - Drive Início -->
+<!-- Test - Drive Início --> 
 <a href="#" class="btn btn-secondary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Test Drive</a>
 
 <!-- Modal Test Drive -->
@@ -160,6 +160,20 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Exibe a mensagem de sucesso fora do formulário -->
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <!-- Exibe a mensagem de erro se houver um conflito no horário -->
+                @if ($errors->has('preferred_time'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('preferred_time') }}
+                    </div>
+                @endif
+
                 <!-- Formulário -->
                 <form action="{{ route('testdrive.store') }}" method="POST">
                     @csrf
@@ -185,10 +199,8 @@
 
                     <div class="form-group">
                         <label for="preferred_time">Hora Preferencial</label>
-                        <input type="time" class="form-control" id="preferred_time" name="preferred_time" required
-                            min="08:00" max="19:00" step="900" value="{{ old('preferred_time') }}">
+                        <input type="time" class="form-control" id="preferred_time" name="preferred_time" required min="08:00" max="19:00" step="900" value="{{ old('preferred_time') }}">
                     </div>
-
 
                     <div class="form-group">
                         <label for="observations">Observações</label>
@@ -207,12 +219,24 @@
     </div>
 </div>
 <!-- Test - Drive Fim -->
+<br>
+<br>
 
+<!-- Exibe a mensagem de sucesso fora do formulário -->
 @if(session('success'))
     <div class="alert alert-success mt-4">
         {{ session('success') }}
     </div>
 @endif
+
+@if ($errors->has('preferred_time'))
+    <div class="alert alert-danger">
+        {{ $errors->first('preferred_time') }}
+    </div>
+@endif
+
+
+
 
 
             </div>
@@ -253,13 +277,6 @@
         <button type="submit" class="btn btn-primary">Enviar Pergunta</button>
         <br><br>
     </form>
-
-    <!-- Exibindo mensagem de sucesso -->
-    @if(session('success'))
-        <div class="alert alert-success mt-4">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <!-- Fim do formulário -->
 </div>

@@ -79,7 +79,6 @@ use App\Http\Controllers\TestDriveController;
 
 Route::post('/testdrive', [TestDriveController::class, 'store'])->name('testdrive.store');
 
-
 //Funcionários
 use App\Http\Controllers\EmployeeController;
 Route::resource('employees', EmployeeController::class);
