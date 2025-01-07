@@ -74,6 +74,11 @@ Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('ima
 
 Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
 
+//testdrive
+use App\Http\Controllers\TestDriveController;
+
+Route::post('/testdrive', [TestDriveController::class, 'store'])->name('testdrive.store');
+
 
 //Funcionários
 use App\Http\Controllers\EmployeeController;

@@ -44,10 +44,7 @@
           <a class="nav-link text-white" href="{{ route('cars.public.cars') }}" style="font-size: 18px;">Carros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#" style="font-size: 18px;">Test Drive</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="contactos.html" style="font-size: 18px;">Contactos</a>
+          <a class="nav-link text-white" href="#" style="font-size: 18px;">Contactos</a>
         </li>
 
         <!-- Navbar links for guests -->
@@ -90,9 +87,9 @@
 
   <!-- Carro Detalhes -->
   <div class="container mt-5">
-    <h1 class="mb-4">
-      <span class="text-muted">{{ $car->brand }}  </span>{{ $car->name }}
-    </h1>
+    <h1 class="mb-4" style="text-transform: uppercase;">
+            <strong>{{ $car->brand }}  {{ $car->name }} </strong>
+        </h1>
 
     <div class="row">
 
@@ -120,35 +117,153 @@
                 </a>
                 </div>
                 <!-- Fim do carrossel -->
-
+            
             </div>
 
       <!-- Descrição do Carro -->
       <div class="col-md-6">
         <div class="card">
+        <li class="list-group-item" style="font-size: 1.2rem; font-weight: bold;">
+  
+  <span style="font-size: 1.5rem; color:rgb(0, 0, 0); font-weight: bold;">
+    {{ number_format($car->price, 2, ',', '.') }}€
+  </span>
+</li>
           <div class="card-header">
-            <h4>Detalhes do Veículo</h4>
+            <h5>Detalhes do Veículo</h5>
           </div>
           <div class="card-body">
             <ul class="list-group">
-              <li class="list-group-item"><strong>Nome:</strong> {{ $car->name }}</li>
               <li class="list-group-item"><strong>Marca:</strong> {{ $car->brand }}</li>
+              <li class="list-group-item"><strong>Modelo:</strong> {{ $car->name }}</li>
               <li class="list-group-item"><strong>Ano:</strong> {{ $car->year }}</li>
-              <li class="list-group-item"><strong>Preço:</strong> {{ number_format($car->price, 2, ',', '.') }}€</li>
               <li class="list-group-item"><strong>Combustível:</strong> {{ $car->fuel }}</li>
               <li class="list-group-item"><strong>Kilometragem:</strong> {{ number_format($car->kms, 0, ',', '.') }} KM</li>
               <li class="list-group-item"><strong>Cor:</strong> {{ $car->color }}</li>
               <li class="list-group-item"><strong>Potência:</strong> {{ $car->power }} CV</li>
             </ul>
             <div class="mt-4">
-              <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary">Voltar para a lista</a>
-              <a href="#" class="btn btn-primary">Entrar em contacto</a>
+              <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary">Voltar</a>
+              <a href="#" class="btn btn-primary">Contactar</a>
+
+<!-- Test - Drive Início -->
+<a href="#" class="btn btn-secondary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Test Drive</a>
+
+<!-- Modal Test Drive -->
+<div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="testDriveModalLabel">Agendar Test Drive</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário -->
+                <form action="{{ route('testdrive.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name">Seu Nome</label>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder="Escreva seu nome" value="{{ old('name') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Seu E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Escreva seu e-mail" value="{{ old('email') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Seu Telefone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Escreva seu número de telefone" value="{{ old('phone') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferred_date">Data Preferencial</label>
+                        <input type="date" class="form-control" id="preferred_date" name="preferred_date" required value="{{ old('preferred_date') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferred_time">Hora Preferencial</label>
+                        <input type="time" class="form-control" id="preferred_time" name="preferred_time" required
+                            min="08:00" max="19:00" step="900" value="{{ old('preferred_time') }}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="observations">Observações</label>
+                        <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação.">{{ old('observations') }}</textarea>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="terms" name="terms_accepted" required {{ old('terms_accepted') ? 'checked' : '' }}>
+                        <label class="form-check-label" for="terms">Eu aceito os termos e condições.</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar Pedido</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Test - Drive Fim -->
+
+@if(session('success'))
+    <div class="alert alert-success mt-4">
+        {{ session('success') }}
+    </div>
+@endif
+
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+  <div class="container mt-5">
+    <h2 class="mb-4">Tem alguma dúvida sobre este carro?</h2>
+    <p>Preencha o formulário abaixo e nossa equipe entrará em contato com você.</p>
+
+    <!-- Início do formulário -->
+    <form action="#" method="POST">
+        @csrf <!-- Proteção CSRF -->
+        
+        <!-- Nome do usuário -->
+        <div class="form-group">
+            <label for="name">Seu Nome</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Escreva o seu nome">
+        </div>
+
+        <!-- E-mail do usuário -->
+        <div class="form-group">
+            <label for="email">Seu E-mail</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="Escreva o seu e-mail">
+        </div>
+
+        <!-- Mensagem -->
+        <div class="form-group">
+            <label for="message">Sua Pergunta</label>
+            <textarea class="form-control" id="message" name="message" rows="4" required placeholder="Descreva sua dúvida ou pergunta"></textarea>
+        </div>
+
+        <!-- Botão de Envio -->
+        <button type="submit" class="btn btn-primary">Enviar Pergunta</button>
+        <br><br>
+    </form>
+
+    <!-- Exibindo mensagem de sucesso -->
+    @if(session('success'))
+        <div class="alert alert-success mt-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- Fim do formulário -->
+</div>
+
 
   <!-- Rodapé -->
   <footer class="ftco-footer ftco-bg-dark ftco-section">
