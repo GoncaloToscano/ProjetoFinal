@@ -76,8 +76,16 @@ Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit'
 
 //testdrive
 use App\Http\Controllers\TestDriveController;
-
-Route::post('/testdrive', [TestDriveController::class, 'store'])->name('testdrive.store');
+// Rota para listar os test drives
+Route::get('/testdrives', [TestDriveController::class, 'index'])->name('testdrives.index');
+// Rota para agendar um test drive
+Route::post('/testdrive/store', [TestDriveController::class, 'store'])->name('testdrive.store');
+// Rota para confirmar um test drive
+Route::post('/test-drives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm');
+// Rota para cancelar um test drive
+Route::get('/testdrive/cancel/{id}', [TestDriveController::class, 'cancel'])->name('testdrive.cancel');
+// Rota para cancelar um Test Drive
+Route::post('/testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
 
 //Funcionários
 use App\Http\Controllers\EmployeeController;

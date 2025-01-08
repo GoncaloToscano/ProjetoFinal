@@ -68,11 +68,12 @@
     </x-slot>
 </x-sidebar.link>
 
-<x-sidebar.link title="Test-Drives" href="#">
+<x-sidebar.link title="Test-Drives" href="{{ route('testdrives.index') }}">
     <x-slot name="icon">
         <i class="fas fa-clipboard-list"></i>
     </x-slot>
 </x-sidebar.link>
+
 
 <x-sidebar.link title="Serviços" href="#">
     <x-slot name="icon">

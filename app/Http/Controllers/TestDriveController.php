@@ -8,21 +8,75 @@ use Illuminate\Http\Request;
 class TestDriveController extends Controller
 {
     /**
-     * Exibir o formulário de agendamento de Test Drive
+     * Exibir todos os agendamentos de Test Drives com a opção de pesquisa.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function index(Request $request)
     {
-        return view('testdrive.create');
+        $query = TestDrive::query();
+    
+        // Filtro por pesquisa (nome ou email)
+        if ($request->has('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->query('search') . '%')
+                  ->orWhere('email', 'like', '%' . $request->query('search') . '%');
+            });
+        }
+    
+        // Filtro por status (confirmados ou por confirmar)
+        if ($request->has('status')) {
+            if ($request->query('status') === 'confirmed') {
+                $query->where('confirmed', true);
+            } elseif ($request->query('status') === 'pending') {
+                $query->where('confirmed', false);
+            }
+        }
+    
+        // Ordenar os resultados
+        $testDrives = $query->orderBy('preferred_date', 'asc')
+                            ->orderBy('preferred_time', 'asc')
+                            ->get();
+        
+        return view('test_drives.index', compact('testDrives'));
+    }
+    
+
+    /**
+     * Confirmar o agendamento de um Test Drive
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function confirm($id)
+    {
+        // Encontra o Test Drive pelo ID
+        $testDrive = TestDrive::findOrFail($id);
+        $testDrive->confirmed = true; // Marca como confirmado
+        $testDrive->save();
+    
+        // Retorna para a lista de agendamentos com a mensagem de sucesso
+        return redirect()->route('testdrives.index')->with('success', 'Agendamento confirmado com sucesso!');
     }
 
     /**
-     * Armazenar os dados do Test Drive no banco de dados
+     * Cancelar o agendamento de um Test Drive
      *
-     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
+    public function cancel($id)
+    {
+        // Encontra o Test Drive pelo ID
+        $testDrive = TestDrive::findOrFail($id);
+        $testDrive->confirmed = false; // Marca como não confirmado
+        $testDrive->save();
+
+        // Retorna para a lista de agendamentos com a mensagem de sucesso
+        return redirect()->route('testdrives.index')->with('success', 'Agendamento cancelado com sucesso!');
+    }
+
     public function store(Request $request)
 {
     // Validação dos dados
@@ -47,9 +101,6 @@ class TestDriveController extends Controller
         ]);
     }
 
-    // Converte o valor 'on' para 1 (se aceito) ou 0 (se não aceito)
-    $termsAccepted = $request->has('terms_accepted') ? 1 : 0;
-
     // Criação do agendamento de test drive
     TestDrive::create([
         'name' => $validated['name'],
@@ -57,23 +108,12 @@ class TestDriveController extends Controller
         'phone' => $validated['phone'],
         'preferred_date' => $validated['preferred_date'],
         'preferred_time' => $validated['preferred_time'],
-        'terms_accepted' => $termsAccepted,
+        'terms_accepted' => $request->has('terms_accepted') ? 1 : 0, // Convertendo se aceitou os termos
+        'confirmed' => false, // Inicializa como não confirmado
     ]);
 
     // Redireciona com uma mensagem de sucesso
     return redirect()->back()->with('success', 'Seu pedido de agendamento foi enviado com sucesso! Aguarde a confirmação.');
 }
 
-    
-    
-    /**
-     * Exibir todos os agendamentos de Test Drives
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index()
-    {
-        $testDrives = TestDrive::all();
-        return view('testdrive.index', compact('testDrives'));
-    }
 }
