@@ -38,6 +38,7 @@
                     <th class="border p-2">Email</th>
                     <th class="border p-2">Data</th>
                     <th class="border p-2">Hora</th>
+                    <th class="border p-2">Carro</th>
                     <th class="border p-2">Confirmado</th>
                     <th class="border p-2">Ações</th>
                 </tr>
@@ -49,6 +50,10 @@
                         <td class="border p-2">{{ $testDrive->email }}</td>
                         <td class="border p-2">{{ $testDrive->preferred_date }}</td>
                         <td class="border p-2">{{ $testDrive->preferred_time }}</td>
+                        <td class="border p-2">
+                            <span class="font-semibold">{{ $testDrive->car->name }}</span><br>
+                            <span class="text-sm text-gray-600">{{ $testDrive->car->brand }} - {{ $testDrive->car->color }}</span>
+                        </td>
                         <td class="border p-2">
                             @if ($testDrive->confirmed)
                                 <span class="text-green-500 dark:text-green-300">Confirmado</span>
@@ -67,8 +72,10 @@
                                 </form>
                             @else
                                 <span class="text-gray-500 dark:text-gray-400">Confirmado</span>
-                                
-                                <!-- Cancelar agendamento -->
+                            @endif
+                            
+                            <!-- Cancelar agendamento -->
+                            @if ($testDrive->confirmed)
                                 <form action="{{ route('testdrives.cancel', $testDrive->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     <button type="submit" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600 transition">
@@ -76,10 +83,40 @@
                                     </button>
                                 </form>
                             @endif
+
+                            <form action="{{ route('testdrives.destroy', $testDrive->id) }}" method="POST" style="display:inline;" id="deleteForm-{{ $testDrive->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="px-4 py-2 text-white bg-red-700 rounded-md hover:bg-red-800 dark:bg-red-800 dark:hover:bg-red-900 transition" onclick="confirmDelete({{ $testDrive->id }})">
+                                    Remover
+                                </button>
+                            </form>
+
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+
+   
+<script>
+    function confirmDelete(testDriveId) {
+        Swal.fire({
+            title: 'Tens a certeza?',
+            text: 'Esta ação não pode ser revertida!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, remover!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Envia o formulário de exclusão
+                document.getElementById('deleteForm-' + testDriveId).submit();
+            }
+        });
+    }
+</script>
 </x-app-layout>

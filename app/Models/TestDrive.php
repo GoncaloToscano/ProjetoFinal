@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,6 +9,12 @@ class TestDrive extends Model
 {
     use HasFactory;
 
+    // Relacionamento com o modelo Car
+    public function car()
+    {
+        return $this->belongsTo(\App\Models\Car::class);
+    }
+
     protected $fillable = [
         'name',
         'email',
@@ -16,5 +23,7 @@ class TestDrive extends Model
         'preferred_time',
         'observations',
         'terms_accepted',
+        'confirmed',
+        'car_id'  // Adicionando car_id ao fillable
     ];
 }

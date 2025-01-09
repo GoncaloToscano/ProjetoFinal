@@ -86,6 +86,11 @@ Route::post('/test-drives/{id}/confirm', [TestDriveController::class, 'confirm']
 Route::get('/testdrive/cancel/{id}', [TestDriveController::class, 'cancel'])->name('testdrive.cancel');
 // Rota para cancelar um Test Drive
 Route::post('/testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
+Route::get('/test-drives', [TestDriveController::class, 'index'])->name('testdrives.index');
+Route::post('/test-drive', [TestDriveController::class, 'store'])->name('testdrive.store');
+Route::post('testdrives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm');
+Route::post('testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
+Route::delete('testdrives/{id}', [TestDriveController::class, 'destroy'])->name('testdrives.destroy');
 
 //Funcionários
 use App\Http\Controllers\EmployeeController;
