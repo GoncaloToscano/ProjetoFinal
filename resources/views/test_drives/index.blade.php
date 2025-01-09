@@ -39,6 +39,7 @@
                     <th class="border p-2">Data</th>
                     <th class="border p-2">Hora</th>
                     <th class="border p-2">Carro</th>
+                    <th class="border p-2">Observações</th> <!-- Adicionando a coluna de Observações -->
                     <th class="border p-2">Confirmado</th>
                     <th class="border p-2">Ações</th>
                 </tr>
@@ -53,6 +54,14 @@
                         <td class="border p-2">
                             <span class="font-semibold">{{ $testDrive->car->name }}</span><br>
                             <span class="text-sm text-gray-600">{{ $testDrive->car->brand }} - {{ $testDrive->car->color }}</span>
+                        </td>
+                        <td class="border p-2">
+                            <!-- Exibindo Observações -->
+                            @if ($testDrive->observations)
+                                {{ $testDrive->observations }}
+                            @else
+                                <span class="text-gray-500">Sem observações</span>
+                            @endif
                         </td>
                         <td class="border p-2">
                             @if ($testDrive->confirmed)
@@ -91,7 +100,6 @@
                                     Remover
                                 </button>
                             </form>
-
                         </td>
                     </tr>
                 @endforeach
@@ -99,7 +107,6 @@
         </table>
     </div>
 
-   
 <script>
     function confirmDelete(testDriveId) {
         Swal.fire({

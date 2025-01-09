@@ -198,7 +198,7 @@
 
                                 <div class="form-group">
                                     <label for="observations">Observações</label>
-                                    <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação.">{{ old('observations') }}</textarea>
+                                    <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação." value="{{ old('observations') }}"></textarea>
                                 </div>
 
                                 <div class="form-group form-check">
@@ -211,8 +211,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Exibe a mensagem de sucesso fora do formulário -->
-                @if(session('success'))
+            </div>
+                            <!-- Exibe a mensagem de sucesso fora do formulário -->
+                            @if(session('success'))
                     <div class="alert alert-success mt-4">
                         {{ session('success') }}
                     </div>
@@ -223,8 +224,6 @@
                         {{ $errors->first('preferred_time') }}
                     </div>
                 @endif
-
-            </div>
             <!-- Test - Drive Fim -->
           </div>
         </div>
