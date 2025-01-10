@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TestDriveController;
+use App\Http\Controllers\ImageController;
 
 /*
 |---------------------------------------------------------------------------
@@ -18,10 +23,35 @@ use App\Http\Controllers\CarController;
 // Definir a rota nomeada 'welcome' (página inicial)
 Route::get('/', [CarController::class, 'publicIndex'])->name('welcome'); // Agora usamos o CarController para a página inicial
 
-// Rota para o Dashboard, com middleware de autenticação
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    //ROTAS PROTEGIDAS.
+
+//Protegidas pelo middleware Middleware\AdminMiddleware
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    //Test-Drives Admin
+    Route::get('/testdrives', [TestDriveController::class, 'index'])->name('testdrives.index'); 
+    Route::get('/test-drives', [TestDriveController::class, 'index'])->name('testdrives.index'); //Gestão Admin
+    Route::post('testdrives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm'); //confirmar
+    Route::post('testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel'); //cancelar
+    Route::post('/test-drives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm');//confirmar
+    Route::delete('testdrives/{id}', [TestDriveController::class, 'destroy'])->name('testdrives.destroy'); //apagar
+
+    //Funcionários Admin
+    Route::resource('employees', EmployeeController::class);
+
+    //Users Admin
+    Route::resource('users', UserController::class);
+
+    //Carros Admin
+    Route::resource('cars', CarController::class); //gestão admin
+    Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit'); //edit carros
+    Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update'); //update carros
+    Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy'); //apagar imagens
+});
+
 
 // Grupo de rotas protegidas por autenticação
 Route::middleware('auth')->group(function () {
@@ -37,68 +67,36 @@ Route::middleware('auth')->group(function () {
 
 // Rotas para demonstração de botões (exemplo de sidebar dropdown links)
 Route::get('/buttons/text', function () {
-    return view('buttons-showcase.text');
-})->middleware(['auth'])->name('buttons.text');
+        return view('buttons-showcase.text');
+    })->middleware(['auth'])->name('buttons.text');
 
-Route::get('/buttons/icon', function () {
-    return view('buttons-showcase.icon');
-})->middleware(['auth'])->name('buttons.icon');
+    Route::get('/buttons/icon', function () {
+        return view('buttons-showcase.icon');
+    })->middleware(['auth'])->name('buttons.icon');
 
-Route::get('/buttons/text-icon', function () {
-    return view('buttons-showcase.text-icon');
-})->middleware(['auth'])->name('buttons.text-icon');
+    Route::get('/buttons/text-icon', function () {
+        return view('buttons-showcase.text-icon');
+    })->middleware(['auth'])->name('buttons.text-icon');
 
-// Cars CRUD - Rotas para gerenciamento de carros no admin
-Route::resource('cars', CarController::class);
-// ver mais
+
+// Cars Publico
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
+    //carsid Ver Mais
+    Route::get('/cars/{id}', [CarController::class, 'showById'])->name('cars.show');
+    // modelbybrandname
+    Route::get('/models-by-brand', [CarController::class, 'getModelsByBrand'])->name('cars.models.byBrand');
+    //Rota para os 4 recentes na pagina principal
+    Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
+    //Rota para ver os carros na página pública
+    Route::get('/carros-publicos', [CarController::class, 'publicCars'])->name('cars.public.cars');
+
+//Test-Drive Publico
+    Route::post('/testdrive/store', [TestDriveController::class, 'store'])->name('testdrive.store');
+    Route::get('/testdrive/cancel/{id}', [TestDriveController::class, 'cancel'])->name('testdrive.cancel');
+    Route::post('/testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
+    Route::post('/test-drive', [TestDriveController::class, 'store'])->name('testdrive.store');
 
 
-//carsid Ver Mais
-Route::get('/cars/{id}', [CarController::class, 'showById'])->name('cars.show');
-
-// modelbybrandname
-Route::get('/models-by-brand', [CarController::class, 'getModelsByBrand'])->name('cars.models.byBrand');
-
-//Rota para os 4 recentes na pagina principal
-Route::get('/carros', [CarController::class, 'publicIndex'])->name('cars.public');
-
-//Rota para ver os carros na página pública
-Route::get('/carros-publicos', [CarController::class, 'publicCars'])->name('cars.public.cars');
-
-Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
-
-//excluir imagens
-use App\Http\Controllers\ImageController;
-Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
-
-Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
-
-//testdrive
-use App\Http\Controllers\TestDriveController;
-// Rota para listar os test drives
-Route::get('/testdrives', [TestDriveController::class, 'index'])->name('testdrives.index');
-// Rota para agendar um test drive
-Route::post('/testdrive/store', [TestDriveController::class, 'store'])->name('testdrive.store');
-// Rota para confirmar um test drive
-Route::post('/test-drives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm');
-// Rota para cancelar um test drive
-Route::get('/testdrive/cancel/{id}', [TestDriveController::class, 'cancel'])->name('testdrive.cancel');
-// Rota para cancelar um Test Drive
-Route::post('/testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
-Route::get('/test-drives', [TestDriveController::class, 'index'])->name('testdrives.index');
-Route::post('/test-drive', [TestDriveController::class, 'store'])->name('testdrive.store');
-Route::post('testdrives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm');
-Route::post('testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
-Route::delete('testdrives/{id}', [TestDriveController::class, 'destroy'])->name('testdrives.destroy');
-
-//Funcionários
-use App\Http\Controllers\EmployeeController;
-Route::resource('employees', EmployeeController::class);
-
-//Users
-use App\Http\Controllers\UserController;
-Route::resource('users', UserController::class);
 
 
 // Carregar as rotas de autenticação (login, registro, etc.)
