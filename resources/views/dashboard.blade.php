@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-gray-800 dark:text-white">
-        {{ __("Login feito com sucesso, bem-vindo ao Admin Dashboard.") }}
+        {{ __("Login feito com sucesso, bem-vindo!") }}
         
         <!-- Contadores de Usuários, Funcionários, Carros e Test-Drives -->
         <div class="grid grid-cols-1 gap-4 md:grid-cols-4 mt-6">
