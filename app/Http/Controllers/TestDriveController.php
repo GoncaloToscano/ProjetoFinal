@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\TestDrive;
-use App\Models\Car;  // Adicionando o uso do modelo Car
+use App\Models\Car; 
 use Illuminate\Http\Request;
+use App\Events\TestDriveScheduled; //notificacao
+use App\Notifications\TestDriveScheduledNotification;
 
 class TestDriveController extends Controller
 {
@@ -92,49 +94,43 @@ class TestDriveController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
+
     public function store(Request $request)
-{
-    // Validação dos dados
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'phone' => 'required|string|max:15',
-        'preferred_date' => 'required|date',
-        'preferred_time' => 'required|date_format:H:i',
-        'car_id' => 'required|exists:cars,id',
-        'terms_accepted' => 'required|accepted',
-        'observations' => 'nullable|string|max:1000', // Adicionando a validação para o campo de observações
-    ]);
-    
-    // Verifica se já existe um agendamento na mesma data e hora
-    $existingTestDrive = TestDrive::where('preferred_date', $validated['preferred_date'])
-                                   ->where('preferred_time', $validated['preferred_time'])
-                                   ->first();
-    
-    if ($existingTestDrive) {
-        // Se já existe um agendamento, retorna um erro com uma mensagem personalizada
-        return back()->withErrors([
-            'preferred_time' => 'Infelizmente, já existe um agendamento para o horário e data selecionados. Por favor, escolha outro horário ou data.'
+    {
+        // Validação dos dados
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'preferred_date' => 'required|date',
+            'preferred_time' => 'required|string',
+            'terms_accepted' => 'accepted',
         ]);
+    
+        // Cria o agendamento do test drive no banco de dados
+        $testDrive = TestDrive::create([
+            'car_id' => $request->car_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'preferred_date' => $request->preferred_date,
+            'preferred_time' => $request->preferred_time,
+            'observations' => $request->observations,
+        ]);
+    
+        // Dispara o evento para notificar o agendamento
+        event(new TestDriveScheduled($testDrive));
+    
+        // Envia a notificação para o administrador ou usuário
+        // Aqui estamos enviando a notificação para o administrador
+        $admin = \App\Models\User::where('role', 'admin')->first();
+        $admin->notify(new TestDriveScheduledNotification($testDrive));
+    
+        // Redireciona de volta com uma mensagem de sucesso
+        return back()->with('success', 'Seu agendamento foi enviado com sucesso!');
     }
     
-    // Criação do agendamento de test drive
-    TestDrive::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'phone' => $validated['phone'],
-        'preferred_date' => $validated['preferred_date'],
-        'preferred_time' => $validated['preferred_time'],
-        'car_id' => $validated['car_id'],
-        'terms_accepted' => $request->has('terms_accepted') ? 1 : 0,
-        'observations' => $validated['observations'], // Incluindo observações
-        'confirmed' => false,
-    ]);
-    
-    // Não redireciona, apenas passa uma mensagem de sucesso para a view
-    return back()->with('success', 'Seu pedido de agendamento foi enviado com sucesso! Aguarde a confirmação.');
-}
-
 
     public function destroy($id)
     {
