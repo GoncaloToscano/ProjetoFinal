@@ -94,5 +94,10 @@ Route::get('/testdrive/cancel/{id}', [TestDriveController::class, 'cancel'])->na
 Route::post('/testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
 Route::post('/test-drive', [TestDriveController::class, 'store'])->name('testdrive.store');
 
+
+use App\Http\Controllers\SuporteController;
+
+Route::post('/suporte/enviar', [SuporteController::class, 'enviar'])->name('suporte.enviar');
+
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';

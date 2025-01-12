@@ -483,6 +483,51 @@
 
 <!-- Fim concessionária -->
 
+
+<!-- Seção de Suporte -->
+
+<section id="suporte" class="suporte-section d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3>Suporte</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('suporte.enviar') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" name="nome" id="nome" required class="form-control" placeholder="Digite seu nome">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mensagem">Mensagem</label>
+                                <textarea name="mensagem" id="mensagem" rows="4" required class="form-control" placeholder="Descreva sua dúvida ou problema"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block mt-3">Enviar Pedido</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Script para garantir que o alerta desapareça após 5 segundos -->
+<script>
+    $(document).ready(function() {
+        // Esconder o alerta após 5 segundos
+        setTimeout(function() {
+            $(".alert").alert('close');
+        }, 5000);
+    });
+</script>
+
+<!-- Fim seção de suporte -->
+
     <section class="ftco-counter ftco-section img bg-white" id="section-counter">
 			<div class="overlay"></div>
     	<div class="container">
@@ -608,6 +653,11 @@
 <script src="{{ asset('assets/js/google-map.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+
+<!-- Scripts do Bootstrap para garantir o funcionamento do alerta -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
   </body>
 </html>
