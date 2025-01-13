@@ -9,7 +9,7 @@ class TestDrive extends Model
 {
     use HasFactory;
 
-    // Relacionamento com o modelo Car
+    // Relação com o modelo Car
     public function car()
     {
         return $this->belongsTo(\App\Models\Car::class);
@@ -24,6 +24,6 @@ class TestDrive extends Model
         'observations',
         'terms_accepted',
         'confirmed',
-        'car_id'  // Adicionando car_id ao fillable
+        'car_id'  
     ];
 }

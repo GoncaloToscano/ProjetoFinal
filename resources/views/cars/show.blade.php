@@ -28,61 +28,61 @@
   </style>
 </head>
 <body>
-<!-- Navbar Drive&Ride -->
-<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand text-white" href="{{ url('/') }}" style="font-size: 24px; font-weight: 700;">
-      Drive<span style="color: #007bff;">&</span>Ride
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{{ route('cars.public.cars') }}" style="font-size: 18px;">Carros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#" style="font-size: 18px;">Contactos</a>
-        </li>
 
-        <!-- Navbar links for guests -->
-        @guest
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{{ url('/login') }}" style="font-size: 18px;">Login</a>
-          </li>
-        @endguest
+    <!-- Navbar Drive&Ride -->
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-dark" id="ftco-navbar">
+        <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">Drive<span>&Ride</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+    
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
 
-        <!-- Navbar links for authenticated users -->
-        @auth
-          <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <!-- Admin link -->
-              @if(Auth::user()->role == 'admin')
-                <a class="dropdown-item" href="{{ route('dashboard') }}">
-                  {{ __('Dashboard') }}
-                </a>
-              @endif
-
-              <!-- Logout link -->
-              <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
-                @csrf
-                <button type="submit" class="btn btn-link text-decoration-none text-dark">
-                  {{ __('Logout') }}
-                </button>
-              </form>
+                    <li class="nav-item">
+                      <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
+                    </li>
+    
+                    <ul class="navbar-nav ml-auto">
+                        @guest
+                            <li class="nav-item">
+                                <a href="{{ url('/login') }}" class="nav-link">Login</a>
+                            </li>
+                        @endguest
+    
+                        @auth
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <!-- Link de Dashboard para administradores -->
+                                    @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
+                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                            {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
+                                        </a>
+                                    @endif
+    
+                                    <!-- Link de Logout que aparece para todos os usuários -->
+                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link text-decoration-none">
+                                            {{ __('Logout') }}
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        @endauth
+                    </ul>
+    
+                </ul>
             </div>
-          </li>
-        @endauth
-      </ul>
-    </div>
-  </div>
-</nav>
+        </div>
+    </nav>
 <br><br><br>
 
 <!-- Carro Detalhes -->

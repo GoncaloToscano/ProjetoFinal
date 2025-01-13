@@ -97,7 +97,9 @@
           <div class="col-lg-8 ftco-animate">
           	<div class="text w-100 text-center mb-md-5 pb-md-5">
 	            <h1 class="mb-4">Bem vindos ao nosso stand automóvel!</h1>
-	            <p style="font-size: 18px;">Uma pequena concessionária pronta a ajudar e a realizar o seu sonho</p>
+	            <p style="font-size: 18px;">O carro dos seus sonhos encontra-se aqui...</p>
+              <p style="font-size: 18px;">Desde a manutenção até aos test drives com duas concessionárias prontas a realizar o seu sonho.</p>
+
                 <a href="{{ route('cars.public.cars') }}" class="icon-wrap d-flex align-items-center mt-4 justify-content-center">
                   <div class="icon d-flex align-items-center justify-content-center">
                       <span class="ion-ios-car"></span>
@@ -214,7 +216,7 @@
                                       <p class="price ml-auto">{{ $car->price }}€ <span></span></p>
                                   </div>
                                   <p class="d-flex mb-0 d-block">
-                                    <a href="{{ route('cars.public') }}" class="btn btn-primary py-2 mr-1">Ver Mais Carros</a>
+                                    <a href="{{ route('cars.public.cars') }}" class="btn btn-primary py-2 mr-1">Ver Mais Carros</a>
                                     <a href="#" class="btn btn-secondary py-2 ml-1">Detalhes</a>
                                   </p>
                               </div>
@@ -237,12 +239,14 @@
 					</div>
 					<div class="col-md-6 wrap-about ftco-animate">
 	          <div class="heading-section heading-section-white pl-md-5">
-	          	<span class="subheading">About us</span>
-	            <h2 class="mb-4">Welcome to Drive&Ride</h2>
+	          	<span class="subheading">Sobre nós</span>
+	            <h2 class="mb-4">Bem-vindos ao Drive&Ride</h2>
 
-	            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-	            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-	            <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
+	            <p>Com concessionárias no Porto e em Setúbal, estamos aqui para oferecer soluções práticas e personalizadas para quem procura experiências automóveis únicas.
+              </p>
+	            <p>No nosso stand, alugamos carros e focamo-nos em ajudá-lo a agendar serviços especializados como revisões e testar os carros que procura através dos nossos test drives! Quer esteja a descobrir o seu próximo carro ou a cuidar do seu, garantimos um atendimento profissional e de excelência.
+              </p>
+	            <p><a href="#" class="btn btn-primary py-3 px-4">Procurar Veículos</a></p>
 	          </div>
 					</div>
 				</div>
@@ -522,7 +526,8 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2"><a href="#" class="logo">Drive&<span>Ride</span></a></h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Com concessionárias no Porto e em Setúbal, estamos aqui para oferecer soluções práticas e personalizadas para quem procura experiências automóveis únicos.
+              </p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -532,12 +537,12 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Information</h2>
+              <h2 class="ftco-heading-2">Informações</h2>
               <ul class="list-unstyled">
-                <li><a href="#aboutus" class="py-2 d-block">About</a></li>
-                <li><a href="#services" class="py-2 d-block">Services</a></li>
-                <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+                <li><a href="#aboutus" class="py-2 d-block">Sobre nós</a></li>
+                <li><a href="#services" class="py-2 d-block">Serviços</a></li>
+                <li><a href="#" class="py-2 d-block">Termos e Condições</a></li>
+                <li><a href="#" class="py-2 d-block">Privacidade  &amp; Política de Cookies</a></li>
               </ul>
             </div>
           </div>

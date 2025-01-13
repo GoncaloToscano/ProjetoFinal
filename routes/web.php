@@ -26,7 +26,7 @@ Route::get('/', [CarController::class, 'publicIndex'])->name('welcome'); // Agor
 
 //ROTAS PROTEGIDAS.
 
-//Protegidas pelo middleware Middleware\AdminMiddleware
+//Protegidas pelo Middleware\AdminMiddleware
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     // Rota para o Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');  // Agora usa o DashboardController
