@@ -16,9 +16,9 @@ class SendTestDriveScheduledNotification
      */
     public function handle(TestDriveScheduled $event)
     {
-        // Envia a notificação para o usuário, por exemplo, para o administrador
-        // Aqui podemos enviar o e-mail para o administrador ou para o próprio usuário
-        // Supondo que você quer enviar o e-mail para o administrador
+        // Envia a notificação para o utilizador, por exemplo, para o administrador
+        // Aqui podemos enviar o e-mail para o administrador ou para o próprio utilizador
+        // enviar o e-mail para o administrador
 
         // Envia a notificação para o e-mail
         $admin = \App\Models\User::where('role', 'admin')->first();

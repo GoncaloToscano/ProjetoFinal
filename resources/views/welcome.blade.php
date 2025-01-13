@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
 <link href="{{ asset('assets/css/font.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap') }}" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset('assets/css/open-iconic-bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
@@ -382,64 +383,55 @@
       </div>
     </section>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Blog</span>
-            <h2>Recent Blog</h2>
-          </div>
-        </div>
-        <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="blog-single.html" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
-              </a>
-              <div class="text pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p><a href="#" class="btn btn-primary">Read more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="blog-single.html" class="block-20" style="background-image: url('assets//image_2.jpg');">
-              </a>
-              <div class="text pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p><a href="#" class="btn btn-primary">Read more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('assets/images/image_3.jpg');">
-              </a>
-              <div class="text pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p><a href="#" class="btn btn-primary">Read more</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>	
+      <!-- Inicio secção suporte-->
 
+      <section id="suporte" class="suporte-section d-flex justify-content-center align-items-center py-5" style="background-color: #f4f4f4 !important;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+                    <div class="card-header text-center" style="background: linear-gradient(90deg, #007bff, #6610f2); border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                        <h3 class="text-white mb-0">Suporte</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('suporte.enviar') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="nome" class="font-weight-bold">Nome</label>
+                                <input type="text" name="nome" id="nome" required class="form-control" placeholder="Escreva o seu nome" style="border-radius: 8px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mensagem" class="font-weight-bold">Mensagem</label>
+                                <textarea name="mensagem" id="mensagem" rows="4" required class="form-control" placeholder="Descreva sua dúvida ou problema" style="border-radius: 8px;"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block mt-3" style="background: linear-gradient(90deg, #007bff, #6610f2); border: none; border-radius: 8px;">Enviar Pedido</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Script para garantir que o alerta desapareça após 5 segundos -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => alert.classList.add('fade-out'));
+        }, 5000);
+    });
+</script>
+
+<style>
+    .fade-out {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+</style>
+  <!-- Fim secção suporte-->
 
 <!-- Concessionárias -->
 <section class="ftco-section testimony-section bg-light" id="concessionarias">
@@ -483,50 +475,6 @@
 
 <!-- Fim concessionária -->
 
-
-<!-- Seção de Suporte -->
-
-<section id="suporte" class="suporte-section d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header text-center bg-primary text-white">
-                        <h3>Suporte</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('suporte.enviar') }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <input type="text" name="nome" id="nome" required class="form-control" placeholder="Digite seu nome">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="mensagem">Mensagem</label>
-                                <textarea name="mensagem" id="mensagem" rows="4" required class="form-control" placeholder="Descreva sua dúvida ou problema"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block mt-3">Enviar Pedido</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Script para garantir que o alerta desapareça após 5 segundos -->
-<script>
-    $(document).ready(function() {
-        // Esconder o alerta após 5 segundos
-        setTimeout(function() {
-            $(".alert").alert('close');
-        }, 5000);
-    });
-</script>
-
-<!-- Fim seção de suporte -->
 
     <section class="ftco-counter ftco-section img bg-white" id="section-counter">
 			<div class="overlay"></div>

@@ -137,7 +137,50 @@
 
           <div class="mt-4">
             <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary">Voltar</a>
-            <a href="#" class="btn btn-primary">Contactar</a>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#carModal-{{ $car->id }}">Contactar</a>
+
+<!-- Modal -->
+<div class="modal fade" id="carModal-{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="carModalLabel-{{ $car->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="carModalLabel-{{ $car->id }}">{{ $car->name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Marca:</strong> {{ $car->brand }}</p>
+                <p><strong>Preço:</strong> {{ $car->price }}€</p>
+                <p>Entre em contato sem compromisso para obter mais informações, marcar encontro ou esclarecer dúvidas sobre este veículo.</p>
+                <!-- Formulário de Contato -->
+                <form action="{{ route('contact.admin') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="car_id" value="{{ $car->id }}">
+                    <input type="hidden" name="car_name" value="{{ $car->name }}">
+                    <input type="hidden" name="car_brand" value="{{ $car->brand }}">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Seu email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea class="form-control" name="message" id="message" rows="4" placeholder="Sua mensagem" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- Test - Drive Início -->
             <a href="#" class="btn btn-secondary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Agendar Test Drive</a>

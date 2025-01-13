@@ -183,54 +183,106 @@
 <!-- Car listing section starts here -->
 <section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-          <h2 class="mb-2">Todos os nossos veículos disponíveis!</h2>
-        </div>
-      </div>
-      <div class="row">
-        @foreach($cars as $car)
-          <div class="col-md-4 mb-4"> <!-- Cada carro ocupa 1/3 da largura -->
-            <div class="car-wrap rounded ftco-animate">
-              <!-- Carrossel de imagens -->
-              <div id="carousel-{{ $car->id }}" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" style="height: 200px; background-size: cover;">
-                  @foreach($car->images as $index => $image)
-                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                      <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="Car Image" style="height: 200px; object-fit: cover;">
-                    </div>
-                  @endforeach
-                </div>
-                <!-- Controles do carrossel -->
-                <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-              <!-- Fim do carrossel -->
-
-              <!-- Informações do carro -->
-              <div class="text mt-3">
-                <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
-                <div class="d-flex mb-3">
-                  <span class="cat">{{ $car->brand }}</span>
-                  <p class="price ml-auto">{{ $car->price }}€</p>
-                </div>
-                <p class="d-flex mb-0 d-block">
-                  <a href="#" class="btn btn-primary py-2 mr-1">Contactar</a>
-                  <a href="{{ route('cars.show', $car->id) }}" class="btn btn-secondary py-2 ml-1">Ver</a>
-                </p>
-              </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                <h2 class="mb-2">Todos os nossos veículos disponíveis!</h2>
             </div>
-          </div>
-        @endforeach
-      </div>
+        </div>
+        <div class="row">
+            @foreach($cars as $car)
+                <div class="col-md-4 mb-4"> <!-- Cada carro ocupa 1/3 da largura -->
+                    <div class="car-wrap rounded ftco-animate">
+                        <!-- Carrossel de imagens -->
+                        <div id="carousel-{{ $car->id }}" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" style="height: 200px; background-size: cover;">
+                                @foreach($car->images as $index => $image)
+                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                        <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="Car Image" style="height: 200px; object-fit: cover;">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <!-- Controles do carrossel -->
+                            <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!-- Fim do carrossel -->
+
+                        <!-- Informações do carro -->
+                        <div class="text mt-3">
+                            <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
+                            <div class="d-flex mb-3">
+                                <span class="cat">{{ $car->brand }}</span>
+                                <p class="price ml-auto">{{ $car->price }}€</p>
+                            </div>
+                            <p class="d-flex mb-0 d-block">
+                                <a href="#" class="btn btn-primary py-2 mr-1" data-toggle="modal" data-target="#carModal-{{ $car->id }}">Contactar</a>
+                                <a href="{{ route('cars.show', $car->id) }}" class="btn btn-secondary py-2 ml-1">Ver</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="carModal-{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="carModalLabel-{{ $car->id }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="carModalLabel-{{ $car->id }}">{{ $car->name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Marca:</strong> {{ $car->brand }}</p>
+                                <p><strong>Preço:</strong> {{ $car->price }}€</p>
+                                <p>Entre em contato sem compromisso para obter mais informações, marcar encontro ou esclarecer dúvidas sobre este veículo.</p>
+                                <!-- Formulário de Contato -->
+                                <form action="{{ route('contact.admin') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="car_id" value="{{ $car->id }}">
+                                    <input type="hidden" name="car_name" value="{{ $car->name }}">
+                                    <input type="hidden" name="car_brand" value="{{ $car->brand }}">
+                                    <div class="form-group">
+                                        <label for="name">Nome</label>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Seu nome" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Seu email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Mensagem</label>
+                                        <textarea class="form-control" name="message" id="message" rows="4" placeholder="Sua mensagem" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fim do Modal -->
+            @endforeach
+
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+        </div>
     </div>
 </section>
+
+
 
   
 

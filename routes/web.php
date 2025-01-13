@@ -99,5 +99,10 @@ use App\Http\Controllers\SuporteController;
 
 Route::post('/suporte/enviar', [SuporteController::class, 'enviar'])->name('suporte.enviar');
 
+
+use App\Http\Controllers\ContactController;
+
+Route::post('/contact-admin', [ContactController::class, 'send'])->name('contact.admin');
+
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';
