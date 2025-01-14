@@ -56,7 +56,6 @@
                             <span class="text-sm text-gray-600">{{ $testDrive->car->brand }} - {{ $testDrive->car->color }}</span>
                         </td>
                         <td class="border p-2">
-                            <!-- Exibindo Observações -->
                             @if ($testDrive->observations)
                                 {{ $testDrive->observations }}
                             @else
@@ -73,30 +72,29 @@
                         <td class="border p-2">
                             <!-- Confirmar agendamento -->
                             @if (!$testDrive->confirmed)
-                                <form action="{{ route('testdrives.confirm', $testDrive->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('testdrives.confirm', $testDrive->id) }}" method="POST" style="display:inline;" id="confirmForm-{{ $testDrive->id }}">
                                     @csrf
-                                    <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600 transition">
+                                    <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'confirm')" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600 transition">
                                         Confirmar
                                     </button>
                                 </form>
-                            @else
-                                <!--<span class="text-gray-500 dark:text-gray-400"></span>--> 
                             @endif
                             
                             <!-- Cancelar agendamento -->
                             @if ($testDrive->confirmed)
-                                <form action="{{ route('testdrives.cancel', $testDrive->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('testdrives.cancel', $testDrive->id) }}" method="POST" style="display:inline;" id="cancelForm-{{ $testDrive->id }}">
                                     @csrf
-                                    <button type="submit" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600 transition">
+                                    <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'cancel')" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600 transition">
                                         Cancelar
                                     </button>
                                 </form>
                             @endif
 
+                            <!-- Remover agendamento -->
                             <form action="{{ route('testdrives.destroy', $testDrive->id) }}" method="POST" style="display:inline;" id="deleteForm-{{ $testDrive->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="px-4 py-2 text-white bg-red-700 rounded-md hover:bg-red-800 dark:bg-red-800 dark:hover:bg-red-900 transition" onclick="confirmDelete({{ $testDrive->id }})">
+                                <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'delete')" class="px-4 py-2 text-white bg-red-700 rounded-md hover:bg-red-800 dark:bg-red-800 dark:hover:bg-red-900 transition">
                                     Remover
                                 </button>
                             </form>
@@ -108,20 +106,38 @@
     </div>
 
 <script>
-    function confirmDelete(testDriveId) {
+    function confirmAction(testDriveId, action) {
+        let title, text, confirmButtonText, formId;
+
+        if (action === 'confirm') {
+            title = 'Confirmar Agendamento?';
+            text = 'O cliente será notificado que o test drive está confirmado.';
+            confirmButtonText = 'Sim, confirmar!';
+            formId = 'confirmForm-' + testDriveId;
+        } else if (action === 'cancel') {
+            title = 'Cancelar Agendamento?';
+            text = 'O cliente será notificado que o agendamento foi cancelado.';
+            confirmButtonText = 'Sim, cancelar!';
+            formId = 'cancelForm-' + testDriveId;
+        } else if (action === 'delete') {
+            title = 'Remover Agendamento?';
+            text = 'Esta ação não pode ser desfeita!';
+            confirmButtonText = 'Sim, remover!';
+            formId = 'deleteForm-' + testDriveId;
+        }
+
         Swal.fire({
-            title: 'Tens a certeza?',
-            text: 'Esta ação não pode ser revertida!',
+            title: title,
+            text: text,
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sim, remover!',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: confirmButtonText,
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Envia o formulário de exclusão
-                document.getElementById('deleteForm-' + testDriveId).submit();
+                document.getElementById(formId).submit();
             }
         });
     }

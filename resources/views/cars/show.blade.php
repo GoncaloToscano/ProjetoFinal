@@ -29,61 +29,73 @@
 </head>
 <body>
 
+<!-- Navbar Drive&Ride com estilo visual adaptado -->
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url('/') }}">Drive<span>&Ride</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="oi oi-menu"></span> Menu
+    </button>
 
-    <!-- Navbar Drive&Ride -->
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-dark" id="ftco-navbar">
-        <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">Drive<span>&Ride</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-    
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a></li>
+        <li class="nav-item"><a href="{{ url('/about') }}" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="{{ url('/services') }}" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="{{ url('/pricing') }}" class="nav-link">Pricing</a></li>
+        <li class="nav-item"><a href="{{ url('/blog') }}" class="nav-link">Blog</a></li>
+        <li class="nav-item"><a href="{{ url('/contact') }}" class="nav-link">Contact</a></li>
 
-                    <li class="nav-item">
-                      <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
-                    </li>
-    
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                            <li class="nav-item">
-                                <a href="{{ url('/login') }}" class="nav-link">Login</a>
-                            </li>
-                        @endguest
-    
-                        @auth
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-    
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <!-- Link de Dashboard para administradores -->
-                                    @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                            {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
-                                        </a>
-                                    @endif
-    
-                                    <!-- Link de Logout que aparece para todos os usuários -->
-                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
-                                        @csrf
-                                        <button type="submit" class="btn btn-link text-decoration-none">
-                                            {{ __('Logout') }}
-                                        </button>
-                                    </form>
-                                </div>
-                            </li>
-                        @endauth
-                    </ul>
-    
-                </ul>
-            </div>
+        <ul class="navbar-nav ml-auto">
+          @guest
+            <li class="nav-item">
+              <a href="{{ url('/login') }}" class="nav-link">Login</a>
+            </li>
+          @endguest
+
+          @auth
+            <li class="nav-item dropdown">
+              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ Auth::user()->name }} <span class="caret"></span>
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <!-- Link de Dashboard para administradores -->
+                @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
+                  <a class="dropdown-item" href="{{ route('dashboard') }}">
+                    {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
+                  </a>
+                @endif
+
+                <!-- Link de Logout que aparece para todos os usuários -->
+                <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                  @csrf
+                  <button type="submit" class="btn btn-link text-decoration-none">
+                    {{ __('Logout') }}
+                  </button>
+                </form>
+              </div>
+            </li>
+          @endauth
+        </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('assets/images/bg_3.jpg') }}');"
+data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+        <div class="col-md-9 ftco-animate pb-5">
+          <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
+          <h1 class="mb-3 bread">Car Details</h1>
         </div>
-    </nav>
-<br><br><br>
+      </div>
+    </div>
+  </section>
 
 <!-- Carro Detalhes -->
 <div class="container mt-5">
@@ -288,9 +300,79 @@
                }, 4000);
            </script>
        @endif
+    </div>
+</div>
+</div>       
+</div>
+</div>
+<br>
+</div>
 
 <!-- Test - Drive Fim -->
 
+<!--Footer-->
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2"><a href="#" class="logo">Drive&<span>Ride</span></a></h2>
+            <p>Com concessionárias no Porto e em Setúbal, estamos aqui para oferecer soluções práticas e personalizadas para quem procura experiências automóveis únicos.
+            </p>
+            <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+              <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+              <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+              <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4 ml-md-5">
+            <h2 class="ftco-heading-2">Informações</h2>
+            <ul class="list-unstyled">
+              <li><a href="#aboutus" class="py-2 d-block">Sobre nós</a></li>
+              <li><a href="#services" class="py-2 d-block">Serviços</a></li>
+              <li><a href="#" class="py-2 d-block">Termos e Condições</a></li>
+              <li><a href="#" class="py-2 d-block">Privacidade  &amp; Política de Cookies</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md">
+           <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2">Customer Support</h2>
+            <ul class="list-unstyled">
+              <li><a href="#" class="py-2 d-block">FAQ</a></li>
+              <li><a href="#" class="py-2 d-block">Buy a Car</a></li>
+              <li><a href="#" class="py-2 d-block">Test Drive</a></li>
+              <li><a href="#" class="py-2 d-block">How it works</a></li>
+              <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Have a Questions?</h2>
+              <div class="block-23 mb-3">
+                <ul>
+                  <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+351913588321</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">driveride@gmail.com</span></a></li>
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+
+          <p><!-- Copyright-->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
 
 <!-- Scripts -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

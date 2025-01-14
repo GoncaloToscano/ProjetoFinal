@@ -7,6 +7,8 @@ use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Events\TestDriveScheduled; //notificacao
 use App\Notifications\TestDriveScheduledNotification;
+use App\Notifications\TestDriveConfirmed;
+use App\Notifications\TestDriveCancelled;
 
 class TestDriveController extends Controller
 {
@@ -56,18 +58,24 @@ class TestDriveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function confirm($id)
     {
-        // Buscar o TestDrive pelo ID
         $testDrive = TestDrive::findOrFail($id);
 
-        // Atualizar o status para confirmado
-        $testDrive->confirmed = true;
-        $testDrive->save();
+        if (!$testDrive->confirmed) {
+            $testDrive->confirmed = true;
+            $testDrive->save();
 
-        // Retornar à página anterior com uma mensagem de sucesso
-        return back()->with('success', 'Test Drive confirmado com sucesso!');
+            // Enviar notificação
+            $testDrive->notify(new TestDriveConfirmed($testDrive));
+
+            return redirect()->route('testdrives.index')->with('success', 'Agendamento confirmado e notificação enviada!');
+        }
+
+        return redirect()->route('testdrives.index')->with('info', 'Este agendamento já estava confirmado.');
     }
+
 
     /**
      * Cancelar o agendamento de Test Drive.
@@ -75,18 +83,24 @@ class TestDriveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function cancel($id)
-    {
-        // Buscar o TestDrive pelo ID
-        $testDrive = TestDrive::findOrFail($id);
 
-        // Cancelar o agendamento (definir como não confirmado)
+public function cancel($id)
+{
+    $testDrive = TestDrive::findOrFail($id);
+
+    if ($testDrive->confirmed) {
         $testDrive->confirmed = false;
         $testDrive->save();
 
-        // Retornar à página anterior com uma mensagem de sucesso
-        return back()->with('success', 'Test Drive cancelado com sucesso!');
+        // Enviar notificação de cancelamento
+        $testDrive->notify(new TestDriveCancelled($testDrive));
+
+        return redirect()->route('testdrives.index')->with('success', 'Agendamento cancelado e notificação enviada!');
     }
+
+    return redirect()->route('testdrives.index')->with('info', 'Este agendamento já estava cancelado.');
+}
+
 
     /**
      * Armazenar um novo agendamento de Test Drive.

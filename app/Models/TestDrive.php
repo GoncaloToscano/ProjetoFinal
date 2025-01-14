@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class TestDrive extends Model
 {
     use HasFactory;
+    use Notifiable;
 
     // Relação com o modelo Car
     public function car()
