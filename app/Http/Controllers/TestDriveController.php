@@ -21,10 +21,10 @@ class TestDriveController extends Controller
     public function index(Request $request)
     {
         $query = TestDrive::query();
-        
+
         // Filtro por pesquisa (nome ou email)
-        if ($request->has('search')) {
-            $query->where(function($q) use ($request) {
+        if ($request->has('search') && $request->query('search') !== '') {
+            $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->query('search') . '%')
                   ->orWhere('email', 'like', '%' . $request->query('search') . '%');
             });
@@ -39,17 +39,25 @@ class TestDriveController extends Controller
             }
         }
 
+        // Ordenação por critério selecionado
+        if ($request->has('order')) {
+            if ($request->query('order') === 'preferred_date_time') {
+                $query->orderBy('preferred_date', 'asc')->orderBy('preferred_time', 'asc');
+            } else {
+                $query->orderBy('created_at', 'desc'); // Ordenação padrão por data de inserção
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
         // Eager loading para carregar o carro associado ao test drive
-        $testDrives = $query->with('car') // Relacionamento com a tabela 'car'
-                            ->orderBy('preferred_date', 'asc')
-                            ->orderBy('preferred_time', 'asc')
-                            ->get();
-        
-        // Carregar todos os carros disponíveis para exibir no formulário de agendamento
-        $cars = Car::all();  // Garantindo que a variável $cars seja carregada corretamente
+        $testDrives = $query->with('car')->paginate(10); // Paginação para melhorar o desempenho em grandes listas
+
+        // Carregar todos os carros disponíveis (para formulários ou outras funcionalidades)
+        $cars = Car::all();
 
         // Retornar a view com os test drives e carros
-        return view('test_drives.index', compact('testDrives', 'cars')); // Passando os carros para a view
+        return view('test_drives.index', compact('testDrives', 'cars'));
     }
 
     /**
