@@ -182,82 +182,32 @@
 </div>
 
 
-            <!-- Test - Drive Início -->
-            <a href="#" class="btn btn-secondary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Agendar Test Drive</a>
+<!-- Test - Drive Início -->
+@if(auth()->check()) <!-- Verifica se o usuário está autenticado -->
+    <a href="#" class="btn btn-secondary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Agendar Test Drive</a>
+@else
+    <!-- Aviso de login necessário -->
+    <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+        <i class="fas fa-exclamation-triangle mr-2"></i> <!-- Ícone de aviso -->
+        <div>
+            <strong>Você precisa estar logado!</strong> Para agendar um Test Drive, por favor, <a href="{{ route('login') }}" class="alert-link">faça login aqui</a>.
+        </div>
+    </div>
+@endif
 
-            <!-- Modal Test Drive -->
-            <div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="testDriveModalLabel">Agendar Test Drive</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-
-                            @if ($errors->has('preferred_time'))
-                                <div class="alert alert-danger">
-                                    {{ $errors->first('preferred_time') }}
-                                </div>
-                            @endif
-
-                            <!-- Formulário -->
-                            <form action="{{ route('testdrive.store') }}" method="POST">
-                                @csrf
-
-                                <input type="hidden" name="car_id" value="{{ $car->id }}">
-
-                                <div class="form-group">
-                                    <label for="name">Seu Nome</label>
-                                    <input type="text" class="form-control" id="name" name="name" required placeholder="Escreva seu nome" value="{{ old('name') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Seu E-mail</label>
-                                    <input type="email" class="form-control" id="email" name="email" required placeholder="Escreva seu e-mail" value="{{ old('email') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="phone">Seu Telefone</label>
-                                    <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Escreva seu número de telefone" value="{{ old('phone') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="preferred_date">Data Preferencial</label>
-                                    <input type="date" class="form-control" id="preferred_date" name="preferred_date" required value="{{ old('preferred_date') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="preferred_time">Hora Preferencial</label>
-                                    <input type="time" class="form-control" id="preferred_time" name="preferred_time" required min="08:00" max="19:00" step="900" value="{{ old('preferred_time') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="observations">Observações</label>
-                                    <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação." value="{{ old('observations') }}"></textarea>
-                                </div>
-
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="terms" name="terms_accepted" required {{ old('terms_accepted') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="terms">Eu aceito os termos e condições.</label>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Enviar Pedido</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+<!-- Modal Test Drive -->
+<div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="testDriveModalLabel">Agendar Test Drive</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-                            <!-- Exibe a mensagem de sucesso fora do formulário -->
-                            @if(session('success'))
-                    <div class="alert alert-success mt-4">
+            <div class="modal-body">
+                @if(session('success'))
+                    <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -267,13 +217,80 @@
                         {{ $errors->first('preferred_time') }}
                     </div>
                 @endif
-            <!-- Test - Drive Fim -->
-          </div>
+
+                <!-- Formulário -->
+                <form action="{{ route('testdrive.store') }}" method="POST">
+                    @csrf
+
+                    <input type="hidden" name="car_id" value="{{ $car->id }}">
+
+                    <div class="form-group">
+                        <label for="name">Seu Nome</label>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder="Escreva seu nome" value="{{ old('name', auth()->user()->name) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Seu E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Escreva seu e-mail" value="{{ old('email', auth()->user()->email) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Seu Telefone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Escreva seu número de telefone" value="{{ old('phone') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferred_date">Data Preferencial</label>
+                        <input type="date" class="form-control" id="preferred_date" name="preferred_date" required value="{{ old('preferred_date') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferred_time">Hora Preferencial</label>
+                        <input type="time" class="form-control" id="preferred_time" name="preferred_time" required min="08:00" max="19:00" step="900" value="{{ old('preferred_time') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observations">Observações</label>
+                        <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação." value="{{ old('observations') }}"></textarea>
+                    </div>
+
+                    <!-- Nova Checkbox para aceitar ser contactado -->
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="contact_permission" name="contact_permission" {{ old('contact_permission') ? 'checked' : '' }}>
+                        <label class="form-check-label" for="contact_permission">Aceito ser contactado pelo número de telefone.</label>
+                    </div>
+
+                    <!-- Termos e Condições -->
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="terms" name="terms_accepted" required {{ old('terms_accepted') ? 'checked' : '' }}>
+                        <label class="form-check-label" for="terms">
+                            Eu aceito os <a href="{{ route('terms') }}" class="alert-link" target="_blank">termos e condições</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar Pedido</button>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+
+           <!-- Sucesso mensagem desaparece em 4 segundos-->
+           @if(session('success'))
+           <br><br>
+           <div class="alert alert-success" id="success-alert">
+               {{ session('success') }}
+           </div>
+           <script>
+               // Após 4 segundos (4000 milissegundos), ocultar a mensagem
+               setTimeout(function() {
+                   $('#success-alert').fadeOut('slow');
+               }, 4000);
+           </script>
+       @endif
+
+<!-- Test - Drive Fim -->
+
 
 <!-- Scripts -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

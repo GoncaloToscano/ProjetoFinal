@@ -104,5 +104,11 @@ use App\Http\Controllers\ContactController;
 
 Route::post('/contact-admin', [ContactController::class, 'send'])->name('contact.admin');
 
+
+// Exemplo de rota para a página de termos e condições
+Route::get('/termos', function () {
+    return view('terms');  // A página de termos
+})->name('terms');
+
 // Carregar as rotas de autenticação (login, registro, etc.)
 require __DIR__ . '/auth.php';
