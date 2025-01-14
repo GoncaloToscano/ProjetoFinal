@@ -15,6 +15,13 @@ class TestDrive extends Model
         return $this->belongsTo(\App\Models\Car::class);
     }
 
+    // Definindo o relacionamento com o modelo User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+        
+    // Adicionando 'user_id' ao $fillable para permitir a atribuição em massa
     protected $fillable = [
         'name',
         'email',
@@ -24,6 +31,7 @@ class TestDrive extends Model
         'observations',
         'terms_accepted',
         'confirmed',
-        'car_id'  
+        'car_id',
+        'user_id'  // Adicionando a coluna user_id ao preenchimento em massa
     ];
 }

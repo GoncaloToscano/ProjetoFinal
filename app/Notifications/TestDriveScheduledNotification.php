@@ -33,7 +33,7 @@ class TestDriveScheduledNotification extends Notification
             ->line('Data: ' . $this->testDrive->preferred_date)
             ->line('Hora: ' . $this->testDrive->preferred_time)
             ->line('Observações: ' . $this->testDrive->observations)
-            ->action('Voltar', url('welcome'))
+            ->action('Voltar', url('/'))
             ->line('Obrigado por escolher a Drive&Ride!')
             ->salutation('Atenciosamente, Drive&Ride');
     }

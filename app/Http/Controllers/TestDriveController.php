@@ -96,40 +96,47 @@ class TestDriveController extends Controller
      */
 
 
-    public function store(Request $request)
-    {
-        // Validação dos dados
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'preferred_date' => 'required|date',
-            'preferred_time' => 'required|string',
-            'terms_accepted' => 'accepted',
-        ]);
-    
-        // Cria o agendamento do test drive no banco de dados
-        $testDrive = TestDrive::create([
-            'car_id' => $request->car_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'preferred_date' => $request->preferred_date,
-            'preferred_time' => $request->preferred_time,
-            'observations' => $request->observations,
-        ]);
-    
-        // Dispara o evento para notificar o agendamento
-        event(new TestDriveScheduled($testDrive));
-    
-        // Envia a notificação para o administrador ou usuário
-        // Aqui estamos enviando a notificação para o administrador
-        $admin = \App\Models\User::where('role', 'admin')->first();
-        $admin->notify(new TestDriveScheduledNotification($testDrive));
-    
-        // Redireciona de volta com uma mensagem de sucesso
-        return back()->with('success', 'Seu agendamento foi enviado com sucesso!');
-    }
+     public function store(Request $request)
+     {
+         // Verifica se o usuário está autenticado
+         if (!auth()->check()) {
+             return redirect()->route('login')->with('error', 'Você precisa estar logado para agendar um test drive.');
+         }
+     
+         // Validação dos dados
+         $request->validate([
+             'name' => 'required|string',
+             'email' => 'required|email',
+             'phone' => 'required|string',
+             'preferred_date' => 'required|date',
+             'preferred_time' => 'required|string',
+             'terms_accepted' => 'accepted',
+             'car_id' => 'required|exists:cars,id',  // Garantir que o car_id exista na tabela cars
+         ]);
+     
+         // Obtendo o ID do usuário autenticado
+         $userId = auth()->user()->id;
+     
+         // Cria o agendamento do test drive no banco de dados
+         $testDrive = TestDrive::create([
+             'car_id' => $request->car_id,
+             'name' => $request->name,
+             'email' => $request->email,
+             'phone' => $request->phone,
+             'preferred_date' => $request->preferred_date,
+             'preferred_time' => $request->preferred_time,
+             'observations' => $request->observations,
+             'user_id' => $userId,  // Associando o usuário ao test drive
+         ]);
+     
+         // Dispara o evento para notificar o agendamento
+         event(new TestDriveScheduled($testDrive));
+     
+         // Redireciona de volta com uma mensagem de sucesso
+         return back()->with('success', 'Seu agendamento foi enviado com sucesso!');
+     }
+     
+     
     
 
     public function destroy($id)

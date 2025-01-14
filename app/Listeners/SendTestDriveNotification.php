@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Listeners;
 
 use App\Events\TestDriveScheduled;
@@ -16,12 +15,16 @@ class SendTestDriveScheduledNotification
      */
     public function handle(TestDriveScheduled $event)
     {
-        // Envia a notificação para o utilizador, por exemplo, para o administrador
-        // Aqui podemos enviar o e-mail para o administrador ou para o próprio utilizador
-        // enviar o e-mail para o administrador
+        // Recupera o usuário associado ao test drive
+        $user = $event->testDrive->user;
 
-        // Envia a notificação para o e-mail
-        $admin = \App\Models\User::where('role', 'admin')->first();
-        $admin->notify(new TestDriveScheduledNotification($event->testDrive));
+        // Verifica se o usuário existe antes de tentar enviar a notificação
+        if ($user) {
+            // Envia a notificação para o usuário
+            $user->notify(new TestDriveScheduledNotification($event->testDrive));
+        } else {
+            // Se o usuário não existir, podemos registrar um erro ou realizar uma ação alternativa
+            \Log::error('Usuário não encontrado para o test drive ID: ' . $event->testDrive->id);
+        }
     }
 }
