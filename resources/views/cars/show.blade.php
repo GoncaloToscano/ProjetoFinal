@@ -84,18 +84,19 @@
   </div>
 </nav>
 
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('assets/images/bg_3.jpg') }}');"
-data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-        <div class="col-md-9 ftco-animate pb-5">
-          <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
-          <h1 class="mb-3 bread">Car Details</h1>
-        </div>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('assets/images/bg_cars_2.jpg') }}');"
+  data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start" style="height: 250px;">
+      <div class="col-md-9 ftco-animate pb-5">
+        <p class="breadcrumbs" style="font-size: 14px; color: #fff;"><span class="mr-2"><a href="{{ url('/') }}" style="color: #fff;">Home <i class="ion-ios-arrow-forward"></i></a></span> <span style="color: #fff;">Cars <i class="ion-ios-arrow-forward"></i></span></p>
+        <h1 class="mb-3 bread" style="font-size: 28px; color: #fff;">Car Details</h1>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
 <!-- Carro Detalhes -->
 <div class="container mt-5">
