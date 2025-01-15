@@ -7,6 +7,7 @@
     
 <link href="{{ asset('assets/css/font.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap') }}" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset('assets/css/open-iconic-bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
@@ -25,7 +26,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+<!-- Include Bootstrap CSS -->
   </head>
 
   <body>
@@ -49,7 +50,7 @@
                     </li>
 
                   <li class="nav-item"><a href="#concessionarias" class="nav-link">Concessionárias</a></li>
-                    <li class="nav-item"><a href="contactos.html" class="nav-link">Contactos</a></li>
+                    <li class="nav-item"><a href="#suporte" class="nav-link">Contactos</a></li>
     
                     <ul class="navbar-nav ml-auto">
                         @guest
@@ -217,7 +218,7 @@
                                   </div>
                                   <p class="d-flex mb-0 d-block">
                                     <a href="{{ route('cars.public.cars') }}" class="btn btn-primary py-2 mr-1">Ver Mais Carros</a>
-                                    <a href="#" class="btn btn-secondary py-2 ml-1">Detalhes</a>
+                                    <a href="{{ route('cars.show', $car->id) }}" class="btn btn-secondary py-2 ml-1">Detalhes</a>
                                   </p>
                               </div>
                           </div>
@@ -246,7 +247,7 @@
               </p>
 	            <p>No nosso stand, alugamos carros e focamo-nos em ajudá-lo a agendar serviços especializados como revisões e testar os carros que procura através dos nossos test drives! Quer esteja a descobrir o seu próximo carro ou a cuidar do seu, garantimos um atendimento profissional e de excelência.
               </p>
-	            <p><a href="#" class="btn btn-primary py-3 px-4">Procurar Veículos</a></p>
+	            <p><a href="{{ route('cars.public.cars') }}" class="btn btn-primary py-3 px-4">Procurar Veículos</a></p>
 	          </div>
 					</div>
 				</div>
@@ -388,52 +389,105 @@
     </section>
 
       <!-- Inicio secção suporte-->
-
-      <section id="suporte" class="suporte-section d-flex justify-content-center align-items-center py-5" style="background-color: #f4f4f4 !important;">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm" style="border-radius: 12px;">
-                    <div class="card-header text-center" style="background: linear-gradient(90deg, #007bff, #6610f2); border-top-left-radius: 12px; border-top-right-radius: 12px;">
-                        <h3 class="text-white mb-0">Suporte</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('suporte.enviar') }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="nome" class="font-weight-bold">Nome</label>
-                                <input type="text" name="nome" id="nome" required class="form-control" placeholder="Escreva o seu nome" style="border-radius: 8px;">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="mensagem" class="font-weight-bold">Mensagem</label>
-                                <textarea name="mensagem" id="mensagem" rows="4" required class="form-control" placeholder="Descreva sua dúvida ou problema" style="border-radius: 8px;"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block mt-3" style="background: linear-gradient(90deg, #007bff, #6610f2); border: none; border-radius: 8px;">Enviar Pedido</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<section>
+<!-- Contact Form HTML -->
+<div class="container contact-form">
+  <div class="contact-image">
+      <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+  </div>
+  <form action="{{ route('suporte.enviar') }}" method="POST">
+      @csrf
+      <h3>Envie-nos uma Mensagem</h3>
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <input type="text" name="nome" class="form-control" placeholder="Seu Nome *" required />
+              </div>
+              <div class="form-group">
+                  <input type="email" name="email" class="form-control" placeholder="Seu E-mail *" required />
+              </div>
+              <div class="form-group">
+                  <input type="text" name="telefone" class="form-control" placeholder="Seu Telefone *" required />
+              </div>
+              <div class="form-group">
+                  <input type="submit" class="btnContact" value="Enviar Mensagem" />
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem *" style="height: 150px;" required></textarea>
+              </div>
+          </div>
+      </div>
+  </form>
+</div>
 </section>
 
-<!-- Script para garantir que o alerta desapareça após 5 segundos -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => alert.classList.add('fade-out'));
-        }, 5000);
-    });
-</script>
 
+<!-- Styling for the contact form (Scoped to the contact form only) -->
 <style>
-    .fade-out {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
+  /* Styles only for the contact form */
+  .contact-form {
+      background: #fff;
+      margin-top: 10%;
+      margin-bottom: 5%;
+      width: 70%;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-form .form-control {
+      border-radius: 1rem;
+      box-shadow: none;
+      border: 1px solid #ddd;
+  }
+
+  .contact-image {
+      text-align: center;
+  }
+
+  .contact-image img {
+      border-radius: 50%;
+      width: 12%;
+      margin-top: -4%;
+      transform: rotate(29deg);
+  }
+
+  .contact-form form {
+      padding: 10%;
+  }
+
+  .contact-form h3 {
+      margin-bottom: 3rem;
+      text-align: center;
+      color: #0062cc;
+  }
+
+  .contact-form .btnContact {
+      width: 50%;
+      border: none;
+      border-radius: 1rem;
+      padding: 1.5%;
+      background: #dc3545;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+  }
+
+  .contact-form .btnContact:hover {
+      background-color: #c82333;
+  }
+
+  /* Styling for form inputs */
+  input.form-control, textarea.form-control {
+      padding: 1rem;
+      font-size: 1rem;
+  }
+
+  .form-group {
+      margin-bottom: 1.5rem;
+  }
 </style>
   <!-- Fim secção suporte-->
 
@@ -478,47 +532,6 @@
 </section>
 
 <!-- Fim concessionária -->
-
-
-    <section class="ftco-counter ftco-section img bg-white" id="section-counter">
-			<div class="overlay"></div>
-    	<div class="container">
-    		<div class="row">
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text text-border d-flex align-items-center">
-                <strong class="number" data-number="60">0</strong>
-                <span>Year <br>Experienced</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text text-border d-flex align-items-center">
-                <strong class="number" data-number="1090">0</strong>
-                <span>Total <br>Cars</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text text-border d-flex align-items-center">
-                <strong class="number" data-number="2590">0</strong>
-                <span>Happy <br>Customers</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text d-flex align-items-center">
-                <strong class="number" data-number="67">0</strong>
-                <span>Total <br>Branches</span>
-              </div>
-            </div>
-          </div>
-        </div>
-    	</div>
-    </section>	
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
@@ -586,7 +599,9 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
+<!-- Include Bootstrap and jQuery JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
   <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
