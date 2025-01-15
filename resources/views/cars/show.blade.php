@@ -326,6 +326,48 @@
   </div>
 <!-- Test - Drive Fim -->
 
+<!-- Carros Relacionados -->
+<section class="ftco-section ftco-no-pt bg-light">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+            <br>
+              <span class="subheading">Vê agora</span>
+              <h2 class="mb-2">Carros Relacionados</h2>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="carousel-car owl-carousel">
+                  @forelse($relatedCars as $relatedCar)
+                      <div class="item">
+                          <div class="car-wrap rounded ftco-animate">
+                              <!-- Imagem do carro -->
+                              <div class="img rounded d-flex align-items-end" style="background-image: url({{ asset('storage/'.$relatedCar->images->first()->path) }});">
+                              </div>
+                              <!-- Informações do carro -->
+                              <div class="text">
+                                  <h2 class="mb-0"><a href="{{ route('cars.show', $relatedCar->id) }}">{{ $relatedCar->name }}</a></h2>
+                                  <div class="d-flex mb-3">
+                                      <span class="cat">{{ $relatedCar->brand }}</span>
+                                      <p class="price ml-auto">{{ number_format($relatedCar->price, 2, ',', '.') }}€</p>
+                                  </div>
+                                  <p class="d-flex mb-0 d-block">
+                                    <a href="{{ route('cars.show', $relatedCar->id) }}" class="btn btn-secondary py-2 ml-1">Detalhes</a>
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  @empty
+                      <p>Nenhum carro relacionado encontrado, mostrando carros recentes.</p>
+                  @endforelse
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Fim Carros Relacionados -->
+
 
 
 <!-- Concessionárias -->

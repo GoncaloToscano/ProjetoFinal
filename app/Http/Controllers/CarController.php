@@ -134,9 +134,46 @@ public function getModelsByBrand(Request $request)
     // Em CarController.php
     public function show(Car $car)
     {
-        // Retorna a view com o carro específico
-        return view('cars.show', compact('car'));
+        // Primeira tentativa: busca carros pela marca e ano, excluindo o carro atual
+        $relatedCars = Car::where('brand', $car->brand)
+                          ->where('year', '>=', $car->year - 5)  // Carros do mesmo ano ou até 5 anos antes
+                          ->where('id', '!=', $car->id)  // Excluir o próprio carro
+                          ->take(4)
+                          ->get();
+    
+        // Se não houver carros suficientes, tenta buscar por marca e cor
+        if ($relatedCars->count() < 4) {
+            $remainingCars = Car::where('brand', $car->brand)
+                                ->where('color', $car->color) // Tentando buscar por cor
+                                ->where('id', '!=', $car->id)
+                                ->take(4 - $relatedCars->count()) // Pega a quantidade restante
+                                ->get();
+            $relatedCars = $relatedCars->merge($remainingCars); // Junta os carros encontrados
+        }
+    
+        // Se ainda não houver 4 carros, tenta buscar por marca, sem o ano específico
+        if ($relatedCars->count() < 4) {
+            $remainingCars = Car::where('brand', $car->brand)
+                                ->where('id', '!=', $car->id)
+                                ->take(4 - $relatedCars->count())
+                                ->get();
+            $relatedCars = $relatedCars->merge($remainingCars);
+        }
+    
+        // Se ainda não houver 4 carros, tenta buscar carros mais recentes
+        if ($relatedCars->count() < 4) {
+            $remainingCars = Car::latest()
+            ->where('id', '!=', $car->id)  // Excluir o próprio carro
+                                ->take(4 - $relatedCars->count())
+                                ->get();
+            $relatedCars = $relatedCars->merge($remainingCars);
+        }
+    
+        // Retorna a view com o carro específico e os carros relacionados (ou recentes, se não houver relacionados)
+        return view('cars.show', compact('car', 'relatedCars'));
     }
+    
+    
 
     // Mostrar detalhes pelo ID do carro (para o botão "Ver mais")
     public function showById($id)
