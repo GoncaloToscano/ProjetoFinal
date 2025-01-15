@@ -229,10 +229,9 @@
       </div>
   </div>
 </section>
-
-
-
 <!--Recenetemente adicionados 4 - Fim -->
+
+
     <section class="ftco-section ftco-about" id="aboutus">
 			<div class="container">
 				<div class="row no-gutters">
