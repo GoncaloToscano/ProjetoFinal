@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 <style>
   
 .navbar {
@@ -108,60 +110,129 @@
     </div>
   </section>
 
-  <section class="ftco-section testimony-section bg-light">
-  <!-- Carro Detalhes -->
-  <div class="container mt-5">
-    <h1 class="mb-4" style="text-transform: uppercase;">
-      <strong>{{ $car->brand }}  {{ $car->name }} </strong>
-    </h1>
-    
-    <div class="row">
+<section class="ftco-section testimony-section bg-light">
+<!-- Carro Detalhes -->
+<div class="container mt-5">
+  <h1 class="mb-4" style="text-transform: uppercase;">
+    <strong>{{ $car->brand }} {{ $car->name }}</strong>
+  </h1>
+
+  <div class="row">
       <!-- imagens -->
       <div class="col-md-6">
-      <div id="carousel-{{ $car->id }}" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner" style="height: 400px; background-size: cover;">
-        @foreach($car->images as $index => $image)
-          <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-          <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="Car Image" style="height: 400px; width: 400px; object-fit: cover; margin: 0 auto;">
+        <div id="carousel-{{ $car->id }}" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" style="height: 400px; background-size: cover;">
+            @foreach($car->images as $index => $image)
+            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+              <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="Car Image" style="height: 400px; width: 400px; object-fit: cover; margin: 0 auto;">
+            </div>
+            @endforeach
           </div>
-        @endforeach
+          <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
-        <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-        </a>
-      </div>
-      </div>
+
+    <!-- Miniaturas -->
+    <div class="mt-3 d-flex justify-content-center">
+      @foreach($car->images as $index => $image)
+      <img 
+        src="{{ asset('storage/' . $image->path) }}" 
+        class="img-thumbnail mx-2" 
+        style="height: 80px; width: 80px; object-fit: cover; cursor: pointer;" 
+        data-target="#carousel-{{ $car->id }}" 
+        data-slide-to="{{ $index }}"
+        alt="Thumbnail {{ $index + 1 }}"
+        onclick="updateImageCounter({{ $index }})">
+      @endforeach
+    </div>
+      
+   <!-- Contador de imagens -->
+   <div class="text-center mt-2">
+    <span id="image-counter-{{ $car->id }}">1 de {{ count($car->images) }}</span>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var carousel = document.querySelector('#carousel-{{ $car->id }}');
+      var counter = document.querySelector('#image-counter-{{ $car->id }}');
+      var total = {{ count($car->images) }};
     
-      <!-- Descrição do Carro -->
-      <div class="col-md-6">
+      // Inicializar contador
+      updateCounter(1, total);
+    
+      // Atualizar o contador na navegação do carrossel (quando o slide muda)
+      carousel.addEventListener('slid.bs.carousel', function () {
+        var activeIndex = Array.from(carousel.querySelectorAll('.carousel-item')).findIndex(item => item.classList.contains('active'));
+        updateCounter(activeIndex + 1, total);
+      });
+
+      // Atualizar o contador na navegação automática do carrossel
+      carousel.addEventListener('slide.bs.carousel', function () {
+        var activeIndex = Array.from(carousel.querySelectorAll('.carousel-item')).findIndex(item => item.classList.contains('active'));
+        updateCounter(activeIndex + 1, total);
+      });
+    });
+
+    // Função para atualizar o contador de imagens
+    function updateCounter(current, total) {
+      document.querySelector('#image-counter-{{ $car->id }}').textContent = `${current} de ${total}`;
+    }
+
+    // Função para atualizar o contador ao clicar na miniatura
+    function updateImageCounter(index) {
+      var total = {{ count($car->images) }};
+      updateCounter(index + 1, total);
+    }
+  </script>
+</div>
+
+
+
+    <!-- Descrição do Carro -->
+    <div class="col-md-6">
       <div class="card">
         <li class="list-group-item" style="font-size: 1.2rem; font-weight: bold;">
-        <span style="font-size: 1.5rem; color:rgb(0, 0, 0); font-weight: bold;">
-          {{ number_format($car->price, 2, ',', '.') }}€
-        </span>
+          <span style="font-size: 1.5rem; color:rgb(0, 0, 0); font-weight: bold;">
+            {{ number_format($car->price, 2, ',', '.') }}€
+          </span>
         </li>
         <div class="card-header">
-        <h5>Detalhes do Veículo</h5>
+          <h5>Detalhes do Veículo</h5>
         </div>
         <div class="card-body">
-        <ul class="list-group">
-          <li class="list-group-item"><strong>Marca:</strong> {{ $car->brand }}</li>
-          <li class="list-group-item"><strong>Modelo:</strong> {{ $car->name }}</li>
-          <li class="list-group-item"><strong>Ano:</strong> {{ $car->year }}</li>
-          <li class="list-group-item"><strong>Combustível:</strong> {{ $car->fuel }}</li>
-          <li class="list-group-item"><strong>Kilometragem:</strong> {{ number_format($car->kms, 0, ',', '.') }} KM</li>
-          <li class="list-group-item"><strong>Cor:</strong> {{ $car->color }}</li>
-          <li class="list-group-item"><strong>Potência:</strong> {{ $car->power }} CV</li>
-        </ul>
-    
-        <div class="mt-4">
-          <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary">Voltar</a>
-          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#carModal-{{ $car->id }}">Contactar</a>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <i class="fas fa-car"></i> <strong>Marca:</strong> {{ $car->brand }}
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-car-side"></i> <strong>Modelo:</strong> {{ $car->name }}
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-calendar-alt"></i> <strong>Ano:</strong> {{ $car->year }}
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-gas-pump"></i> <strong>Combustível:</strong> {{ $car->fuel }}
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-road"></i> <strong>Kilometragem:</strong> {{ number_format($car->kms, 0, ',', '.') }} KM
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-palette"></i> <strong>Cor:</strong> {{ $car->color }}
+            </li>
+            <li class="list-group-item">
+              <i class="fas fa-bolt"></i> <strong>Potência:</strong> {{ $car->power }} CV
+            </li>
+          </ul>
+
+          <div class="mt-4">
+            <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary">Voltar</a>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#carModal-{{ $car->id }}">Contactar</a>
     
     <!-- Modal -->
     <div class="modal fade" id="carModal-{{ $car->id }}" tabindex="-1" role="dialog" aria-labelledby="carModalLabel-{{ $car->id }}" aria-hidden="true">
@@ -336,6 +407,8 @@
 </section>
 <!-- Test - Drive Fim -->
 
+
+
 <!-- Carros Relacionados -->
 <section class="ftco-section ftco-no-pt">
   <div class="container">
@@ -363,8 +436,10 @@
                                       <p class="price ml-auto">{{ number_format($relatedCar->price, 2, ',', '.') }}€</p>
                                   </div>
                                   <p class="d-flex mb-0 d-block">
-                                    <a href="{{ route('cars.show', $relatedCar->id) }}" class="btn btn-secondary py-2 ml-1">Detalhes</a>
-                                  </p>
+                                    <div class="text-center">
+                                      <a href="{{ route('cars.show', $relatedCar->id) }}" class="btn btn-secondary py-2" style="width: 200px;">Detalhes</a>
+                                  </div>
+                                </p>
                               </div>
                           </div>
                       </div>
