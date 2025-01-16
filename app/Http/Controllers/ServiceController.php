@@ -35,7 +35,7 @@ class ServiceController extends Controller
         ]);
     
         // Redirecionar ou enviar uma resposta
-        return redirect()->route('service.index')->with('success', 'Serviço agendado com sucesso!');
+        return redirect()->route('service.index')->with('success', 'Serviço agendado com sucesso, irás receber uma notificação por email!');
     }
 
     public function scheduleService(Request $request)
