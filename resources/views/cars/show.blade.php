@@ -128,11 +128,11 @@
             </div>
             @endforeach
           </div>
-          <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev" onclick="updateImageCounterOnSlide()">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next">
+          <a class="carousel-control-next" href="#carousel-{{ $car->id }}" role="button" data-slide="next" onclick="updateImageCounterOnSlide()">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
@@ -166,16 +166,14 @@
       // Inicializar contador
       updateCounter(1, total);
     
-      // Atualizar o contador na navegação do carrossel (quando o slide muda)
+      // Atualizar o contador quando o carrossel mudar (evento `slid.bs.carousel`)
       carousel.addEventListener('slid.bs.carousel', function () {
-        var activeIndex = Array.from(carousel.querySelectorAll('.carousel-item')).findIndex(item => item.classList.contains('active'));
-        updateCounter(activeIndex + 1, total);
+        updateImageCounterOnSlide();
       });
 
-      // Atualizar o contador na navegação automática do carrossel
+      // Atualizar o contador quando o carrossel mudar automaticamente
       carousel.addEventListener('slide.bs.carousel', function () {
-        var activeIndex = Array.from(carousel.querySelectorAll('.carousel-item')).findIndex(item => item.classList.contains('active'));
-        updateCounter(activeIndex + 1, total);
+        updateImageCounterOnSlide();
       });
     });
 
@@ -188,6 +186,14 @@
     function updateImageCounter(index) {
       var total = {{ count($car->images) }};
       updateCounter(index + 1, total);
+    }
+
+    // Função para atualizar o contador após a transição do carrossel
+    function updateImageCounterOnSlide() {
+      var carousel = document.querySelector('#carousel-{{ $car->id }}');
+      var activeIndex = Array.from(carousel.querySelectorAll('.carousel-item')).findIndex(item => item.classList.contains('active'));
+      var total = {{ count($car->images) }};
+      updateCounter(activeIndex + 1, total);
     }
   </script>
 </div>
