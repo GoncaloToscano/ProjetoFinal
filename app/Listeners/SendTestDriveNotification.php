@@ -24,7 +24,7 @@ class SendTestDriveScheduledNotification
             $user->notify(new TestDriveScheduledNotification($event->testDrive));
         } else {
             // Se o usuário não existir, podemos registrar um erro ou realizar uma ação alternativa
-            \Log::error('Usuário não encontrado para o test drive ID: ' . $event->testDrive->id);
+            \Log::error('Utilizador não encontrado para o test drive ID: ' . $event->testDrive->id);
         }
     }
 }

@@ -50,7 +50,7 @@ class TestDriveCancelled extends Notification
             ->line('Data: ' . $this->testDrive->preferred_date)
             ->line('Hora: ' . $this->testDrive->preferred_time)
             ->line('Carro: ' . $this->testDrive->car->name)
-            ->action('Reagendar', url('/testdrives/create'))
+            ->action('Voltar', url('/'))
             ->line('Sinta-se à vontade para reagendar em um dia e horário mais conveniente.')
             ->line('Obrigado pela sua compreensão!');
     }

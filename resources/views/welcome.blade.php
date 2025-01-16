@@ -50,7 +50,7 @@
                     </li>
 
                   <li class="nav-item"><a href="#concessionarias" class="nav-link">Concessionárias</a></li>
-                    <li class="nav-item"><a href="#suporte" class="nav-link">Contactos</a></li>
+                    <li class="nav-item"><a href="#contactos" class="nav-link">Contactos</a></li>
     
                     <ul class="navbar-nav ml-auto">
                         @guest
@@ -390,7 +390,7 @@
       <!-- Inicio secção suporte-->
 <section>
 <!-- Contact Form HTML -->
-<div class="container contact-form">
+<div id="contactos" class="container contact-form">
   <div class="contact-image">
       <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
   </div>

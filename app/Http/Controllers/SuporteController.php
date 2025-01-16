@@ -20,7 +20,7 @@ class SuporteController extends Controller
         ]);
     
         // Enviar o e-mail usando o Mailable
-        Mail::to('arely.schmeler73@ethereal.email')->send(new PedidoDeSuporte(
+        Mail::to('projetolaraveltpsi1223@gmail.com')->send(new PedidoDeSuporte(
             $request->nome, 
             $request->email, 
             $request->telefone, 

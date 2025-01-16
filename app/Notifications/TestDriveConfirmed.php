@@ -52,7 +52,7 @@ class TestDriveConfirmed extends Notification
             ->line('Data: ' . $this->testDrive->preferred_date)
             ->line('Hora: ' . $this->testDrive->preferred_time)
             ->line('Carro: ' . $this->testDrive->car->name)
-            ->action('Ver Mais Detalhes', url('/testdrives/' . $this->testDrive->id))
+            ->action('Voltar', url('/'))
             ->line('Obrigado por agendar conosco!');
     }
 

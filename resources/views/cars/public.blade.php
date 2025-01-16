@@ -38,7 +38,7 @@
                     
                     <li class="nav-item"><a href="#" class="nav-link">Test Drive</a></li>
 
-                    <li class="nav-item"><a href="contactos.html" class="nav-link">Contactos</a></li>
+                    <li class="nav-item"><a href="{{ url('/#contactos') }}" class="nav-link">Contactos</a></li>
 
     
                     <ul class="navbar-nav ml-auto">

@@ -93,6 +93,7 @@
     </style>
 </head>
 <body>
+<br><br>
     <div class="email-container">
         <div class="email-header">
             <h2>Pedido de Suporte</h2>
