@@ -104,6 +104,13 @@ use App\Http\Controllers\ContactController;
 
 Route::post('/contact-admin', [ContactController::class, 'send'])->name('contact.admin');
 
+//Servico
+use App\Http\Controllers\ServiceController;
+
+Route::post('/service/store', [ServiceController::class, 'store'])->name('service.store');
+
+Route::get('/services', [ServiceController::class, 'index'])->name('service.index');
+
 
 // Exemplo de rota para a página de termos e condições
 Route::get('/termos', function () {

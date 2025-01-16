@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="#aboutus" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="{{ route('service.index') }}" class="nav-link">Services</a></li>
 
                     <li class="nav-item">
                       <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
@@ -116,80 +116,179 @@
     </div>
 
 
+<!-- Início Serviço -->
+<section class="ftco-section ftco-no-pt bg-light">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col-md-12 featured-top">
+        <div class="row no-gutters">
+          <div class="col-md-4 d-flex align-items-center">
+            <!-- Formulário -->
+            <form action="{{ route('service.store') }}" method="POST" class="request-form ftco-animate bg-primary">
+              @csrf
+              <h2>Agendar Serviço</h2>
 
-<!-- Test Drive -->
-     <section class="ftco-section ftco-no-pt bg-light">
-    	<div class="container">
-    		<div class="row no-gutters">
-    			<div class="col-md-12	featured-top">
-    				<div class="row no-gutters">
-	  					<div class="col-md-4 d-flex align-items-center">
-	  						<form action="#" class="request-form ftco-animate bg-primary">
-		          		<h2>Agendar Serviço</h2>
-			    				<div class="form-group">
-			    					<label for="" class="label">Carro</label>
-			    					<input type="text" class="form-control" placeholder="Escolhe o modelo do teu carro...">
-			    				</div>
-			    				<div class="form-group">
-			    					<label for="" class="label">Concessionária</label>
-			    					<input type="text" class="form-control" placeholder="Escolhe a concessionária mais perto de ti">
-			    				</div>
-			    				<div class="d-flex">
-			    					<div class="form-group mr-2">
-			                <label for="" class="label">Data Entrega</label>
-			                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-			              </div>
-                    <div class="form-group mr-2">
-			                <label for="" class="label">Data-Recolha</label>
-			                <input type="text" class="form-control" id="book_pick_date" placeholder="...">
-			              </div>
-		              </div>
-		              <div class="form-group">
-		                <label for="" class="label">Serviço</label>
-		                <input type="text" class="form-control" id="servico" placeholder="Escolha o serviço desejado..">
-		              </div>
-			            <div class="form-group">
-			              <input type="submit" value="Agendar Serviço" class="btn btn-secondary py-3 px-4">
-			            </div>
-			    			</form>
-	  					</div>
-	  					<div class="col-md-8 d-flex align-items-center">
-	  						<div class="services-wrap rounded-right w-100">
-	  							<h3 class="heading-section mb-4">Aluga um carro conosco!</h3>
-	  							<div class="row d-flex mb-4">
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Escolhe a localização de recolha do veículo</h3>
-				                </div>
-					            </div>      
-					          </div>
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Escolhe o melhor negócio</h3>
-					              </div>
-					            </div>      
-					          </div>
-					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-					            <div class="services w-100 text-center">
-				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
-				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Reserva o teu carro</h3>
-					              </div>
-					            </div>      
-					          </div>
-					        </div>
-					        <p><a href="#" class="btn btn-primary py-3 px-4">Aluga conosco!</a></p>
-	  						</div>
-	  					</div>
-	  				</div>
-				</div>
-  		</div>
-    </section>
-<!-- Fim do TestDrive-->
+              <!-- Carro (Auto Complete) -->
+              <div class="form-group position-relative">
+                <label for="car-model" class="label">Carro</label>
+                <input type="text" id="car-model" name="car_model" class="form-control" placeholder="Escolhe o modelo do teu carro..." autocomplete="off">
+                <ul id="car-model-suggestions" class="suggestions-list"></ul>
+              </div>
+
+              <!-- Concessionária (Dropdown) -->
+              <div class="form-group">
+                <label for="dealership" class="label">Concessionária</label>
+                <select class="form-control" id="dealership" name="dealership" required>
+                  <option value="setubal">Setúbal</option>
+                  <option value="porto">Porto</option>
+                </select>
+              </div>
+
+              <!-- Data de Entrega -->
+              <div class="d-flex">
+                <div class="form-group mr-2">
+                  <label for="delivery-date" class="label">Data Entrega</label>
+                  <input type="date" class="form-control" id="delivery-date" name="delivery_date" required>
+                </div>
+
+                <!-- Data de Recolha (Automaticamente Calculada) -->
+                <div class="form-group mr-2">
+                  <label for="pickup-date" class="label">Data-Recolha</label>
+                  <input type="text" class="form-control" id="pickup-date" name="pickup_date" readonly required>
+                </div>
+              </div>
+
+              <!-- Serviço -->
+              <div class="form-group">
+                <label for="service" class="label">Serviço</label>
+                <select class="form-control" id="service" name="service" required>
+                  <option value="pneus">Mudança de Pneus</option>
+                  <option value="oleo">Troca de Óleo</option>
+                  <option value="revisao">Revisão</option>
+                  <option value="outro">Outro</option>
+              </select>
+              </div>
+
+              <div class="form-group">
+                <input type="submit" value="Agendar Serviço" class="btn btn-secondary py-3 px-4">
+              </div>
+            </form>
+          </div>
+
+          <!-- Aluguel de Carro -->
+          <div class="col-md-8 d-flex align-items-center">
+            <div class="services-wrap rounded-right w-100">
+              <h3 class="heading-section mb-4">Aluga um carro conosco!</h3>
+              <!-- Aqui você pode manter as opções de aluguer de carro -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Script para Autocompletar Carros e Calcular Data de Recolha -->
+<script>
+// Função para filtrar os carros enquanto o usuário digita
+document.getElementById('car-model').addEventListener('input', function() {
+  let query = this.value;
+  if (query.length > 2) {
+      fetch(`/search-cars?query=${query}`)
+          .then(response => response.json())
+          .then(data => {
+              const suggestionsList = document.getElementById('car-model-suggestions');
+              suggestionsList.innerHTML = ''; // Limpa as sugestões anteriores
+              data.forEach(car => {
+                  const li = document.createElement('li');
+                  li.textContent = `${car.brand} ${car.name}`;
+                  li.classList.add('suggestion-item'); // Classe para item de sugestão
+                  li.addEventListener('click', function() {
+                      document.getElementById('car-model').value = `${car.brand} ${car.name}`;
+                      suggestionsList.innerHTML = ''; // Limpa as sugestões após seleção
+                  });
+                  suggestionsList.appendChild(li);
+              });
+          });
+  }
+});
+
+// Função para calcular a data de recolha (uma semana após a data de entrega)
+document.getElementById('delivery-date').addEventListener('change', function() {
+  let deliveryDate = new Date(this.value);
+  if (!isNaN(deliveryDate.getTime())) {
+      deliveryDate.setDate(deliveryDate.getDate() + 7); // Adiciona 7 dias
+      let pickupDate = deliveryDate.toISOString().split('T')[0]; // Formato yyyy-mm-dd
+      document.getElementById('pickup-date').value = pickupDate;
+  }
+});
+</script>
+
+<!-- CSS para a lista de sugestões -->
+<style>
+  #car-model-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  .suggestion-item:active {
+    background-color: #ddd;
+  }
+
+  /* Ajuste de estilo para os campos select */
+  select.form-control {
+      background-color: #f8f9fa !important;  /* Cor de fundo clara */
+      color: #333 !important;  /* Cor do texto escura */
+      border: 1px solid #ccc !important;  /* Borda sutil */
+      padding: 10px;  /* Padding confortável */
+      font-size: 16px;  /* Tamanho de fonte legível */
+      appearance: none;  /* Remover o estilo padrão do select */
+      -webkit-appearance: none; /* Para Safari */
+      -moz-appearance: none; /* Para Firefox */
+  }
+
+  /* Ajuste de cor para as opções dentro do dropdown */
+  select.form-control option {
+      background-color: #ffffff !important;  /* Cor de fundo das opções */
+      color: #333 !important;  /* Cor do texto das opções */
+  }
+
+  /* Cor do texto do campo de input */
+  input.form-control {
+      color: #333 !important;  /* Garante que o texto no campo input seja visível */
+  }
+
+  /* Estilo de foco do select */
+  select.form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+</style>
+<!-- Fim do Serviço-->
+
+
+<!-- Fim do Serviço -->
 
 
 
