@@ -37,8 +37,8 @@
                     <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Data de Entrega do Veículo</th>
                     <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Data de Retirada do Veículo</th>
                     <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Serviço</th>
-                    <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Nome do Usuário</th> <!-- Adicionado -->
-                    <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Email do Usuário</th> <!-- Adicionado -->
+                    <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Nome do Utilizador</th> 
+                    <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Email do Utilizador</th> 
                     <th class="border p-2 text-left text-gray-800 dark:text-gray-100">Ações</th>
                 </tr>
             </thead>
@@ -51,18 +51,18 @@
                     <td class="border p-2 text-gray-800 dark:text-gray-100">{{ $service->pickup_date }}</td>
                     <td class="border p-2 text-gray-800 dark:text-gray-100">{{ $service->service }}</td>
                     <td class="border p-2 text-gray-800 dark:text-gray-100">
-                        {{ $service->user ? $service->user->name : 'Utilizador não encontrado' }}
+                        {{ $service->user_name ?? 'Utilizador não encontrado' }}
                     </td>
                     <td class="border p-2 text-gray-800 dark:text-gray-100">
-                        {{ $service->user ? $service->user->email : 'Email não disponível' }}
+                        {{ $service->user_email ?? 'Email não disponível' }}
                     </td>
                     <td class="border p-2">
                         <a href="{{ route('admin.services.edit', $service) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
-                        <form action="{{ route('admin.services.destroy', $service) }}" method="POST" style="display:inline">
+                        <form id="deleteForm-{{ $service->id }}" action="{{ route('admin.services.destroy', $service) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-2 py-1 text-white bg-red-500 rounded-md"
-                                onclick="return confirm('Tem certeza que deseja remover este serviço?')">
+                            <button type="button" class="px-2 py-1 text-white bg-red-500 rounded-md"
+                                onclick="confirmDelete({{ $service->id }})">
                                 Remover
                             </button>
                         </form>
@@ -77,4 +77,25 @@
             {{ $services->appends(['search' => request('search')])->links() }}
         </div>
     </div>
+
+    <!-- Adicionando o SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(serviceId) {
+            Swal.fire({
+                title: 'Tens a certeza?',
+                text: 'Não podes reverter esta ação!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, apagar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm-' + serviceId).submit();
+                }
+            });
+        }
+    </script>
 </x-app-layout>
