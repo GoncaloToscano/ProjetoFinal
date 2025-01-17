@@ -26,6 +26,9 @@
 <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <!-- Include Bootstrap CSS -->
   </head>
 
@@ -352,54 +355,71 @@ document.getElementById('delivery-date').addEventListener('change', function() {
 			</div>
 		</section>
 
-		<section class="ftco-section" id="services">
-			<div class="container">
-				<div class="row justify-content-center mb-5">
+    <section class="ftco-section" id="services">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-          	<span class="subheading">Services</span>
-            <h2 class="mb-3">Our Latest Services</h2>
+            <span class="subheading">Serviços</span>
+            <h2 class="mb-3">Os nossos serviços mais requisitados</h2>
           </div>
         </div>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="services services-2 w-100 text-center">
-            	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
-            	<div class="text w-100">
-                <h3 class="heading mb-2">Wedding Ceremony</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+        <div class="row">
+          <!-- Troca de Óleo -->
+          <div class="col-md-3">
+            <div class="services services-2 w-100 text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+                <span class="flaticon-oil"></span> <!-- Ícone de troca de óleo -->
+              </div>
+              <div class="text w-100">
+                <h3 class="heading mb-2">Troca de Óleo</h3>
+                <p>Realizamos a troca de óleo do motor com produtos de alta qualidade para manter seu veículo em perfeito estado.</p>
               </div>
             </div>
-					</div>
-					<div class="col-md-3">
-						<div class="services services-2 w-100 text-center">
-            	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
-            	<div class="text w-100">
-                <h3 class="heading mb-2">City Transfer</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          </div>
+    
+          <!-- Revisão Completa -->
+          <div class="col-md-3">
+            <div class="services services-2 w-100 text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+                <span class="flaticon-tools"></span> <!-- Ícone de ferramentas -->
+              </div>
+              <div class="text w-100">
+                <h3 class="heading mb-2">Revisão Completa</h3>
+                <p>Inspecionamos o motor, suspensão, freios e mais para garantir a segurança e desempenho do seu carro.</p>
               </div>
             </div>
-					</div>
-					<div class="col-md-3">
-						<div class="services services-2 w-100 text-center">
-            	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car"></span></div>
-            	<div class="text w-100">
-                <h3 class="heading mb-2">Airport Transfer</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          </div>
+    
+          <!-- Alinhamento e Balanceamento -->
+          <div class="col-md-3">
+            <div class="services services-2 w-100 text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+                <span class="flaticon-tire"></span> <!-- Ícone de roda -->
+              </div>
+              <div class="text w-100">
+                <h3 class="heading mb-2">Alinhamento e Balanceamento</h3>
+                <p>Prolongue a vida útil dos pneus e aumente a segurança do seu veículo com nossos serviços especializados.</p>
               </div>
             </div>
-					</div>
-					<div class="col-md-3">
-						<div class="services services-2 w-100 text-center">
-            	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
-            	<div class="text w-100">
-                <h3 class="heading mb-2">Whole City Tour</h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          </div>
+    
+          <!-- Diagnóstico Eletrônico -->
+          <div class="col-md-3">
+            <div class="services services-2 w-100 text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+                <span class="flaticon-diagnostics"></span> <!-- Ícone de diagnóstico eletrônico -->
+              </div>
+              <div class="text w-100">
+                <h3 class="heading mb-2">Diagnóstico Eletrônico</h3>
+                <p>Identificamos e corrigimos falhas nos sistemas eletrônicos do veículo com tecnologia de ponta.</p>
               </div>
             </div>
-					</div>
-				</div>
-			</div>
-		</section>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
 
 		<section class="ftco-section ftco-intro" style="background-image: url(assets/images/bg_3.jpg);">
 			<div class="overlay"></div>

@@ -75,11 +75,12 @@
 </x-sidebar.link>
 
 
-<x-sidebar.link title="Serviços" href="#">
+<x-sidebar.link title="Serviços" href="{{ route('admin.services.index') }}">
     <x-slot name="icon">
         <i class="fas fa-cogs"></i>
     </x-slot>
 </x-sidebar.link>
+
 
 <x-sidebar.link title="Descontos" href="#">
     <x-slot name="icon">
