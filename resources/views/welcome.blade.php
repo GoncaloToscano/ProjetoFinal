@@ -293,10 +293,6 @@ document.getElementById('delivery-date').addEventListener('change', function() {
 <!-- Fim do Serviço-->
 
 
-<!-- Fim do Serviço -->
-
-
-
 <!--Recenetemente adicionados 4 -->
 <section class="ftco-section ftco-no-pt bg-light">
   <div class="container">

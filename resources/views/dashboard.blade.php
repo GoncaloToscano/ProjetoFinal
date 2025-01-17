@@ -10,8 +10,8 @@
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-gray-800 dark:text-white">
         {{ __("Login feito com sucesso, bem-vindo!") }}
         
-        <!-- Contadores de Usuários, Funcionários, Carros e Test-Drives -->
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-4 mt-6">
+        <!-- Contadores de Usuários, Funcionários, Carros, Test-Drives e Serviços -->
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-5 mt-6">
             <!-- Card de Usuários -->
             <div class="bg-blue-100 dark:bg-blue-600 p-4 rounded-lg shadow-md flex items-center gap-4">
                 <i class="fas fa-user-circle text-4xl text-blue-600 dark:text-blue-200"></i>
@@ -39,12 +39,21 @@
                 </div>
             </div>
 
-            <!-- Card de Test-Drives com ícone de Calendário -->
+            <!-- Card de Test-Drives -->
             <div class="bg-red-100 dark:bg-red-600 p-4 rounded-lg shadow-md flex items-center gap-4">
                 <i class="fas fa-calendar text-4xl text-red-600 dark:text-red-200"></i>
                 <div>
                     <h5 class="text-xl font-semibold">Total de Test-Drives</h5>
                     <p class="text-3xl font-bold">{{ $testDrivesCount }}</p>
+                </div>
+            </div>
+
+            <!-- Card de Serviços -->
+            <div class="bg-green-100 dark:bg-green-600 p-4 rounded-lg shadow-md flex items-center gap-4">
+                <i class="fas fa-tools text-4xl text-green-600 dark:text-green-200"></i>
+                <div>
+                    <h5 class="text-xl font-semibold">Total de Serviços</h5>
+                    <p class="text-3xl font-bold">{{ $servicesCount }}</p>
                 </div>
             </div>
         </div>
@@ -72,15 +81,16 @@
         var dashboardChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Usuários', 'Funcionários', 'Carros', 'Test-Drives'],
+                labels: ['Utilizadores', 'Funcionários', 'Carros', 'Test-Drives', 'Serviços'],
                 datasets: [{
                     label: 'Contagem',
-                    data: [{{ $usersCount }}, {{ $employeesCount }}, {{ $carsCount }}, {{ $testDrivesCount }}],
+                    data: [{{ $usersCount }}, {{ $employeesCount }}, {{ $carsCount }}, {{ $testDrivesCount }}, {{ $servicesCount }}],
                     backgroundColor: [
-                        'rgba(54, 162, 235, 0.8)',   // Azul para Usuários
+                        'rgba(54, 162, 235, 0.8)',   // Azul para Utilizadores
                         'rgba(153, 102, 255, 1)',   // Roxo para Funcionários
-                        'rgba(255, 159, 64, 0.8)',   // Laranja para Carros
-                        'rgba(255, 99, 132, 0.8)'    // Vermelho para Test-Drives
+                        'rgba(255, 159, 64, 0.8)',  // Laranja para Carros
+                        'rgba(255, 99, 132, 0.8)',  // Vermelho para Test-Drives
+                        'rgba(75, 192, 192, 0.8)'   // Verde para Serviços
                     ],
                     borderWidth: 1
                 }]
@@ -111,14 +121,14 @@
         // Gráfico de Área
         var areaCtx = document.getElementById('areaChart').getContext('2d');
         var areaChart = new Chart(areaCtx, {
-            type: 'line', // Utilizamos o tipo 'line' para o gráfico de área
+            type: 'line',
             data: {
-                labels: ['Usuários', 'Funcionários', 'Carros', 'Test-Drives'],
+                labels: ['Utilizadores', 'Funcionários', 'Carros', 'Test-Drives', 'Serviços'],
                 datasets: [{
                     label: 'Contagem',
-                    data: [{{ $usersCount }}, {{ $employeesCount }}, {{ $carsCount }}, {{ $testDrivesCount }}],
-                    borderColor: 'rgba(153, 102, 255, 1)', // Cor da linha
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)', // Cor do preenchimento
+                    data: [{{ $usersCount }}, {{ $employeesCount }}, {{ $carsCount }}, {{ $testDrivesCount }}, {{ $servicesCount }}],
+                    borderColor: 'rgba(75, 192, 192, 1)', // Cor da linha
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cor do preenchimento
                     fill: true, // Preenche a área abaixo da linha
                     borderWidth: 3
                 }]
