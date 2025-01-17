@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;  // Importação correta do Auth
 
 class ServiceController extends Controller
 {
     // Lado do Cliente: Visualização de Serviços
     public function index()
     {
+        
         $services = Service::all(); // Pega todos os serviços
         return view('services.index', compact('services')); // Retorna a view 'services.index' com os dados
     }
@@ -17,27 +19,40 @@ class ServiceController extends Controller
     // Lado do Cliente: Agendar um Serviço (já existente)
     public function store(Request $request)
     {
-        // Validar os dados
+        // Verificar se o usuário está logado
+        if (!Auth::check()) {
+            // Se não estiver logado, redireciona para a página de login
+            return redirect()->route('login')->with('error', 'Você precisa estar logado para agendar um serviço.');
+        }
+    
+        // Obter o usuário logado
+        $user = Auth::user();
+    
+        // Validação dos dados do formulário
         $request->validate([
-            'car_model' => 'required|string|max:255',
-            'dealership' => 'required|string|max:255',
+            'car_model' => 'required',
+            'dealership' => 'required',
             'delivery_date' => 'required|date',
-            'pickup_date' => 'required|date',
-            'service' => 'required|string', // Certifique-se de que o campo 'service' é válido
+            'service' => 'required',
         ]);
     
-        // Criar o serviço
+        // Criação do serviço e salvando na base de dados
         Service::create([
-            'car_model' => $request->car_model,
-            'dealership' => $request->dealership,
-            'delivery_date' => $request->delivery_date,
-            'pickup_date' => $request->pickup_date,
-            'service' => $request->service, // Aqui estamos enviando o valor de 'service'
+            'car_model' => $request->input('car_model'),
+            'dealership' => $request->input('dealership'),
+            'delivery_date' => $request->input('delivery_date'),
+            'pickup_date' => $request->input('pickup_date'),
+            'service' => $request->input('service'),
+            'user_name' => $user->name,   // Salvando o nome do usuário
+            'user_email' => $user->email, // Salvando o email do usuário
         ]);
     
-        // Redirecionar ou enviar uma resposta
-        return redirect()->route('service.index')->with('success', 'Serviço agendado com sucesso, irás receber uma notificação por email!');
+        // Redirecionar com sucesso
+        return redirect()->route('service.index')->with('success', 'Serviço agendado com sucesso!');
     }
+    
+    
+    
 
     // Administração: Listar Serviços
     public function adminIndex(Request $request) // Adicionar o Request aqui

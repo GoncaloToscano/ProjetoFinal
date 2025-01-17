@@ -238,19 +238,30 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="delivery_date">Data de Entrega</label>
+          <label for="delivery_date">Data de Entrega do Veículo</label>
           <input type="date" class="form-control" id="delivery_date" name="delivery_date" required>
         </div>
         <div class="form-group">
-          <label for="pickup_date">Data de Recolha</label>
-          <input type="date" class="form-control" id="pickup_date" name="pickup_date" required>
+          <label for="pickup_date">Data Prevista de Recolha</label>
+          <input type="date" class="form-control" id="pickup_date" name="pickup_date" readonly required>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
         </div>
       </form>
     </div>
   </section>
+  <script>
+    // Função para calcular e preencher automaticamente a data de recolha
+    document.getElementById('delivery_date').addEventListener('change', function() {
+      var deliveryDate = new Date(this.value);  // Obtém a data de entrega selecionada
+      if (!isNaN(deliveryDate.getTime())) {  // Verifica se a data de entrega é válida
+        deliveryDate.setDate(deliveryDate.getDate() + 7);  // Adiciona 7 dias à data de entrega
+        var pickupDate = deliveryDate.toISOString().split('T')[0];  // Formata a data de recolha no formato yyyy-mm-dd
+        document.getElementById('pickup_date').value = pickupDate;  // Preenche o campo de data de recolha
+      }
+    });
+    </script>
 
   <!-- Footer -->
   <footer class="ftco-footer ftco-bg-dark ftco-section">

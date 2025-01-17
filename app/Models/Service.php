@@ -9,17 +9,14 @@ class Service extends Model
 {
     use HasFactory;
 
-    // Propriedade fillable para permitir atribuição em massa
+    // Definir os campos que podem ser preenchidos
     protected $fillable = [
-        'car_model',
-        'dealership',
-        'delivery_date',
-        'pickup_date',
-        'service',
+        'car_model', 'dealership', 'delivery_date', 'pickup_date', 'service', 'user_id', 'user_name', 'user_email'
     ];
 
-    public function down()
+    // Relacionamento com o usuário (usuário que agendou o serviço)
+    public function user()
     {
-        Schema::dropIfExists('services');
+        return $this->belongsTo(User::class, 'user_id', 'id'); 
     }
 }

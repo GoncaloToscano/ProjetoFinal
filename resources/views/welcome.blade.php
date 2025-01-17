@@ -131,6 +131,7 @@
               @csrf
               <h2>Agendar Serviço</h2>
 
+              
               <!-- Carro (Auto Complete) -->
               <div class="form-group position-relative">
                 <label for="car-model" class="label">Carro</label>
@@ -226,6 +227,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
   }
 });
 </script>
+
 
 <!-- CSS para a lista de sugestões -->
 <style>
