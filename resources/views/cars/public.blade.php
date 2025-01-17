@@ -24,156 +24,152 @@
   
   <!-- Navbar Drive&Ride -->
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Drive<span>&Ride</span></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-    
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                      <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
-                    </li>
-                    
-                    <li class="nav-item"><a href="#" class="nav-link">Test Drive</a></li>
-
-                    <li class="nav-item"><a href="{{ url('/#contactos') }}" class="nav-link">Contactos</a></li>
-
-    
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                            <li class="nav-item">
-                                <a href="{{ url('/login') }}" class="nav-link">Login</a>
-                            </li>
-                        @endguest
-    
-                        @auth
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-    
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <!-- Link de Dashboard para administradores -->
-                                    @if(Auth::user()->role == 'admin')  <!-- Verifica a role do utilizador -->
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                            {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
-                                        </a>
-                                    @endif
-    
-                                    <!-- Link de Logout que aparece para todos os usuários -->
-                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
-                                        @csrf
-                                        <button type="submit" class="btn btn-link text-decoration-none">
-                                            {{ __('Logout') }}
-                                        </button>
-                                    </form>
-                                </div>
-                            </li>
-                        @endauth
-                    </ul>
-    
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    
-  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
     <div class="container">
-      <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-        <div class="col-md-9 ftco-animate pb-5">
-          <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
-          <h1 class="mb-3 bread">Choose Your Car</h1>
+        <a class="navbar-brand" href="#">Drive<span>&Ride</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="{{ url('/#aboutus') }}" class="nav-link">Sobre</a></li>
+                <li class="nav-item"><a href="{{ route('service.index') }}" class="nav-link">Serviços</a></li>
+
+                <li class="nav-item">
+                  <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
+                </li>
+
+              <li class="nav-item"><a href="{{ url('/#concessionarias') }}" class="nav-link">Concessionárias</a></li>
+                <li class="nav-item"><a href="{{ url('/#contactos') }}" class="nav-link">Contactos</a></li>
+
+                <ul class="navbar-nav ml-auto">
+                    @guest
+                        <li class="nav-item">
+                            <a href="{{ url('/login') }}" class="nav-link">Login</a>
+                        </li>
+                    @endguest
+
+                    @auth
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <!-- Link de Dashboard para administradores -->
+                                @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                        {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
+                                    </a>
+                                @endif
+
+                                <!-- Link de Logout que aparece para todos os usuários -->
+                                <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link text-decoration-none">
+                                        {{ __('Logout') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    @endauth
+                </ul>
+
+            </ul>
         </div>
-      </div>
     </div>
-  </section>
+</nav>
 
 
-  <!-- filtrar INICIO -->
-  <section class="ftco-section ftco-no-pt bg-light filter-section">
+    
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-        <h2 class="mb-2">Filtrar Carros</h2>
-        <form action="{{ route('cars.public.cars') }}" method="GET" class="row">
-          <!-- Campo Marca -->
-          <div class="col-md-3 mb-3">
-            <select name="brand" id="brand" class="form-control">
-              <option value="">Marca</option>
-              @foreach($brands as $brand)
-                <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>{{ $brand->brand }}</option>
-              @endforeach
-            </select>
-          </div>
-          
-          <!-- Campo Modelo (será preenchido com base na marca selecionada) -->
-          <div class="col-md-3 mb-3">
-            <select name="name" id="model" class="form-control">
-              <option value="">Modelo</option>
-              <!-- Os modelos serão carregados dinamicamente via JavaScript -->
-            </select>
-          </div>
+      <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start">
+          <div class="col-md-12 text-center ftco-animate">
+              <p class="breadcrumbs">
+                  <span class="mr-2">
+                      <a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a>
+                  </span>
+                  <span>Cars <i class="ion-ios-arrow-forward"></i></span>
+              </p>
+              <h1 class="mb-3 bread text-white">Escolha o Seu Carro</h1>
+              
+              <!-- Filtro sobre a imagem -->
+              <form action="{{ route('cars.public.cars') }}" method="GET" class="row justify-content-center mt-4">
+                  <!-- Campo Marca -->
+                  <div class="col-md-2 mb-3">
+                      <select name="brand" id="brand" class="form-control">
+                          <option value="">Marca</option>
+                          @foreach($brands as $brand)
+                              <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>{{ $brand->brand }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                  
+                  <!-- Campo Modelo -->
+                  <div class="col-md-2 mb-3">
+                      <select name="name" id="model" class="form-control">
+                          <option value="">Modelo</option>
+                      </select>
+                  </div>
 
-          <div class="col-md-2 mb-3">
-            <input type="number" name="min_price" class="form-control" placeholder="Preço Mín." value="{{ request('min_price') }}">
+                  <div class="col-md-2 mb-3">
+                      <input type="number" name="min_price" class="form-control" placeholder="Preço Mín." value="{{ request('min_price') }}">
+                  </div>
+                  <div class="col-md-2 mb-3">
+                      <input type="number" name="max_price" class="form-control" placeholder="Preço Máx." value="{{ request('max_price') }}">
+                  </div>
+                  <div class="col-md-2 mb-3">
+                      <select name="fuel_type" class="form-control">
+                          <option value="">Combustível</option>
+                          <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
+                          <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+                          <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
+                          <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
+                      </select>
+                  </div>
+                  <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary filter-btn px-4">Pesquisar</button>
+                      <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Resetar</a>
+                  </div>
+              </form>
           </div>
-          <div class="col-md-2 mb-3">
-            <input type="number" name="max_price" class="form-control" placeholder="Preço Máx." value="{{ request('max_price') }}">
-          </div>
-          <div class="col-md-2 mb-3">
-            <select name="fuel_type" class="form-control">
-              <option value="">Combustível</option>
-              <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
-              <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
-              <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
-              <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
-            </select>
-          </div>
-          <div class="col-md-12 text-center">
-            <button type="submit" class="btn btn-primary filter-btn">Pesquisar</button>
-            <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn">Resetar</a>
-          </div>
-        </form>
       </div>
-    </div>
   </div>
 </section>
 
 <script>
   // Função para atualizar os modelos com base na marca selecionada
   document.getElementById('brand').addEventListener('change', function () {
-    var brand = this.value;
+      var brand = this.value;
 
-    // Se não houver marca selecionada, limpar o campo de modelos
-    if (brand === '') {
-      document.getElementById('model').innerHTML = '<option value="">Modelo</option>';
-      return;
-    }
+      // Se não houver marca selecionada, limpar o campo de modelos
+      if (brand === '') {
+          document.getElementById('model').innerHTML = '<option value="">Modelo</option>';
+          return;
+      }
 
-    // Fazer uma requisição AJAX para obter os modelos da marca selecionada
-    fetch("{{ route('cars.models.byBrand') }}?brand=" + brand)
-      .then(response => response.json())
-      .then(models => {
-        var modelSelect = document.getElementById('model');
-        
-        // Limpar os modelos existentes
-        modelSelect.innerHTML = '<option value="">Modelo</option>';
+      // Fazer uma requisição AJAX para obter os modelos da marca selecionada
+      fetch("{{ route('cars.models.byBrand') }}?brand=" + brand)
+          .then(response => response.json())
+          .then(models => {
+              var modelSelect = document.getElementById('model');
+              
+              // Limpar os modelos existentes
+              modelSelect.innerHTML = '<option value="">Modelo</option>';
 
-        // Preencher o select com os modelos retornados
-        models.forEach(function(model) {
-          var option = document.createElement('option');
-          option.value = model.name;
-          option.textContent = model.name;
-          modelSelect.appendChild(option);
-        });
-      });
+              // Preencher o select com os modelos retornados
+              models.forEach(function(model) {
+                  var option = document.createElement('option');
+                  option.value = model.name;
+                  option.textContent = model.name;
+                  modelSelect.appendChild(option);
+              });
+          });
   });
 </script>
+
 
 
 <!-- filtrar FIM -->

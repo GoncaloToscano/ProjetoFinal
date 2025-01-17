@@ -23,58 +23,63 @@
 </head>
 <body>
   
-  <!-- Navbar Drive&Ride -->
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Drive<span>&Ride</span></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-    
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                      <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
-                    </li>
-                    
-                    <li class="nav-item"><a href="{{ url('/#contactos') }}" class="nav-link">Contactos</a></li>
+   <!-- Navbar Drive&Ride -->
+   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#">Drive<span>&Ride</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
 
-    
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                            <li class="nav-item">
-                                <a href="{{ url('/login') }}" class="nav-link">Login</a>
-                            </li>
-                        @endguest
-    
-                        @auth
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-    
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if(Auth::user()->role == 'admin')  
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                            {{ __('Dashboard') }} 
-                                        </a>
-                                    @endif
-    
-                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
-                                        @csrf
-                                        <button type="submit" class="btn btn-link text-decoration-none">
-                                            {{ __('Logout') }}
-                                        </button>
-                                    </form>
-                                </div>
-                            </li>
-                        @endauth
-                    </ul>
-    
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="{{ url('/#aboutus') }}" class="nav-link">Sobre</a></li>
+                <li class="nav-item"><a href="{{ route('service.index') }}" class="nav-link">Serviços</a></li>
+
+                <li class="nav-item">
+                  <a href="{{ route('cars.public.cars') }}" class="nav-link">Carros</a>
+                </li>
+
+              <li class="nav-item"><a href="{{ url('/#concessionarias') }}" class="nav-link">Concessionárias</a></li>
+                <li class="nav-item"><a href="{{ url('/#contactos') }}" class="nav-link">Contactos</a></li>
+
+                <ul class="navbar-nav ml-auto">
+                    @guest
+                        <li class="nav-item">
+                            <a href="{{ url('/login') }}" class="nav-link">Login</a>
+                        </li>
+                    @endguest
+
+                    @auth
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <!-- Link de Dashboard para administradores -->
+                                @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                        {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
+                                    </a>
+                                @endif
+
+                                <!-- Link de Logout que aparece para todos os usuários -->
+                                <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link text-decoration-none">
+                                        {{ __('Logout') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    @endauth
                 </ul>
-            </div>
+
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 
   <!-- Hero Section -->
