@@ -447,16 +447,41 @@
   <!-- Formulário 1 - Troca de Pneus -->
   <div id="form1" class="agendamento-form" style="display:none;">
     <div class="form-content">
+      <!-- Aviso de erro se o usuário não estiver logado -->
+      @if(session('error'))
+        <div class="alert alert-danger">
+          {{ session('error') }}
+        </div>
+      @endif
+
       <h3>Agendar Troca de Pneus</h3>
       <form action="{{ route('service.store') }}" method="POST">
         @csrf
+        @if(!Auth::check())
+        <div class="alert alert-warning">
+          Para solicitar um serviço, precisas estar logado. <a href="{{ route('login') }}">Clique aqui para fazer login.</a>
+        </div>
+        @endif
+
         <div class="form-group">
           <label for="car_model1">Modelo do Carro</label>
           <input type="text" class="form-control" id="car_model1" name="car_model" placeholder="Informe o modelo do seu carro" required>
         </div>
         <div class="form-group">
+          <label for="car_year1">Ano do Modelo</label>
+          <select class="form-control form-control-sm" id="car_year1" name="car_year" required>
+            @for ($year = 1990; $year <= 2025; $year++)
+              <option value="{{ $year }}">{{ $year }}</option>
+            @endfor
+          </select>
+        </div>
+        <div class="form-group">
           <label for="delivery_date1">Data de Entrega do Veículo</label>
-          <input type="date" class="form-control" id="delivery_date1" name="delivery_date" required>
+          <input type="date" class="form-control" id="delivery_date1" name="delivery_date" required onchange="calculatePickupDate('delivery_date1', 'pickup_date1')">
+        </div>
+        <div class="form-group">
+          <label for="pickup_date1">Data de Retirada do Veículo</label>
+          <input type="date" class="form-control" id="pickup_date1" name="pickup_date" readonly>
         </div>
         <div class="form-group">
           <label for="dealership1">Concessionária</label>
@@ -466,6 +491,7 @@
           </select>
         </div>
         <div class="form-group">
+          <input type="hidden" name="service" value="troca_de_pneus">
           <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
           <button type="button" class="btn btn-secondary" onclick="hideForm('form1')">Recolher Formulário</button>
         </div>
@@ -476,16 +502,41 @@
   <!-- Formulário 2 - Troca de Óleo -->
   <div id="form2" class="agendamento-form" style="display:none;">
     <div class="form-content">
+      <!-- Aviso de erro se o usuário não estiver logado -->
+      @if(session('error'))
+        <div class="alert alert-danger">
+          {{ session('error') }}
+        </div>
+      @endif
+
       <h3>Agendar Troca de Óleo</h3>
       <form action="{{ route('service.store') }}" method="POST">
         @csrf
+        @if(!Auth::check())
+        <div class="alert alert-warning">
+          Para solicitar um serviço, precisas estar logado. <a href="{{ route('login') }}">Clique aqui para fazer login.</a>
+        </div>
+        @endif
+
         <div class="form-group">
           <label for="car_model2">Modelo do Carro</label>
           <input type="text" class="form-control" id="car_model2" name="car_model" placeholder="Informe o modelo do seu carro" required>
         </div>
         <div class="form-group">
+          <label for="car_year2">Ano do Modelo</label>
+          <select class="form-control form-control-sm" id="car_year2" name="car_year" required>
+            @for ($year = 1990; $year <= 2025; $year++)
+              <option value="{{ $year }}">{{ $year }}</option>
+            @endfor
+          </select>
+        </div>
+        <div class="form-group">
           <label for="delivery_date2">Data de Entrega do Veículo</label>
-          <input type="date" class="form-control" id="delivery_date2" name="delivery_date" required>
+          <input type="date" class="form-control" id="delivery_date2" name="delivery_date" required onchange="calculatePickupDate('delivery_date2', 'pickup_date2')">
+        </div>
+        <div class="form-group">
+          <label for="pickup_date2">Data de Retirada do Veículo</label>
+          <input type="date" class="form-control" id="pickup_date2" name="pickup_date" readonly>
         </div>
         <div class="form-group">
           <label for="dealership2">Concessionária</label>
@@ -495,6 +546,7 @@
           </select>
         </div>
         <div class="form-group">
+          <input type="hidden" name="service" value="troca_de_oleo">
           <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
           <button type="button" class="btn btn-secondary" onclick="hideForm('form2')">Recolher Formulário</button>
         </div>
@@ -505,16 +557,41 @@
   <!-- Formulário 3 - Revisão Completa -->
   <div id="form3" class="agendamento-form" style="display:none;">
     <div class="form-content">
+      <!-- Aviso de erro se o usuário não estiver logado -->
+      @if(session('error'))
+        <div class="alert alert-danger">
+          {{ session('error') }}
+        </div>
+      @endif
+
       <h3>Agendar Revisão Completa</h3>
       <form action="{{ route('service.store') }}" method="POST">
         @csrf
+        @if(!Auth::check())
+        <div class="alert alert-warning">
+          Para solicitar um serviço, precisas estar logado. <a href="{{ route('login') }}">Clique aqui para fazer login.</a>
+        </div>
+        @endif
+
         <div class="form-group">
           <label for="car_model3">Modelo do Carro</label>
           <input type="text" class="form-control" id="car_model3" name="car_model" placeholder="Informe o modelo do seu carro" required>
         </div>
         <div class="form-group">
+          <label for="car_year3">Ano do Modelo</label>
+          <select class="form-control form-control-sm" id="car_year3" name="car_year" required>
+            @for ($year = 1990; $year <= 2025; $year++)
+              <option value="{{ $year }}">{{ $year }}</option>
+            @endfor
+          </select>
+        </div>
+        <div class="form-group">
           <label for="delivery_date3">Data de Entrega do Veículo</label>
-          <input type="date" class="form-control" id="delivery_date3" name="delivery_date" required>
+          <input type="date" class="form-control" id="delivery_date3" name="delivery_date" required onchange="calculatePickupDate('delivery_date3', 'pickup_date3')">
+        </div>
+        <div class="form-group">
+          <label for="pickup_date3">Data de Retirada do Veículo</label>
+          <input type="date" class="form-control" id="pickup_date3" name="pickup_date" readonly>
         </div>
         <div class="form-group">
           <label for="dealership3">Concessionária</label>
@@ -524,6 +601,7 @@
           </select>
         </div>
         <div class="form-group">
+          <input type="hidden" name="service" value="revisao_completa">
           <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
           <button type="button" class="btn btn-secondary" onclick="hideForm('form3')">Recolher Formulário</button>
         </div>
@@ -532,92 +610,367 @@
   </div>
 
   <!-- Formulário 4 - Lavagem Detalhada -->
-  <div id="form4" class="agendamento-form" style="display:none;">
-    <div class="form-content">
-      <h3>Agendar Lavagem Detalhada</h3>
-      <form action="{{ route('service.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-          <label for="car_model4">Modelo do Carro</label>
-          <input type="text" class="form-control" id="car_model4" name="car_model" placeholder="Informe o modelo do seu carro" required>
-        </div>
-        <div class="form-group">
-          <label for="delivery_date4">Data de Entrega do Veículo</label>
-          <input type="date" class="form-control" id="delivery_date4" name="delivery_date" required>
-        </div>
-        <div class="form-group">
-          <label for="dealership4">Concessionária</label>
-          <select class="form-control" id="dealership4" name="dealership" required>
-            <option value="setubal">Setúbal</option>
-            <option value="porto">Porto</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          <button type="button" class="btn btn-secondary" onclick="hideForm('form4')">Recolher Formulário</button>
-        </div>
-      </form>
-    </div>
-  </div>
+<div id="form4" class="agendamento-form" style="display:none;">
+  <div class="form-content">
+    <!-- Aviso de erro se o usuário não estiver logado -->
+    @if(session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+    @endif
 
-  <!-- Formulário 5 - Polimento -->
-  <div id="form5" class="agendamento-form" style="display:none;">
-    <div class="form-content">
-      <h3>Agendar Polimento</h3>
-      <form action="{{ route('service.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-          <label for="car_model5">Modelo do Carro</label>
-          <input type="text" class="form-control" id="car_model5" name="car_model" placeholder="Informe o modelo do seu carro" required>
-        </div>
-        <div class="form-group">
-          <label for="delivery_date5">Data de Entrega do Veículo</label>
-          <input type="date" class="form-control" id="delivery_date5" name="delivery_date" required>
-        </div>
-        <div class="form-group">
-          <label for="dealership5">Concessionária</label>
-          <select class="form-control" id="dealership5" name="dealership" required>
-            <option value="setubal">Setúbal</option>
-            <option value="porto">Porto</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          <button type="button" class="btn btn-secondary" onclick="hideForm('form5')">Recolher Formulário</button>
-        </div>
-      </form>
-    </div>
-  </div>
+    <h3>Agendar Lavagem Detalhada</h3>
+    <form action="{{ route('service.store') }}" method="POST">
+      @csrf
+      @if(!Auth::check())
+      <div class="alert alert-warning">
+        Para solicitar um serviço, precisas estar logado. <a href="{{ route('login') }}">Clique aqui para fazer login.</a>
+      </div>
+      @endif
 
-  <!-- Formulário 6 - Pintura -->
-  <div id="form6" class="agendamento-form" style="display:none;">
-    <div class="form-content">
-      <h3>Agendar Pintura</h3>
-      <form action="{{ route('service.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-          <label for="car_model6">Modelo do Carro</label>
-          <input type="text" class="form-control" id="car_model6" name="car_model" placeholder="Informe o modelo do seu carro" required>
-        </div>
-        <div class="form-group">
-          <label for="delivery_date6">Data de Entrega do Veículo</label>
-          <input type="date" class="form-control" id="delivery_date6" name="delivery_date" required>
-        </div>
-        <div class="form-group">
-          <label for="dealership6">Concessionária</label>
-          <select class="form-control" id="dealership6" name="dealership" required>
-            <option value="setubal">Setúbal</option>
-            <option value="porto">Porto</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          <button type="button" class="btn btn-secondary" onclick="hideForm('form6')">Recolher Formulário</button>
-        </div>
-      </form>
-    </div>
+      <div class="form-group">
+        <label for="car_model4">Modelo do Carro</label>
+        <input type="text" class="form-control" id="car_model4" name="car_model" placeholder="Informe o modelo do seu carro" required>
+      </div>
+      <div class="form-group">
+        <label for="car_year4">Ano do Modelo</label>
+        <select class="form-control form-control-sm" id="car_year4" name="car_year" required>
+          @for ($year = 1990; $year <= 2025; $year++)
+            <option value="{{ $year }}">{{ $year }}</option>
+          @endfor
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="delivery_date4">Data de Entrega do Veículo</label>
+        <input type="date" class="form-control" id="delivery_date4" name="delivery_date" required onchange="calculatePickupDate('delivery_date4', 'pickup_date4')">
+      </div>
+      <div class="form-group">
+        <label for="pickup_date4">Data de Retirada do Veículo</label>
+        <input type="date" class="form-control" id="pickup_date4" name="pickup_date" readonly>
+      </div>
+      <div class="form-group">
+        <label for="dealership4">Concessionária</label>
+        <select class="form-control" id="dealership4" name="dealership" required>
+          <option value="setubal">Setúbal</option>
+          <option value="porto">Porto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="hidden" name="service" value="lavagem_detalhada">
+        <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+        <button type="button" class="btn btn-secondary" onclick="hideForm('form4')">Recolher Formulário</button>
+      </div>
+    </form>
   </div>
 </div>
+
+<!-- Formulário 5 - Polimento -->
+<div id="form5" class="agendamento-form" style="display:none;">
+  <div class="form-content">
+    <!-- Aviso de erro se o usuário não estiver logado -->
+    @if(session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+    @endif
+
+    <h3>Agendar Polimento</h3>
+    <form action="{{ route('service.store') }}" method="POST">
+      @csrf
+      @if(!Auth::check())
+      <div class="alert alert-warning">
+        Para solicitar um serviço, precisas estar logado. <a href="{{ route('login') }}">Clique aqui para fazer login.</a>
+      </div>
+      @endif
+
+      <div class="form-group">
+        <label for="car_model5">Modelo do Carro</label>
+        <input type="text" class="form-control" id="car_model5" name="car_model" placeholder="Informe o modelo do seu carro" required>
+      </div>
+      <div class="form-group">
+        <label for="car_year5">Ano do Modelo</label>
+        <select class="form-control form-control-sm" id="car_year5" name="car_year" required>
+          @for ($year = 1990; $year <= 2025; $year++)
+            <option value="{{ $year }}">{{ $year }}</option>
+          @endfor
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="delivery_date5">Data de Entrega do Veículo</label>
+        <input type="date" class="form-control" id="delivery_date5" name="delivery_date" required onchange="calculatePickupDate('delivery_date5', 'pickup_date5')">
+      </div>
+      <div class="form-group">
+        <label for="pickup_date5">Data de Retirada do Veículo</label>
+        <input type="date" class="form-control" id="pickup_date5" name="pickup_date" readonly>
+      </div>
+      <div class="form-group">
+        <label for="dealership5">Concessionária</label>
+        <select class="form-control" id="dealership5" name="dealership" required>
+          <option value="setubal">Setúbal</option>
+          <option value="porto">Porto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="hidden" name="service" value="polimento">
+        <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+        <button type="button" class="btn btn-secondary" onclick="hideForm('form5')">Recolher Formulário</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Formulário 6 - Pintura -->
+<div id="form6" class="agendamento-form" style="display:none;">
+  <div class="form-content">
+    <!-- Aviso de erro se o usuário não estiver logado -->
+    @if(session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+    @endif
+
+    <h3>Agendar Pintura</h3>
+    <form action="{{ route('service.store') }}" method="POST">
+      @csrf
+      @if(!Auth::check())
+      <div class="alert alert-warning">
+        Para solicitar um serviço, precisas estar logado. <a href="{{ route('login') }}">Clique aqui para fazer login.</a>
+      </div>
+      @endif
+
+      <div class="form-group">
+        <label for="car_model6">Modelo do Carro</label>
+        <input type="text" class="form-control" id="car_model6" name="car_model" placeholder="Informe o modelo do seu carro" required>
+      </div>
+      <div class="form-group">
+        <label for="car_year6">Ano do Modelo</label>
+        <select class="form-control form-control-sm" id="car_year6" name="car_year" required>
+          @for ($year = 1990; $year <= 2025; $year++)
+            <option value="{{ $year }}">{{ $year }}</option>
+          @endfor
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="delivery_date6">Data de Entrega do Veículo</label>
+        <input type="date" class="form-control" id="delivery_date6" name="delivery_date" required onchange="calculatePickupDate('delivery_date6', 'pickup_date6')">
+      </div>
+      <div class="form-group">
+        <label for="pickup_date6">Data de Retirada do Veículo</label>
+        <input type="date" class="form-control" id="pickup_date6" name="pickup_date" readonly>
+      </div>
+      <div class="form-group">
+        <label for="dealership6">Concessionária</label>
+        <select class="form-control" id="dealership6" name="dealership" required>
+          <option value="setubal">Setúbal</option>
+          <option value="porto">Porto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="hidden" name="service" value="pintura">
+        <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+        <button type="button" class="btn btn-secondary" onclick="hideForm('form6')">Recolher Formulário</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- Seção de Preçário -->
+<section class="pricing-section py-5">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col-md-8">
+        <h2 class="mb-4">Preços dos Nossos Serviços</h2>
+        <p class="lead">Confira os preços dos nossos serviços, divididos por tipo de veículo e requisitos adicionais. Garantimos a melhor qualidade e preço justo.</p>
+      </div>
+    </div>
+
+    <!-- Tabela de Preços -->
+    <div class="row">
+      <!-- Serviço 1: Troca de Pneus -->
+      <div class="col-md-4 mb-4">
+        <div class="pricing-card shadow-sm rounded p-4">
+          <div class="icon mb-3">
+            <i class="fas fa-tire fa-3x text-primary"></i>
+          </div>
+          <h3 class="mb-3">Troca de Pneus</h3>
+          <p>A troca de pneus inclui a instalação e balanceamento de pneus novos. Preço baseado no tipo de pneu e modelo do carro.</p>
+          <ul class="list-unstyled">
+            <li><strong>Pneus convencionais:</strong> € 30,00</li>
+            <li><strong>Pneus esportivos:</strong> € 50,00</li>
+            <li><strong>Modelos de luxo:</strong> € 70,00</li>
+            <li><strong>Deslocamento adicional:</strong> € 10,00</li>
+          </ul>
+          <button class="btn btn-primary w-100" onclick="showForm('form1')">Agendar</button>
+        </div>
+      </div>
+
+      <!-- Serviço 2: Troca de Óleo -->
+      <div class="col-md-4 mb-4">
+        <div class="pricing-card shadow-sm rounded p-4">
+          <div class="icon mb-3">
+            <i class="fas fa-oil-can fa-3x text-primary"></i>
+          </div>
+          <h3 class="mb-3">Troca de Óleo</h3>
+          <p>Inclui a remoção do óleo antigo e substituição por óleo de alta qualidade. O preço varia conforme o tipo de óleo e o modelo do veículo.</p>
+          <ul class="list-unstyled">
+            <li><strong>Óleo convencional:</strong> € 20,00</li>
+            <li><strong>Óleo sintético:</strong> € 35,00</li>
+            <li><strong>Óleo para carros esportivos:</strong> € 50,00</li>
+          </ul>
+          <button class="btn btn-primary w-100" onclick="showForm('form2')">Agendar</button>
+        </div>
+      </div>
+
+      <!-- Serviço 3: Revisão Completa -->
+      <div class="col-md-4 mb-4">
+        <div class="pricing-card shadow-sm rounded p-4">
+          <div class="icon mb-3">
+            <i class="fas fa-cogs fa-3x text-primary"></i>
+          </div>
+          <h3 class="mb-3">Revisão Completa</h3>
+          <p>Inspeção detalhada de todos os sistemas do carro, garantindo o máximo desempenho. O preço depende do ano e modelo do carro.</p>
+          <ul class="list-unstyled">
+            <li><strong>Carros de até 5 anos:</strong> € 60,00</li>
+            <li><strong>Carros de 6 a 10 anos:</strong> € 80,00</li>
+            <li><strong>Carros acima de 10 anos:</strong> € 100,00</li>
+            <li><strong>Carros de luxo ou importados:</strong> € 120,00</li>
+          </ul>
+          <button class="btn btn-primary w-100" onclick="showForm('form3')">Agendar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segunda linha de preços -->
+    <div class="row">
+      <!-- Serviço 4: Lavagem Detalhada -->
+      <div class="col-md-4 mb-4">
+        <div class="pricing-card shadow-sm rounded p-4">
+          <div class="icon mb-3">
+            <i class="fas fa-car-wash fa-3x text-primary"></i>
+          </div>
+          <h3 class="mb-3">Lavagem Detalhada</h3>
+          <p>Limpeza completa do carro, com foco em todos os detalhes, tanto no exterior quanto no interior.</p>
+          <ul class="list-unstyled">
+            <li><strong>Lavagem simples:</strong> € 15,00</li>
+            <li><strong>Lavagem com polimento:</strong> € 30,00</li>
+            <li><strong>Lavagem de veículos grandes:</strong> € 40,00</li>
+          </ul>
+          <button class="btn btn-primary w-100" onclick="showForm('form4')">Agendar</button>
+        </div>
+      </div>
+
+      <!-- Serviço 5: Polimento -->
+      <div class="col-md-4 mb-4">
+        <div class="pricing-card shadow-sm rounded p-4">
+          <div class="icon mb-3">
+            <i class="fas fa-spray-can fa-3x text-primary"></i>
+          </div>
+          <h3 class="mb-3">Polimento</h3>
+          <p>Renove a pintura do seu carro, eliminando riscos e dando brilho à superfície.</p>
+          <ul class="list-unstyled">
+            <li><strong>Polimento simples:</strong> € 25,00</li>
+            <li><strong>Polimento com cera:</strong> € 40,00</li>
+            <li><strong>Polimento profundo:</strong> € 55,00</li>
+          </ul>
+          <button class="btn btn-primary w-100" onclick="showForm('form5')">Agendar</button>
+        </div>
+      </div>
+
+      <!-- Serviço 6: Pintura -->
+      <div class="col-md-4 mb-4">
+        <div class="pricing-card shadow-sm rounded p-4">
+          <div class="icon mb-3">
+            <i class="fas fa-paint-roller fa-3x text-primary"></i>
+          </div>
+          <h3 class="mb-3">Pintura</h3>
+          <p>Obtenha uma nova pintura ou retoque para restaurar a aparência do seu carro.</p>
+          <ul class="list-unstyled">
+            <li><strong>Retoque de pintura:</strong> € 50,00</li>
+            <li><strong>Pintura completa:</strong> € 180,00</li>
+            <li><strong>Pintura para carros de luxo:</strong> € 400,00</li>
+          </ul>
+          <button class="btn btn-primary w-100" onclick="showForm('form6')">Agendar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Estilos Customizados -->
+<style>
+  .pricing-section {
+    background-color: #f8f9fa;
+  }
+  .pricing-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  .pricing-card:hover {
+    transform: translateY(-10px);
+  }
+  .pricing-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .pricing-card p {
+    font-size: 1rem;
+    color: #555;
+  }
+  .icon {
+    color: #007bff;
+  }
+  .pricing-card ul {
+    margin-top: 10px;
+    padding-left: 0;
+  }
+  .pricing-card ul li {
+    font-size: 1rem;
+    color: #333;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  .pricing-card button {
+    margin-top: 20px;
+  }
+</style>
+
+<script>
+  // Função para calcular a data de retirada (7 dias após a data de entrega)
+  function calculatePickupDate(deliveryDateId, pickupDateId) {
+    var deliveryDate = document.getElementById(deliveryDateId).value;
+    
+    if (deliveryDate) {
+      var delivery = new Date(deliveryDate);
+      delivery.setDate(delivery.getDate() + 7); // Adiciona 7 dias à data de entrega
+      
+      // Formata a data para o formato YYYY-MM-DD
+      var day = ("0" + delivery.getDate()).slice(-2);
+      var month = ("0" + (delivery.getMonth() + 1)).slice(-2);
+      var year = delivery.getFullYear();
+      var pickupDate = year + "-" + month + "-" + day;
+      
+      document.getElementById(pickupDateId).value = pickupDate;
+    }
+  }
+</script>
+
+<script>
+  // JavaScript para concatenar 'car_model' e 'car_year' antes de enviar
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+      var carModel = form.querySelector('[name="car_model"]').value;
+      var carYear = form.querySelector('[name="car_year"]').value;
+      var fullCarModel = carModel + ' (' + carYear + ')';
+
+      form.querySelector('[name="car_model"]').value = fullCarModel;
+    });
+  });
+</script>
 
 <br><br>
 
@@ -686,7 +1039,8 @@
       </div>
     </div>
   </footer>
-
+<!-- Font Awesome for Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
   <script src="{{ asset('assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
   <script src="{{ asset('assets/js/popper.min.js') }}"></script>
