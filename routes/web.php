@@ -8,10 +8,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TestDriveController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\DashboardController; // Adicionei o controlador aqui
+use App\Http\Controllers\DashboardController; 
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SuporteController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NotificationController;
+use App\Mail\ComunicadoDriveAndRide;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------- 
@@ -61,6 +64,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit'); // Editar Serviço
     Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update'); // Atualizar Serviço
     Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy'); // Remover Serviço
+
+
 });
 
 // Grupo de rotas protegidas por autenticação
@@ -115,7 +120,23 @@ Route::post('/contact-admin', [ContactController::class, 'send'])->name('contact
 Route::post('/service/store', [ServiceController::class, 'store'])->name('service.store');
 Route::get('/services', [ServiceController::class, 'index'])->name('service.index');
 
-// Exemplo de rota para a página de termos e condições
+ // Página principal de notificações (formulário de envio)
+ Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
+ 
+ // routes/web.php
+
+ Route::middleware(['auth'])->group(function () {
+     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+     Route::post('/notifications/send', [NotificationController::class, 'send'])->name('notifications.send');
+ });
+ 
+ Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+});
+
+
+ // Exemplo de rota para a página de termos e condições
 Route::get('/termos', function () {
     return view('terms');  // A página de termos
 })->name('terms');

@@ -341,7 +341,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
     <section class="ftco-section ftco-about" id="aboutus">
 			<div class="container">
 				<div class="row no-gutters">
-					<div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(assets/images/about.jpg);">
+					<div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(assets/images/image_1.jpg);">
 					</div>
 					<div class="col-md-6 wrap-about ftco-animate">
 	          <div class="heading-section heading-section-white pl-md-5">
@@ -425,7 +425,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
     
     
 
-		<section class="ftco-section ftco-intro" style="background-image: url(assets/images/bg_3.jpg);">
+		<section class="ftco-section ftco-intro" style="background-image: url(assets/images/image_6.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row justify-content-end">
@@ -675,8 +675,8 @@ document.getElementById('delivery-date').addEventListener('change', function() {
               <h2 class="ftco-heading-2">Informações</h2>
               <ul class="list-unstyled">
                 <li><a href="#aboutus" class="py-2 d-block">Sobre nós</a></li>
-                <li><a href="#services" class="py-2 d-block">Serviços</a></li>
-                <li><a href="#" class="py-2 d-block">Termos e Condições</a></li>
+                <li><a href="{{ route('service.index') }}" class="py-2 d-block">Serviços</a></li>
+                <li><a href="{{ route('terms') }}" class="py-2 d-block">Termos e Condições</a></li>
                 <li><a href="#" class="py-2 d-block">Privacidade  &amp; Política de Cookies</a></li>
               </ul>
             </div>

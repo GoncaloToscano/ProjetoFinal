@@ -82,7 +82,7 @@
 </x-sidebar.link>
 
 
-<x-sidebar.link title="Notificar" href="#">
+<x-sidebar.link title="Notificar" href="{{ route('notifications.index') }}">
     <x-slot name="icon">
         <i class="fas fa-bell"></i>
     </x-slot>
