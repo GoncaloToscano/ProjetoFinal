@@ -169,15 +169,10 @@
           });
   });
 </script>
-
-
-
 <!-- filtrar FIM -->
 
-
-
 <!-- Car listing section starts here -->
-<section class="ftco-section ftco-no-pt bg-light">
+<section id="carsection" class="ftco-section ftco-no-pt bg-light">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 heading-section text-center ftco-animate mb-5">

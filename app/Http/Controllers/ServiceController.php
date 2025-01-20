@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;  // Importação correta do Auth
+use App\Mail\ServiceScheduled;
+use Illuminate\Support\Facades\Mail;
 
 class ServiceController extends Controller
 {
@@ -18,38 +20,43 @@ class ServiceController extends Controller
 
     // Lado do Cliente: Agendar um Serviço (já existente)
     public function store(Request $request)
-    {
-        // Verificar se o usuário está logado
-        if (!Auth::check()) {
-            // Se não estiver logado, redireciona para a página de login
-            return redirect()->route('login')->with('error', 'Você precisa estar logado para agendar um serviço.');
-        }
-    
-        // Obter o usuário logado
-        $user = Auth::user();
-    
-        // Validação dos dados do formulário
-        $request->validate([
-            'car_model' => 'required',
-            'dealership' => 'required',
-            'delivery_date' => 'required|date',
-            'service' => 'required',
-        ]);
-    
-        // Criação do serviço e salvando na base de dados
-        Service::create([
-            'car_model' => $request->input('car_model'),
-            'dealership' => $request->input('dealership'),
-            'delivery_date' => $request->input('delivery_date'),
-            'pickup_date' => $request->input('pickup_date'),
-            'service' => $request->input('service'),
-            'user_name' => $user->name,   // Salvando o nome do usuário
-            'user_email' => $user->email, // Salvando o email do usuário
-        ]);
-    
-        // Redirecionar com sucesso
-        return redirect()->route('service.index')->with('success', 'Serviço agendado com sucesso!');
+{
+    // Verificar se o usuário está logado
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Você precisa estar logado para agendar um serviço.');
     }
+
+    // Obter o usuário logado
+    $user = Auth::user();
+
+    // Validação dos dados do formulário
+    $request->validate([
+        'car_model' => 'required',
+        'dealership' => 'required',
+        'delivery_date' => 'required|date',
+        'service' => 'required',
+    ]);
+
+    // Dados do serviço
+    $serviceData = [
+        'car_model' => $request->input('car_model'),
+        'dealership' => $request->input('dealership'),
+        'delivery_date' => $request->input('delivery_date'),
+        'pickup_date' => $request->input('pickup_date'),
+        'service' => $request->input('service'),
+        'user_name' => $user->name,
+        'user_email' => $user->email,
+    ];
+
+    // Criação do serviço e salvando na base de dados
+    Service::create($serviceData);
+
+    // Envio do e-mail
+    Mail::to($user->email)->send(new ServiceScheduled($serviceData));
+
+    // Redirecionar com sucesso
+    return redirect()->route('service.index')->with('success', 'Serviço agendado com sucesso! Receberás um e-mail de confirmação.');
+}
     
     
     

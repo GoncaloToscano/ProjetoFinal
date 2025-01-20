@@ -166,13 +166,19 @@
               <div class="form-group">
                 <label for="service" class="label">Serviço</label>
                 <select class="form-control" id="service" name="service" required>
-                  <option value="pneus">Mudança de Pneus</option>
-                  <option value="oleo">Troca de Óleo</option>
-                  <option value="revisao">Revisão</option>
-                  <option value="outro">Outro</option>
-              </select>
+                    <option value="Revisão">Revisão</option>
+                    <option value="Mudança de Pneus">Mudança de Pneus</option>
+                    <option value="Troca de Óleo">Troca de Óleo</option>
+                    <option value="Lavagem Detalhada">Lavagem Detalhada</option>
+                    <option value="Polimento">Polimento</option>
+                    <option value="Pintura">Pintura</option>
+                    <option value="Substituição de Bateria">Substituição de Bateria</option>
+                    <option value="Diagnóstico de Motor">Diagnóstico de Motor</option>
+                    <option value="Manutenção de Ar Condicionado">Manutenção de Ar Condicionado</option>
+                    <option value="Outro">Outro</option>
+                </select>
               </div>
-
+            
               <div class="form-group">
                 <input type="submit" value="Agendar Serviço" class="btn btn-secondary py-3 px-4">
               </div>
