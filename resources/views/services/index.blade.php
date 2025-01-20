@@ -19,7 +19,125 @@
     <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+     /* Estilo das imagens e do layout de serviços */
+.services-section .service-item {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Garante que a imagem se ajusta dentro do container */
+    transition: transform 0.3s ease-in-out;
+}
 
+.services-section .service-item:hover {
+    transform: translateY(-10px); /* Efeito de elevação ao passar o mouse */
+}
+
+.service-image {
+    height: 200px; /* Define uma altura fixa para todas as imagens */
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Assegura que a imagem preenche todo o container sem distorcer */
+}
+
+.services-section h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.services-section p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.services-section .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.services-section .btn:hover {
+    background-color: #0056b3;
+}
+
+    /* Estilo para os formulários */
+    .agendamento-form {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .agendamento-form h3 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group button {
+      margin-top: 10px;
+    }
+
+    .form-content {
+      flex: 1;
+    }
+
+    /* Estilo para os botões */
+    .btn-primary, .btn-secondary {
+      margin-right: 10px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+
+    .btn-primary:hover, .btn-secondary:hover {
+      opacity: 0.9;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .agendamento-form {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .form-image {
+        padding-left: 0;
+        flex: 0 0 100%; /* A imagem fica abaixo do formulário em telas pequenas */
+        margin-top: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   
@@ -203,58 +321,6 @@
         animation: slideUp 0.5s ease forwards;
     }
 
-    /* Estilo das imagens e do layout de serviços */
-.services-section .service-item {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Garante que a imagem se ajusta dentro do container */
-    transition: transform 0.3s ease-in-out;
-}
-
-.services-section .service-item:hover {
-    transform: translateY(-10px); /* Efeito de elevação ao passar o mouse */
-}
-
-.service-image {
-    height: 200px; /* Define uma altura fixa para todas as imagens */
-    overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Assegura que a imagem preenche todo o container sem distorcer */
-}
-
-.services-section h2 {
-    font-size: 2.5rem;
-    color: #333;
-    font-weight: bold;
-}
-
-.services-section p {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 40px;
-}
-
-.services-section .btn {
-    font-size: 1rem;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.services-section .btn:hover {
-    background-color: #0056b3;
-}
 </style>
 
   <!-- Script para notificação -->
@@ -296,7 +362,7 @@
                 </div>
                 <h3 class="mb-3">Troca de Pneus</h3>
                 <p>Garanta a segurança do seu carro com a troca de pneus de alta qualidade.</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
+                <button class="btn btn-primary" onclick="showForm('form1')">Agendar</button>
               </div>
             </div>
             <!-- Serviço 2 -->
@@ -307,7 +373,7 @@
                 </div>
                 <h3 class="mb-3">Troca de Óleo</h3>
                 <p>Mantenha seu motor em perfeitas condições com uma troca de óleo profissional.</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
+                <button class="btn btn-primary" onclick="showForm('form2')">Agendar</button>
               </div>
             </div>
             <!-- Serviço 3 -->
@@ -318,7 +384,7 @@
                 </div>
                 <h3 class="mb-3">Revisão Completa</h3>
                 <p>Revise todos os sistemas do seu carro para garantir o máximo de desempenho.</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
+                <button class="btn btn-primary" onclick="showForm('form3')">Agendar</button>
               </div>
             </div>
           </div>
@@ -326,7 +392,7 @@
         <!-- Segunda linha de serviços -->
         <div class="carousel-item">
           <div class="row">
-            <!-- Serviço 1 -->
+            <!-- Serviço 4 -->
             <div class="col-md-4 mb-4 d-flex">
               <div class="service-item bg-light p-4 text-center d-flex flex-column">
                 <div class="service-image">
@@ -334,10 +400,10 @@
                 </div>
                 <h3 class="mb-3">Lavagem Detalhada</h3>
                 <p>Deixe seu carro limpo e impecável com nossa lavagem detalhada, cuidando de cada detalhe.</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
+                <button class="btn btn-primary" onclick="showForm('form4')">Agendar</button>
               </div>
             </div>
-            <!-- Serviço 2 -->
+            <!-- Serviço 5 -->
             <div class="col-md-4 mb-4 d-flex">
               <div class="service-item bg-light p-4 text-center d-flex flex-column">
                 <div class="service-image">
@@ -345,10 +411,10 @@
                 </div>
                 <h3 class="mb-3">Polimento</h3>
                 <p>Renove a pintura do seu carro com nosso polimento, deixando-a brilhante e sem riscos.</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
+                <button class="btn btn-primary" onclick="showForm('form5')">Agendar</button>
               </div>
             </div>
-            <!-- Serviço 3 -->
+            <!-- Serviço 6 -->
             <div class="col-md-4 mb-4 d-flex">
               <div class="service-item bg-light p-4 text-center d-flex flex-column">
                 <div class="service-image">
@@ -356,50 +422,12 @@
                 </div>
                 <h3 class="mb-3">Pintura</h3>
                 <p>Obtenha uma nova pintura no seu carro ou recupere a aparência do seu carro com nosso retoque de pintura.</p>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
+                <button class="btn btn-primary" onclick="showForm('form6')">Agendar</button>
               </div>
             </div>
           </div>
-        </div>   
-        
-<!-- Terceira linha de serviços -->
-<div class="carousel-item">
-  <div class="row">
-    <!-- Serviço 1 -->
-    <div class="col-md-4 mb-4 d-flex">
-      <div class="service-item bg-light p-4 text-center d-flex flex-column">
-        <div class="service-image">
-          <img src="assets/images/lavagem_carros.jpg" alt="Substituição de Bateria" class="img-fluid">
         </div>
-        <h3 class="mb-3">Substituição de Bateria</h3>
-        <p>Troque sua bateria rapidamente e garanta o funcionamento do seu carro.</p>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
       </div>
-    </div>
-    <!-- Serviço 2 -->
-    <div class="col-md-4 mb-4 d-flex">
-      <div class="service-item bg-light p-4 text-center d-flex flex-column">
-        <div class="service-image">
-          <img src="assets/images/polimento_carro.jpg" alt="Diagnóstico de Motor" class="img-fluid">
-        </div>
-        <h3 class="mb-3">Diagnóstico de Motor</h3>
-        <p>Verifique a saúde do motor do seu carro com nosso diagnóstico completo.</p>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
-      </div>
-    </div>
-    <!-- Serviço 3 -->
-    <div class="col-md-4 mb-4 d-flex">
-      <div class="service-item bg-light p-4 text-center d-flex flex-column">
-        <div class="service-image">
-          <img src="assets/images/pintura_carro.jpg" alt="Manutenção de Ar Condicionado" class="img-fluid">
-        </div>
-        <h3 class="mb-3">Manutenção A/C</h3>
-        <p>Deixe o ar condicionado do seu carro funcionando perfeitamente.</p>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#scheduleModal">Agendar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
       <!-- Controles do Carrossel -->
       <a class="carousel-control-prev" href="#servicesCarousel" role="button" data-slide="prev">
@@ -415,104 +443,201 @@
 </section>
 
 
-<!-- Seção de Solicitação de Outro Serviço -->
-<section class="request-service-section py-5 bg-light">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center">
-        <h2 class="mb-4">Solicite Outro Serviço</h2>
-        <p>Se o serviço que você precisa não está listado acima, preencha o formulário abaixo e nós entraremos em contato com você para agendar o atendimento.</p>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <form action="#" method="POST" id="requestServiceForm">
-          <div class="form-group">
-            <label for="serviceType">Tipo de Serviço</label>
-            <input type="text" class="form-control" id="serviceType" name="serviceType" placeholder="Descreva o serviço desejado" required>
-          </div>
-          <div class="form-group">
-            <label for="customerName">Nome</label>
-            <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Seu nome completo" required>
-          </div>
-          <div class="form-group">
-            <label for="customerEmail">E-mail</label>
-            <input type="email" class="form-control" id="customerEmail" name="customerEmail" placeholder="Seu e-mail" required>
-          </div>
-          <div class="form-group">
-            <label for="customerPhone">Telefone</label>
-            <input type="tel" class="form-control" id="customerPhone" name="customerPhone" placeholder="Seu telefone" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Solicitar Serviço</button>
-        </form>
-      </div>
+<div class="container mt-5">
+  <!-- Formulário 1 - Troca de Pneus -->
+  <div id="form1" class="agendamento-form" style="display:none;">
+    <div class="form-content">
+      <h3>Agendar Troca de Pneus</h3>
+      <form action="{{ route('service.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="car_model1">Modelo do Carro</label>
+          <input type="text" class="form-control" id="car_model1" name="car_model" placeholder="Informe o modelo do seu carro" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery_date1">Data de Entrega do Veículo</label>
+          <input type="date" class="form-control" id="delivery_date1" name="delivery_date" required>
+        </div>
+        <div class="form-group">
+          <label for="dealership1">Concessionária</label>
+          <select class="form-control" id="dealership1" name="dealership" required>
+            <option value="setubal">Setúbal</option>
+            <option value="porto">Porto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="button" class="btn btn-secondary" onclick="hideForm('form1')">Recolher Formulário</button>
+        </div>
+      </form>
     </div>
   </div>
-</section>
 
+  <!-- Formulário 2 - Troca de Óleo -->
+  <div id="form2" class="agendamento-form" style="display:none;">
+    <div class="form-content">
+      <h3>Agendar Troca de Óleo</h3>
+      <form action="{{ route('service.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="car_model2">Modelo do Carro</label>
+          <input type="text" class="form-control" id="car_model2" name="car_model" placeholder="Informe o modelo do seu carro" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery_date2">Data de Entrega do Veículo</label>
+          <input type="date" class="form-control" id="delivery_date2" name="delivery_date" required>
+        </div>
+        <div class="form-group">
+          <label for="dealership2">Concessionária</label>
+          <select class="form-control" id="dealership2" name="dealership" required>
+            <option value="setubal">Setúbal</option>
+            <option value="porto">Porto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="button" class="btn btn-secondary" onclick="hideForm('form2')">Recolher Formulário</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-<!-- Modal para Agendamento de Serviço -->
-<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="scheduleModalLabel">Agendar Serviço</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('service.store') }}" method="POST">
-          @csrf
-          <div class="form-group">
-            <label for="service">Escolha o Serviço</label>
-            <select name="service" id="service" class="form-control" required>
-              <option value="pneus">Troca de Pneus</option>
-              <option value="oleo">Troca de Óleo</option>
-              <option value="revisao">Revisão Completa</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="car_model">Modelo do Carro</label>
-            <input type="text" class="form-control" id="car_model" name="car_model" placeholder="Informe o modelo do seu carro" required>
-          </div>
-          <div class="form-group">
-            <label for="dealership">Concessionária</label>
-            <select name="dealership" id="dealership" class="form-control" required>
-              <option value="setubal">Setúbal</option>
-              <option value="porto">Porto</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="delivery_date">Data de Entrega do Veículo</label>
-            <input type="date" class="form-control" id="delivery_date" name="delivery_date" required>
-          </div>
-          <div class="form-group">
-            <label for="pickup_date">Data Prevista de Recolha</label>
-            <input type="date" class="form-control" id="pickup_date" name="pickup_date" readonly required>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          </div>
-        </form>
-      </div>
+  <!-- Formulário 3 - Revisão Completa -->
+  <div id="form3" class="agendamento-form" style="display:none;">
+    <div class="form-content">
+      <h3>Agendar Revisão Completa</h3>
+      <form action="{{ route('service.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="car_model3">Modelo do Carro</label>
+          <input type="text" class="form-control" id="car_model3" name="car_model" placeholder="Informe o modelo do seu carro" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery_date3">Data de Entrega do Veículo</label>
+          <input type="date" class="form-control" id="delivery_date3" name="delivery_date" required>
+        </div>
+        <div class="form-group">
+          <label for="dealership3">Concessionária</label>
+          <select class="form-control" id="dealership3" name="dealership" required>
+            <option value="setubal">Setúbal</option>
+            <option value="porto">Porto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="button" class="btn btn-secondary" onclick="hideForm('form3')">Recolher Formulário</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Formulário 4 - Lavagem Detalhada -->
+  <div id="form4" class="agendamento-form" style="display:none;">
+    <div class="form-content">
+      <h3>Agendar Lavagem Detalhada</h3>
+      <form action="{{ route('service.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="car_model4">Modelo do Carro</label>
+          <input type="text" class="form-control" id="car_model4" name="car_model" placeholder="Informe o modelo do seu carro" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery_date4">Data de Entrega do Veículo</label>
+          <input type="date" class="form-control" id="delivery_date4" name="delivery_date" required>
+        </div>
+        <div class="form-group">
+          <label for="dealership4">Concessionária</label>
+          <select class="form-control" id="dealership4" name="dealership" required>
+            <option value="setubal">Setúbal</option>
+            <option value="porto">Porto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="button" class="btn btn-secondary" onclick="hideForm('form4')">Recolher Formulário</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Formulário 5 - Polimento -->
+  <div id="form5" class="agendamento-form" style="display:none;">
+    <div class="form-content">
+      <h3>Agendar Polimento</h3>
+      <form action="{{ route('service.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="car_model5">Modelo do Carro</label>
+          <input type="text" class="form-control" id="car_model5" name="car_model" placeholder="Informe o modelo do seu carro" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery_date5">Data de Entrega do Veículo</label>
+          <input type="date" class="form-control" id="delivery_date5" name="delivery_date" required>
+        </div>
+        <div class="form-group">
+          <label for="dealership5">Concessionária</label>
+          <select class="form-control" id="dealership5" name="dealership" required>
+            <option value="setubal">Setúbal</option>
+            <option value="porto">Porto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="button" class="btn btn-secondary" onclick="hideForm('form5')">Recolher Formulário</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Formulário 6 - Pintura -->
+  <div id="form6" class="agendamento-form" style="display:none;">
+    <div class="form-content">
+      <h3>Agendar Pintura</h3>
+      <form action="{{ route('service.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="car_model6">Modelo do Carro</label>
+          <input type="text" class="form-control" id="car_model6" name="car_model" placeholder="Informe o modelo do seu carro" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery_date6">Data de Entrega do Veículo</label>
+          <input type="date" class="form-control" id="delivery_date6" name="delivery_date" required>
+        </div>
+        <div class="form-group">
+          <label for="dealership6">Concessionária</label>
+          <select class="form-control" id="dealership6" name="dealership" required>
+            <option value="setubal">Setúbal</option>
+            <option value="porto">Porto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="button" class="btn btn-secondary" onclick="hideForm('form6')">Recolher Formulário</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
+<br><br>
+
 <script>
-  // Função para calcular e preencher automaticamente a data de recolha
-  document.getElementById('delivery_date').addEventListener('change', function() {
-    var deliveryDate = new Date(this.value);  // Obtém a data de entrega selecionada
-    if (!isNaN(deliveryDate.getTime())) {  // Verifica se a data de entrega é válida
-      deliveryDate.setDate(deliveryDate.getDate() + 7);  // Adiciona 7 dias à data de entrega
-      var pickupDate = deliveryDate.toISOString().split('T')[0];  // Formata a data de recolha no formato yyyy-mm-dd
-      document.getElementById('pickup_date').value = pickupDate;  // Preenche o campo de data de recolha
-    }
-  });
+  // Função para mostrar o formulário de agendamento
+  function showForm(formId) {
+    var forms = document.querySelectorAll('.agendamento-form');
+    forms.forEach(function(form) {
+      form.style.display = 'none'; // Esconde todos os formulários
+    });
+    var form = document.getElementById(formId);
+    form.style.display = 'block'; // Mostra o formulário específico
+  }
+
+  // Função para esconder o formulário de agendamento
+  function hideForm(formId) {
+    var form = document.getElementById(formId);
+    form.style.display = 'none'; // Esconde o formulário
+  }
 </script>
-
-
 
   <!-- Footer -->
   <footer class="ftco-footer ftco-bg-dark ftco-section">
