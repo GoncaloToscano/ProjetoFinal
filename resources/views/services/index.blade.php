@@ -362,7 +362,7 @@
                 </div>
                 <h3 class="mb-3">Troca de Pneus</h3>
                 <p>Garanta a segurança do seu carro com a troca de pneus de alta qualidade.</p>
-                <button class="btn btn-primary" onclick="showForm('form1')">Agendar</button>
+               <a href="#form1"><button class="btn btn-primary" onclick="showForm('form1')">Agendar</button></a> 
               </div>
             </div>
             <!-- Serviço 2 -->
@@ -373,7 +373,7 @@
                 </div>
                 <h3 class="mb-3">Troca de Óleo</h3>
                 <p>Mantenha seu motor em perfeitas condições com uma troca de óleo profissional.</p>
-                <button class="btn btn-primary" onclick="showForm('form2')">Agendar</button>
+                <a href="#form2"><button class="btn btn-primary" onclick="showForm('form2')">Agendar</button></a>
               </div>
             </div>
             <!-- Serviço 3 -->
@@ -384,7 +384,7 @@
                 </div>
                 <h3 class="mb-3">Revisão Completa</h3>
                 <p>Revise todos os sistemas do seu carro para garantir o máximo de desempenho.</p>
-                <button class="btn btn-primary" onclick="showForm('form3')">Agendar</button>
+                <a href="#form3"><button class="btn btn-primary" onclick="showForm('form3')">Agendar</button></a>
               </div>
             </div>
           </div>
@@ -400,7 +400,7 @@
                 </div>
                 <h3 class="mb-3">Lavagem Detalhada</h3>
                 <p>Deixe seu carro limpo e impecável com nossa lavagem detalhada, cuidando de cada detalhe.</p>
-                <button class="btn btn-primary" onclick="showForm('form4')">Agendar</button>
+                <a href="#form4"><button class="btn btn-primary" onclick="showForm('form4')">Agendar</button></a>
               </div>
             </div>
             <!-- Serviço 5 -->
@@ -411,7 +411,7 @@
                 </div>
                 <h3 class="mb-3">Polimento</h3>
                 <p>Renove a pintura do seu carro com nosso polimento, deixando-a brilhante e sem riscos.</p>
-                <button class="btn btn-primary" onclick="showForm('form5')">Agendar</button>
+                <a href="#form5"><button class="btn btn-primary" onclick="showForm('form5')">Agendar</button></a>
               </div>
             </div>
             <!-- Serviço 6 -->
@@ -422,7 +422,7 @@
                 </div>
                 <h3 class="mb-3">Pintura</h3>
                 <p>Obtenha uma nova pintura no seu carro ou recupere a aparência do seu carro com nosso retoque de pintura.</p>
-                <button class="btn btn-primary" onclick="showForm('form6')">Agendar</button>
+                <a href="form6"><button class="btn btn-primary" onclick="showForm('form6')">Agendar</button></a>
               </div>
             </div>
           </div>
@@ -907,6 +907,10 @@
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Garante que todos os cartões tenham a mesma altura */
   }
   .pricing-card:hover {
     transform: translateY(-10px);
@@ -914,30 +918,40 @@
   .pricing-card h3 {
     font-size: 1.5rem;
     font-weight: bold;
+    margin-bottom: 10px;
   }
   .pricing-card p {
     font-size: 1rem;
     color: #555;
+    flex-grow: 1; /* Faz o texto ocupar o espaço necessário */
   }
   .icon {
     color: #007bff;
+    margin-bottom: 10px;
   }
   .pricing-card ul {
     margin-top: 10px;
     padding-left: 0;
+    list-style-type: none;
   }
   .pricing-card ul li {
     font-size: 1rem;
     color: #333;
+    margin-bottom: 5px;
   }
   .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
+    margin-top: auto; /* Garante que o botão fique na parte inferior */
   }
   .pricing-card button {
     margin-top: 20px;
   }
+  .row > .col-md-4 {
+    display: flex;
+  }
 </style>
+
 
 <script>
   // Função para calcular a data de retirada (7 dias após a data de entrega)
@@ -972,8 +986,6 @@
   });
 </script>
 
-<br><br>
-
 <script>
   // Função para mostrar o formulário de agendamento
   function showForm(formId) {
@@ -990,6 +1002,26 @@
     var form = document.getElementById(formId);
     form.style.display = 'none'; // Esconde o formulário
   }
+</script>
+
+<script>
+  // Smooth scrolling para âncoras
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault(); // Previne o comportamento padrão de pular direto para o elemento
+
+      const targetID = this.getAttribute('href'); // Obtém o ID do destino
+      const targetElement = document.querySelector(targetID);
+
+      if (targetElement) {
+        // Realiza o scroll suave até o elemento
+        window.scrollTo({
+          top: targetElement.offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
 </script>
 
   <!-- Footer -->

@@ -82,15 +82,9 @@
 </x-sidebar.link>
 
 
-<x-sidebar.link title="Descontos" href="#">
+<x-sidebar.link title="Notificar" href="#">
     <x-slot name="icon">
-        <i class="fas fa-tags"></i>
-    </x-slot>
-</x-sidebar.link>
-
-<x-sidebar.link title="Concessionárias" href="#">
-    <x-slot name="icon">
-        <i class="fas fa-store"></i>
+        <i class="fas fa-bell"></i>
     </x-slot>
 </x-sidebar.link>
 
