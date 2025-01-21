@@ -23,14 +23,14 @@
         @endif
 
         <!-- Formulário de Pesquisa -->
-        <form method="GET" action="{{ route('users.index') }}" class="mb-4 flex justify-between">
+        <form method="GET" action="{{ route('users.index') }}" class="mb-4 flex flex-col gap-4 md:flex-row md:justify-between">
             <input 
                 type="text" 
                 name="search" 
                 value="{{ request('search') }}" 
                 placeholder="Pesquisar por nome, email ou cargo..." 
-                class="w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
-            <div class="flex items-center space-x-2">
+                class="w-full md:w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+            <div class="flex items-center space-x-2 mt-2 md:mt-0">
                 <!-- Botão para limpar a pesquisa -->
                 <a href="{{ route('users.index') }}" class="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-gray-300 focus:outline-none dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
                     Limpar Pesquisa
@@ -39,45 +39,49 @@
             </div>
         </form>
 
-        <table class="w-full border-collapse">
-            <thead>
-                <tr>
-                    <th class="border p-2">Nome</th>
-                    <th class="border p-2">Email</th>
-                    <th class="border p-2">Cargo</th>
-                    <th class="border p-2">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
+        <!-- Tabela -->
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+                <thead>
                     <tr>
-                        <td class="border p-2">{{ $user->name }}</td>
-                        <td class="border p-2">{{ $user->email }}</td>
-                        <td class="border p-2">{{ $user->role }}</td>
-                        <td class="border p-2">
-                            <!-- Não permite editar ou excluir o próprio utilizador -->
-                            @if (Auth::id() !== $user->id)
-                                <div class="flex gap-2">
-                                    <a href="{{ route('users.edit', $user) }}" class="px-4 py-2 text-white bg-green-500 rounded-md text-center w-32">
-                                        Editar
-                                    </a>
-                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="delete-form" style="display:inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="px-4 py-2 text-white bg-red-500 rounded-md text-center w-32">
-                                            Remover
-                                        </button>
-                                    </form>
-                                </div>
-                            @else
-                                <span class="px-2 py-1 text-gray-400">Para editares a tua conta acessa o teu perfil</span>
-                            @endif
-                        </td>
+                        <th class="border p-2 text-left">Nome</th>
+                        <th class="border p-2 text-left">Email</th>
+                        <th class="border p-2 text-left">Cargo</th>
+                        <th class="border p-2 text-left">Ações</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td class="border p-2">{{ $user->name }}</td>
+                            <td class="border p-2">{{ $user->email }}</td>
+                            <td class="border p-2">{{ $user->role }}</td>
+                            <td class="border p-2">
+                                <!-- Não permite editar ou excluir o próprio utilizador -->
+                                @if (Auth::id() !== $user->id)
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <a href="{{ route('users.edit', $user) }}" class="px-4 py-2 text-white bg-green-500 rounded-md text-center w-full sm:w-32">
+                                            Editar
+                                        </a>
+                                        <form action="{{ route('users.destroy', $user) }}" method="POST" class="delete-form" style="display:inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="px-4 py-2 text-white bg-red-500 rounded-md text-center w-full sm:w-32">
+                                                Remover
+                                            </button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <span class="px-2 py-1 text-gray-400">Para editares a tua conta acessa o teu perfil</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
+        <!-- Paginação -->
         <div class="mt-4">
             {{ $users->appends(['search' => request('search')])->links() }}
         </div>
