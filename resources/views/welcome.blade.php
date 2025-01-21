@@ -685,11 +685,9 @@ document.getElementById('delivery-date').addEventListener('change', function() {
              <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Customer Support</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                <li><a href="#" class="py-2 d-block">Buy a Car</a></li>
-                <li><a href="#" class="py-2 d-block">Test Drive</a></li>
-                <li><a href="#" class="py-2 d-block">How it works</a></li>
-                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                <li><a href="#contactos" class="py-2 d-block">Dúvidas?</a></li>
+                <li><a href="{{ route('cars.public.cars') }}" class="py-2 d-block">Compra um Carro</a></li>
+                <li><a href="#concessionarias" class="py-2 d-block">Visita-nos</a></li>
               </ul>
             </div>
           </div>

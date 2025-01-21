@@ -44,7 +44,7 @@ class CarController extends Controller
      }
  
      // Obter os carros filtrados
-     $cars = $query->paginate(12); // Paginação
+     $cars = $query->paginate(6); // Paginação
  
      // Obter as marcas distintas
      $brands = Car::select('brand')->distinct()->get();
