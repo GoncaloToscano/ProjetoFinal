@@ -109,6 +109,7 @@ Route::post('/testdrive/store', [TestDriveController::class, 'store'])->name('te
 Route::get('/testdrive/cancel/{id}', [TestDriveController::class, 'cancel'])->name('testdrive.cancel');
 Route::post('/testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel');
 Route::post('/test-drive', [TestDriveController::class, 'store'])->name('testdrive.store');
+Route::get('/testdrive/available-times', [TestDriveController::class, 'getAvailableTimes'])->name('testdrive.available-times');
 
 // Suporte
 Route::post('/suporte/enviar', [SuporteController::class, 'enviar'])->name('suporte.enviar');
@@ -134,6 +135,7 @@ Route::get('/services', [ServiceController::class, 'index'])->name('service.inde
  Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 });
+
 
 
  // Exemplo de rota para a página de termos e condições

@@ -297,123 +297,141 @@
       </div>
     @endif
     
-    <!-- Modal Test Drive -->
-    <div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
+<!-- Modal Test Drive -->
+<div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="testDriveModalLabel">Agendar Test Drive</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+              <h5 class="modal-title" id="testDriveModalLabel">Agendar Test Drive</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
           </div>
           <div class="modal-body">
 
-            @if ($errors->has('preferred_time'))
-              <div class="alert alert-danger">
-                {{ $errors->first('preferred_time') }}
-              </div>
-            @endif
-    
-          <!-- Formulário -->
-          <form action="{{ route('testdrive.store') }}" method="POST">
-            @csrf
-    
-            <input type="hidden" name="car_id" value="{{ $car->id }}">
-    
-            <div class="form-group">
-              <label for="name">Seu Nome</label>
-              <input type="text" class="form-control" id="name" name="name" required placeholder="Escreva seu nome"
-                value="{{ old('name', auth()->check() ? auth()->user()->name : '') }}">
-            </div>
-    
-            <div class="form-group">
-              <label for="email">Seu E-mail</label>
-              <input type="email" class="form-control" id="email" name="email" required placeholder="Escreva seu e-mail"
-                value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}">
-            </div>
-    
-            <div class="form-group">
-              <label for="phone">Seu Telefone</label>
-              <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Escreva seu número de telefone"
-                value="{{ old('phone') }}">
-            </div>
-    
-            <div class="form-group">
-              <label for="preferred_date">Data Preferencial</label>
-              <input type="date" class="form-control" id="preferred_date" name="preferred_date" required
-                value="{{ old('preferred_date') }}">
-            </div>
-    
-            <div class="form-group">
-              <label for="preferred_time">Hora Preferencial</label>
-              <input type="time" class="form-control" id="preferred_time" name="preferred_time" required min="08:00" max="19:00" step="900"
-                value="{{ old('preferred_time') }}">
-            </div>
-    
-            <div class="form-group">
-              <label for="observations">Observações</label>
-              <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação.">{{ old('observations') }}</textarea>
-            </div>
-    
-            <!-- Nova Checkbox para aceitar ser contactado -->
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="contact_permission" name="contact_permission" {{ old('contact_permission') ? 'checked' : '' }}>
-              <label class="form-check-label" for="contact_permission">Aceito ser contactado pelo número de telefone.</label>
-            </div>
-    
-            <!-- Termos e Condições -->
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="terms" name="terms_accepted" required {{ old('terms_accepted') ? 'checked' : '' }}>
-              <label class="form-check-label" for="terms">
-                Eu aceito os <a href="{{ route('terms') }}" class="alert-link" target="_blank">termos e condições</a>.
-              </label>
-            </div>
-    
-            <button type="submit" class="btn btn-primary">Enviar Pedido</button>
-          </form>
-    
-            </div>
-            </div>
-          </div>   
-          </div>
-              <!-- Mensagem de sucesso desaparece em 4 segundos -->
-              @if(session('success'))
-              <br><br>
-              <div class="alert alert-success" id="success-alert">
-                {{ session('success') }}
-              </div>
-              <script>
-                // Após 4 segundos (4000 milissegundos), ocultar a mensagem
-                setTimeout(function() {
-                  $('#success-alert').fadeOut('slow');
-                }, 4000);
-              </script>
-              @endif
+              <!-- Formulário -->
+              <form action="{{ route('testdrive.store') }}" method="POST">
+                  @csrf
 
-              <!-- Mensagem de erro desaparece em 4 segundos -->
-              @if(session('error'))
-              <br><br>
-              <div class="alert alert-danger" id="error-alert">
-                {{ session('error') }}
-              </div>
-              <script>
-                // Após 4 segundos (4000 milissegundos), ocultar a mensagem
-                setTimeout(function() {
-                  $('#error-alert').fadeOut('slow');
-                }, 4000);
-              </script>
-              @endif
-        </div>
-        </div>
+                  <input type="hidden" name="car_id" value="{{ $car->id }}">
+
+                  <div class="form-group">
+                      <label for="name">Seu Nome</label>
+                      <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required placeholder="Escreva seu nome"
+                          value="{{ old('name', auth()->check() ? auth()->user()->name : '') }}">
+                      @error('name')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <div class="form-group">
+                      <label for="email">Seu E-mail</label>
+                      <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required placeholder="Escreva seu e-mail"
+                          value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}">
+                      @error('email')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <div class="form-group">
+                      <label for="phone">Seu Telefone</label>
+                      <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" required placeholder="Escreva seu número de telefone"
+                          value="{{ old('phone') }}">
+                      @error('phone')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <div class="form-group">
+                      <label for="preferred_date">Data Preferencial</label>
+                      <input type="date" class="form-control @error('preferred_date') is-invalid @enderror" id="preferred_date" name="preferred_date" required
+                          value="{{ old('preferred_date') }}">
+                      @error('preferred_date')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <div class="form-group">
+                      <label for="preferred_time">Hora Preferencial</label>
+                      <input type="time" class="form-control @error('preferred_time') is-invalid @enderror" id="preferred_time" name="preferred_time" required
+                          value="{{ old('preferred_time') }}">
+                      @error('preferred_time')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
+
+                  <div class="form-group">
+                      <label for="observations">Observações</label>
+                      <textarea class="form-control" id="observations" name="observations" rows="4" placeholder="Caso tenha alguma observação.">{{ old('observations') }}</textarea>
+                  </div>
+
+                  <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="contact_permission" name="contact_permission" {{ old('contact_permission') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="contact_permission">Aceito ser contactado pelo número de telefone.</label>
+                  </div>
+
+                  <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="terms" name="terms_accepted" required {{ old('terms_accepted') ? 'checked' : '' }}>
+                      <label class="form-check-label" for="terms">
+                          Eu aceito os <a href="{{ route('terms') }}" class="alert-link" target="_blank">termos e condições</a>.
+                      </label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary mt-3">Enviar Pedido</button>
+              </form>
+
+          </div>
       </div>
+  </div>
+</div>
+
+<!-- Exibição de erros fora do modal -->
+@if ($errors->any())
+    <div class="alert alert-danger mt-3">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<!-- Script para reabrir modal em caso de erro -->
+@if ($errors->any())
+<script>
+    $(document).ready(function() {
+        $('#testDriveModal').modal('show');
+    });
+</script>
+@endif
+
+<!-- Mensagem de sucesso -->
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+<!-- Mensagem de erro -->
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+    {{ session('error') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+
       <br>
       </div>
     </div>
     </div>
 </section>
 <!-- Test - Drive Fim -->
-
 
 
 <!-- Carros Relacionados -->
