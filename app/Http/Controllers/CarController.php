@@ -75,13 +75,27 @@ public function getModelsByBrand(Request $request)
 }
 
     // Exibir lista de carros com imagens
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::with('images')->get();
-        return view('cars.index', compact('cars'));
-
+        // Inicia a consulta para o modelo Car
+        $query = Car::with('images');
         
+        // Se houver um parâmetro 'search', filtra os carros pelo nome ou marca
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('brand', 'like', '%' . $searchTerm . '%');
+            });
+        }
+    
+        // Obter todos os carros com suas imagens associadas
+        $cars = $query->paginate(6); // Paginação com 6 carros por página
+    
+        // Passa os carros filtrados para a view
+        return view('cars.index', compact('cars'));
     }
+    
 
     // Exibir formulário de criação de carro
     public function create()
