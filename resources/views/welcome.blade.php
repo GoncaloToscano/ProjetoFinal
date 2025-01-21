@@ -179,6 +179,17 @@
                 </select>
               </div>
             
+              @if(auth()->check()) <!-- Verifica se o usuário está autenticado -->
+            @else
+              <!-- Aviso de login necessário -->
+              <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+                <i class="fas fa-exclamation-triangle mr-2"></i> <!-- Ícone de aviso -->
+                <div>
+                  <strong>Precisas estar logado!</strong> Por favor, <a href="{{ route('login') }}" class="alert-link">faz login aqui</a>.
+                </div>
+              </div>
+            @endif
+
               <div class="form-group">
                 <input type="submit" value="Agendar Serviço" class="btn btn-secondary py-3 px-4">
               </div>
