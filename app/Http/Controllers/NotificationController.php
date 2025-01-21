@@ -27,14 +27,15 @@ class NotificationController extends Controller
             'message' => 'required|string',
             'recipients' => 'required|array',
         ]);
-
+    
         foreach ($data['recipients'] as $email) {
-            Mail::raw($data['message'], function ($message) use ($email, $data) {
+            Mail::send('emails.notification', ['messageContent' => $data['message'], 'subject' => $data['subject']], function ($message) use ($email, $data) {
                 $message->to($email)
                         ->subject($data['subject']);
             });
+            
         }
-
+    
         return redirect()->route('notifications.index')->with('success', 'Comunicado enviado com sucesso!');
     }
 }
