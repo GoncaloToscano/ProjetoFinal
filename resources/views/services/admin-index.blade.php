@@ -56,17 +56,21 @@
                     <td class="border p-2 text-gray-800 dark:text-gray-100">
                         {{ $service->user_email ?? 'Email não disponível' }}
                     </td>
-                    <td class="border p-2">
-                        <a href="{{ route('admin.services.edit', $service) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
+                    <td class="border p-2 flex gap-2">
+                        <a href="{{ route('admin.services.edit', $service) }}" class="px-4 py-2 text-white bg-green-500 rounded-md flex-1 text-center">
+                            Editar
+                        </a>
                         <form id="deleteForm-{{ $service->id }}" action="{{ route('admin.services.destroy', $service) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="px-2 py-1 text-white bg-red-500 rounded-md"
+                            <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md flex-1 text-center"
                                 onclick="confirmDelete({{ $service->id }})">
                                 Remover
                             </button>
                         </form>
                     </td>
+                    
+                    
                 </tr>
                 @endforeach
             </tbody>

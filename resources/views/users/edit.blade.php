@@ -76,17 +76,17 @@
             </div>
 
             <!-- Botões de Ação -->
-            <div class="space-x-4">
+            <div class="space-x-4 flex">
                 <button 
                     type="submit" 
-                    class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none 
+                    class="px-4 py-2 w-full md:w-auto text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none 
                            dark:bg-blue-700 dark:hover:bg-blue-600 dark:focus:ring-blue-500">
                     Atualizar
                 </button>
 
                 <a 
                     href="{{ route('users.index') }}" 
-                    class="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-gray-300 focus:outline-none 
+                    class="px-4 py-2 w-full md:w-auto text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-gray-300 focus:outline-none 
                            dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
                     Cancelar
                 </a>

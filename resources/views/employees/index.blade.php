@@ -48,13 +48,20 @@
                     <td class="border p-2">{{ $employee->position }}</td>
                     <td class="border p-2">{{ $employee->salary }} €</td>
                     <td class="border p-2">
-                        <a href="{{ route('employees.edit', $employee) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
-                        <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline" id="deleteForm-{{ $employee->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="px-2 py-1 text-white bg-red-500 rounded-md" onclick="confirmDelete({{ $employee->id }})">Remover</button>
-                        </form>
+                        <div class="flex gap-2">
+                            <a href="{{ route('employees.edit', $employee) }}" class="px-4 py-2 text-white bg-green-500 rounded-md">
+                                Editar
+                            </a>
+                            <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline" id="deleteForm-{{ $employee->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md" onclick="confirmDelete({{ $employee->id }})">
+                                    Remover
+                                </button>
+                            </form>
+                        </div>
                     </td>
+                    
                 </tr>
                 @endforeach
             </tbody>

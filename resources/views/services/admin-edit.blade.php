@@ -40,15 +40,21 @@
                     class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ $service->service }}</textarea>
             </div>
 
-            <button type="submit"
-                class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400">
-                Atualizar
-            </button>
-
-            <a href="{{ route('admin.services.index') }}"
-                class="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-gray-300">
-                Cancelar
-            </a>
+            <div class="flex gap-2">
+                <div class="flex gap-2">
+                    <button type="submit"
+                        class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400">
+                        Atualizar
+                    </button>
+                
+                    <a href="{{ route('admin.services.index') }}"
+                        class="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-gray-300">
+                        Cancelar
+                    </a>
+                </div>
+                
+            </div>
+            
         </form>
     </div>
 </x-app-layout>

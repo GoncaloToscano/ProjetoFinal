@@ -50,24 +50,30 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr>
-                    <td class="border p-2">{{ $user->name }}</td>
-                    <td class="border p-2">{{ $user->email }}</td>
-                    <td class="border p-2">{{ $user->role }}</td>
-                    <td class="border p-2">
-                        <!-- Não permite editar ou excluir o próprio utilizador -->
-                        @if (Auth::id() !== $user->id)
-                            <a href="{{ route('users.edit', $user) }}" class="px-2 py-1 text-white bg-green-500 rounded-md">Editar</a>
-                            <form action="{{ route('users.destroy', $user) }}" method="POST" class="delete-form" style="display:inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-2 py-1 text-white bg-red-500 rounded-md">Remover</button>
-                            </form>
-                        @else
-                            <span class="px-2 py-1 text-gray-400">Para editares a tua conta acessa o teu perfil</span>
-                        @endif
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="border p-2">{{ $user->name }}</td>
+                        <td class="border p-2">{{ $user->email }}</td>
+                        <td class="border p-2">{{ $user->role }}</td>
+                        <td class="border p-2">
+                            <!-- Não permite editar ou excluir o próprio utilizador -->
+                            @if (Auth::id() !== $user->id)
+                                <div class="flex gap-2">
+                                    <a href="{{ route('users.edit', $user) }}" class="px-4 py-2 text-white bg-green-500 rounded-md text-center w-32">
+                                        Editar
+                                    </a>
+                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="delete-form" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="px-4 py-2 text-white bg-red-500 rounded-md text-center w-32">
+                                            Remover
+                                        </button>
+                                    </form>
+                                </div>
+                            @else
+                                <span class="px-2 py-1 text-gray-400">Para editares a tua conta acessa o teu perfil</span>
+                            @endif
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
