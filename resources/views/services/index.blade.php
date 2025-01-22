@@ -422,7 +422,7 @@
                 </div>
                 <h3 class="mb-3">Pintura</h3>
                 <p>Obtenha uma nova pintura no seu carro ou recupere a aparência do seu carro com nosso retoque de pintura.</p>
-                <a href="form6"><button class="btn btn-primary" onclick="showForm('form6')">Agendar</button></a>
+                <a href="#form6"><button class="btn btn-primary" onclick="showForm('form6')">Agendar</button></a>
               </div>
             </div>
           </div>
@@ -548,7 +548,7 @@
         <div class="form-group">
           <input type="hidden" name="service" value="troca_de_oleo">
           <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          <button type="button" class="btn btn-secondary" onclick="hideForm('form2')">Recolher Formulário</button>
+          <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form2')">Recolher Formulário</button></a>
         </div>
       </form>
     </div>
@@ -603,7 +603,7 @@
         <div class="form-group">
           <input type="hidden" name="service" value="revisao_completa">
           <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          <button type="button" class="btn btn-secondary" onclick="hideForm('form3')">Recolher Formulário</button>
+          <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form3')">Recolher Formulário</button></a>
         </div>
       </form>
     </div>
@@ -658,7 +658,7 @@
       <div class="form-group">
         <input type="hidden" name="service" value="lavagem_detalhada">
         <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-        <button type="button" class="btn btn-secondary" onclick="hideForm('form4')">Recolher Formulário</button>
+        <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form4')">Recolher Formulário</button></a>
       </div>
     </form>
   </div>
@@ -713,7 +713,7 @@
       <div class="form-group">
         <input type="hidden" name="service" value="polimento">
         <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-        <button type="button" class="btn btn-secondary" onclick="hideForm('form5')">Recolher Formulário</button>
+        <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form5')">Recolher Formulário</button></a>
       </div>
     </form>
   </div>
@@ -768,7 +768,7 @@
       <div class="form-group">
         <input type="hidden" name="service" value="pintura">
         <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-        <button type="button" class="btn btn-secondary" onclick="hideForm('form6')">Recolher Formulário</button>
+        <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form6')">Recolher Formulário</button></a>
       </div>
     </form>
   </div>
