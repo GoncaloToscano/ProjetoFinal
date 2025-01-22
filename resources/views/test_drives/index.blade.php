@@ -41,6 +41,7 @@
                     <tr>
                         <th class="border p-4 text-left">Nome</th>
                         <th class="border p-4 text-left">Email</th>
+                        <th class="border p-4 text-left">Telefone</th> <!-- Nova coluna para telefone -->
                         <th class="border p-4 text-left">Data</th>
                         <th class="border p-4 text-left">Hora</th>
                         <th class="border p-4 text-left">Carro</th>
@@ -54,6 +55,7 @@
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="border p-4">{{ $testDrive->name }}</td>
                             <td class="border p-4">{{ $testDrive->email }}</td>
+                            <td class="border p-4">{{ $testDrive ->phone }}</td> <!-- Exibindo o telefone -->
                             <td class="border p-4">{{ $testDrive->preferred_date }}</td>
                             <td class="border p-4">{{ $testDrive->preferred_time }}</td>
                             <td class="border p-4">

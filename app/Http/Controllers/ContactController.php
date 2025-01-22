@@ -38,7 +38,7 @@ class ContactController extends Controller
     
         // Enviar o e-mail
         Mail::raw($emailBody, function ($message) {
-            $message->to('arely.schmeler73@ethereal.email') // Substitua pelo e-mail do administrador
+            $message->to('projetolaraveltpsi1223@gmail.com') 
                     ->subject('Contato sobre carro');
         });
     

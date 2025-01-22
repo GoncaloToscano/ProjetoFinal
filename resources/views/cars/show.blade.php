@@ -367,11 +367,6 @@
                   </div>
 
                   <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="contact_permission" name="contact_permission" {{ old('contact_permission') ? 'checked' : '' }}>
-                      <label class="form-check-label" for="contact_permission">Aceito ser contactado pelo número de telefone.</label>
-                  </div>
-
-                  <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="terms" name="terms_accepted" required {{ old('terms_accepted') ? 'checked' : '' }}>
                       <label class="form-check-label" for="terms">
                           Eu aceito os <a href="{{ route('terms') }}" class="alert-link" target="_blank">termos e condições</a>.
