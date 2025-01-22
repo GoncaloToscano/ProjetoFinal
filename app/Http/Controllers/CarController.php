@@ -74,7 +74,7 @@ public function getModelsByBrand(Request $request)
     return response()->json([]);
 }
 
-    // Exibir lista de carros com imagens
+    // Exibir lista de carros dashboard
     public function index(Request $request)
     {
         // Inicia a consulta para o modelo Car

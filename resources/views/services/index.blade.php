@@ -339,7 +339,7 @@
   </script>
 
 <!-- Seção de Serviços -->
-<section class="services-section py-5">
+<section id="servicos" class="services-section py-5">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
@@ -443,7 +443,7 @@
 </section>
 
 
-<div class="container mt-5">
+<div id="formularios" class="container mt-5">
   <!-- Formulário 1 - Troca de Pneus -->
   <div id="form1" class="agendamento-form" style="display:none;">
     <div class="form-content">
@@ -493,7 +493,7 @@
         <div class="form-group">
           <input type="hidden" name="service" value="troca_de_pneus">
           <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
-          <button type="button" class="btn btn-secondary" onclick="hideForm('form1')">Recolher Formulário</button>
+          <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form1')">Recolher Formulário</button></a>
         </div>
       </form>
     </div>
@@ -801,7 +801,7 @@
             <li><strong>Modelos de luxo:</strong> € 70,00</li>
             <li><strong>Deslocamento adicional:</strong> € 10,00</li>
           </ul>
-          <button class="btn btn-primary w-100" onclick="showForm('form1')">Agendar</button>
+          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form1')">Agendar</button></a>
         </div>
       </div>
 
@@ -818,7 +818,7 @@
             <li><strong>Óleo sintético:</strong> € 35,00</li>
             <li><strong>Óleo para carros esportivos:</strong> € 50,00</li>
           </ul>
-          <button class="btn btn-primary w-100" onclick="showForm('form2')">Agendar</button>
+          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form2')">Agendar</button></a>
         </div>
       </div>
 
@@ -836,7 +836,7 @@
             <li><strong>Carros acima de 10 anos:</strong> € 100,00</li>
             <li><strong>Carros de luxo ou importados:</strong> € 120,00</li>
           </ul>
-          <button class="btn btn-primary w-100" onclick="showForm('form3')">Agendar</button>
+          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form3')">Agendar</button></a>
         </div>
       </div>
     </div>
@@ -856,7 +856,7 @@
             <li><strong>Lavagem com polimento:</strong> € 30,00</li>
             <li><strong>Lavagem de veículos grandes:</strong> € 40,00</li>
           </ul>
-          <button class="btn btn-primary w-100" onclick="showForm('form4')">Agendar</button>
+          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form4')">Agendar</button></a>
         </div>
       </div>
 
@@ -873,7 +873,7 @@
             <li><strong>Polimento com cera:</strong> € 40,00</li>
             <li><strong>Polimento profundo:</strong> € 55,00</li>
           </ul>
-          <button class="btn btn-primary w-100" onclick="showForm('form5')">Agendar</button>
+          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form5')">Agendar</button></a>
         </div>
       </div>
 
@@ -890,7 +890,7 @@
             <li><strong>Pintura completa:</strong> € 180,00</li>
             <li><strong>Pintura para carros de luxo:</strong> € 400,00</li>
           </ul>
-          <button class="btn btn-primary w-100" onclick="showForm('form6')">Agendar</button>
+          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form6')">Agendar</button></a>
         </div>
       </div>
     </div>
@@ -1005,24 +1005,30 @@
 </script>
 
 <script>
-  // Smooth scrolling para âncoras
+  // Smooth scrolling para âncoras, com exceção dos botões Previous e Next do carrossel
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      e.preventDefault(); // Previne o comportamento padrão de pular direto para o elemento
+      // Verifica se o elemento clicado pertence ao carrossel
+      const isCarouselControl = this.classList.contains('carousel-control-prev') || this.classList.contains('carousel-control-next');
 
-      const targetID = this.getAttribute('href'); // Obtém o ID do destino
-      const targetElement = document.querySelector(targetID);
+      if (!isCarouselControl) {
+        e.preventDefault(); // Previne o comportamento padrão para âncoras normais
 
-      if (targetElement) {
-        // Realiza o scroll suave até o elemento
-        window.scrollTo({
-          top: targetElement.offsetTop,
-          behavior: 'smooth'
-        });
+        const targetID = this.getAttribute('href'); // Obtém o ID do destino
+        const targetElement = document.querySelector(targetID);
+
+        if (targetElement) {
+          // Realiza o scroll suave até o elemento
+          window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth'
+          });
+        }
       }
     });
   });
 </script>
+
 
   <!-- Footer -->
   <footer class="ftco-footer ftco-bg-dark ftco-section">
