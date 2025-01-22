@@ -41,13 +41,13 @@
                     <tr>
                         <th class="border p-4 text-left">Nome</th>
                         <th class="border p-4 text-left">Email</th>
-                        <th class="border p-4 text-left">Telefone</th> <!-- Nova coluna para telefone -->
+                        <th class="border p-4 text-left">Telefone</th>
                         <th class="border p-4 text-left">Data</th>
                         <th class="border p-4 text-left">Hora</th>
                         <th class="border p-4 text-left">Carro</th>
                         <th class="border p-4 text-left">Observações</th>
                         <th class="border p-4 text-left">Confirmado</th>
-                        <th class="border p-4 text-left">Ações</th>
+                        <th class="border p-4 text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="border p-4">{{ $testDrive->name }}</td>
                             <td class="border p-4">{{ $testDrive->email }}</td>
-                            <td class="border p-4">{{ $testDrive ->phone }}</td> <!-- Exibindo o telefone -->
+                            <td class="border p-4">{{ $testDrive->phone }}</td>
                             <td class="border p-4">{{ $testDrive->preferred_date }}</td>
                             <td class="border p-4">{{ $testDrive->preferred_time }}</td>
                             <td class="border p-4">
@@ -78,31 +78,38 @@
                                     <span class="text-red-500">Não Confirmado</span>
                                 @endif
                             </td>
-                            <td class="border p-4 flex gap-2 justify-center">
-                                @if (!$testDrive->confirmed)
-                                    <form action="{{ route('testdrives.confirm', $testDrive->id) }}" method="POST" id="confirmForm-{{ $testDrive->id }}">
-                                        @csrf
-                                        <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'confirm')" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Confirmar</button>
-                                    </form>
-                                @endif
+                            <td class="border p-4 text-center">
+                                <div class="flex justify-center items-center gap-2">
+                                    @if (!$testDrive->confirmed)
+                                        <form action="{{ route('testdrives.confirm', $testDrive->id) }}" method="POST" id="confirmForm-{{ $testDrive->id }}">
+                                            @csrf
+                                            <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'confirm')" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Confirmar</button>
+                                        </form>
+                                    @endif
 
-                                @if ($testDrive->confirmed)
-                                    <form action="{{ route('testdrives.cancel', $testDrive->id) }}" method="POST" id="cancelForm-{{ $testDrive->id }}">
-                                        @csrf
-                                        <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'cancel')" class="px-5 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Cancelar</button>
-                                    </form>
-                                @endif
+                                    @if ($testDrive->confirmed)
+                                        <form action="{{ route('testdrives.cancel', $testDrive->id) }}" method="POST" id="cancelForm-{{ $testDrive->id }}">
+                                            @csrf
+                                            <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'cancel')" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Cancelar</button>
+                                        </form>
+                                    @endif
 
-                                <form action="{{ route('testdrives.destroy', $testDrive->id) }}" method="POST" id="deleteForm-{{ $testDrive->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'delete')" class="px-4 py-2 bg-red-700 text-white rounded-md hover:bg-red-800">Remover</button>
-                                </form>
+                                    <form action="{{ route('testdrives.destroy', $testDrive->id) }}" method="POST" id="deleteForm-{{ $testDrive->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="confirmAction({{ $testDrive->id }}, 'delete')" class="px-4 py-2 bg-red-700 text-white rounded-md hover:bg-red-800">Remover</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        </div>
+
+        <!-- Paginação -->
+        <div class="mt-6">
+            {{ $testDrives->links() }}
         </div>
     </div>
 
@@ -140,7 +147,7 @@
                 if (result.isConfirmed) {
                     document.getElementById(formId).submit();
                 }
-            });
+            }); 
         }
     </script>
 </x-app-layout>

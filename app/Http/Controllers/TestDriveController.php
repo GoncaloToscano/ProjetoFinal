@@ -21,7 +21,7 @@ class TestDriveController extends Controller
     public function index(Request $request)
     {
         $query = TestDrive::query();
-
+    
         // Filtro por pesquisa (nome ou email)
         if ($request->has('search') && $request->query('search') !== '') {
             $query->where(function ($q) use ($request) {
@@ -29,7 +29,7 @@ class TestDriveController extends Controller
                   ->orWhere('email', 'like', '%' . $request->query('search') . '%');
             });
         }
-
+    
         // Filtro por status (confirmados ou por confirmar)
         if ($request->has('status')) {
             if ($request->query('status') === 'confirmed') {
@@ -38,7 +38,7 @@ class TestDriveController extends Controller
                 $query->where('confirmed', false);
             }
         }
-
+    
         // Ordenação por critério selecionado
         if ($request->has('order')) {
             if ($request->query('order') === 'preferred_date_time') {
@@ -49,16 +49,17 @@ class TestDriveController extends Controller
         } else {
             $query->orderBy('created_at', 'desc');
         }
-
+    
         // Eager loading para carregar o carro associado ao test drive
-        $testDrives = $query->with('car')->paginate(10); // Paginação para melhorar o desempenho em grandes listas
-
+        $testDrives = $query->with('car')->paginate(8); // Paginação para melhorar o desempenho em grandes listas
+    
         // Carregar todos os carros disponíveis (para formulários ou outras funcionalidades)
         $cars = Car::all();
-
+    
         // Retornar a view com os test drives e carros
         return view('test_drives.index', compact('testDrives', 'cars'));
     }
+    
 
     /**
      * Confirmar o agendamento de Test Drive.
