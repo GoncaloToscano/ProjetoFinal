@@ -82,7 +82,7 @@
 
 
     
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_g80.jpg');" data-stellar-background-ratio="0.5">
   <div class="overlay"></div>
   <div class="container">
       <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start">
@@ -173,6 +173,7 @@
 
 <!-- Car listing section starts here -->
 <section id="carsection" class="ftco-section ftco-no-pt bg-light">
+    <br>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 heading-section text-center ftco-animate mb-5">

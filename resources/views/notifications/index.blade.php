@@ -45,7 +45,7 @@
                             name="subject" 
                             id="subject" 
                             class="w-full mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:border-indigo-300" 
-                            placeholder="Digite o assunto do comunicado" 
+                            placeholder="Escreva o assunto do comunicado" 
                             required
                         >
                     </div>

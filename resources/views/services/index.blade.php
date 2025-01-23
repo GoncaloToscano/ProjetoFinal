@@ -201,7 +201,7 @@
 
 
   <!-- Hero Section -->
-  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+  <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_porshe.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
       <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
