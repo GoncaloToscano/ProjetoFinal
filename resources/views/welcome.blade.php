@@ -381,9 +381,9 @@ document.getElementById('delivery-date').addEventListener('change', function() {
         <div class="row">
           <!-- Troca de Óleo -->
           <div class="col-md-3">
-            <div class="services services-2 w-100 text-center">
-              <div class="icon d-flex align-items-center justify-content-center">
-                <span class="flaticon-oil"></span> <!-- Ícone de troca de óleo -->
+            <div class="services services-2 w-100 text-center" style="height: 350px;">
+              <div class="icon d-flex align-items-center justify-content-center" style="background: #007bff; border-radius: 50%; width: 80px; height: 80px; margin-bottom: 20px;">
+                <i class="fas fa-oil-can" style="font-size: 30px; color: white;"></i> <!-- Ícone de troca de óleo -->
               </div>
               <div class="text w-100">
                 <h3 class="heading mb-2">Troca de Óleo</h3>
@@ -394,9 +394,9 @@ document.getElementById('delivery-date').addEventListener('change', function() {
     
           <!-- Revisão Completa -->
           <div class="col-md-3">
-            <div class="services services-2 w-100 text-center">
-              <div class="icon d-flex align-items-center justify-content-center">
-                <span class="flaticon-tools"></span> <!-- Ícone de ferramentas -->
+            <div class="services services-2 w-100 text-center" style="height: 350px;">
+              <div class="icon d-flex align-items-center justify-content-center" style="background: #007bff; border-radius: 50%; width: 80px; height: 80px; margin-bottom: 20px;">
+                <i class="fas fa-tools" style="font-size: 30px; color: white;"></i> <!-- Ícone de ferramentas -->
               </div>
               <div class="text w-100">
                 <h3 class="heading mb-2">Revisão Completa</h3>
@@ -405,28 +405,28 @@ document.getElementById('delivery-date').addEventListener('change', function() {
             </div>
           </div>
     
-          <!-- Alinhamento e Balanceamento -->
-          <div class="col-md-3">
-            <div class="services services-2 w-100 text-center">
-              <div class="icon d-flex align-items-center justify-content-center">
-                <span class="flaticon-tire"></span> <!-- Ícone de roda -->
-              </div>
-              <div class="text w-100">
-                <h3 class="heading mb-2">Alinhamento e Balanceamento</h3>
-                <p>Prolongue a vida útil dos pneus e aumente a segurança do seu veículo com nossos serviços especializados.</p>
-              </div>
-            </div>
-          </div>
-    
           <!-- Diagnóstico Eletrônico -->
           <div class="col-md-3">
-            <div class="services services-2 w-100 text-center">
-              <div class="icon d-flex align-items-center justify-content-center">
-                <span class="flaticon-diagnostics"></span> <!-- Ícone de diagnóstico eletrônico -->
+            <div class="services services-2 w-100 text-center" style="height: 350px;">
+              <div class="icon d-flex align-items-center justify-content-center" style="background: #007bff; border-radius: 50%; width: 80px; height: 80px; margin-bottom: 20px;">
+                <i class="fas fa-laptop-code" style="font-size: 30px; color: white;"></i> <!-- Ícone de diagnóstico eletrônico -->
               </div>
               <div class="text w-100">
                 <h3 class="heading mb-2">Diagnóstico Eletrônico</h3>
                 <p>Identificamos e corrigimos falhas nos sistemas eletrônicos do veículo com tecnologia de ponta.</p>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Lavagem Completa -->
+          <div class="col-md-3">
+            <div class="services services-2 w-100 text-center" style="height: 350px;">
+              <div class="icon d-flex align-items-center justify-content-center" style="background: #007bff; border-radius: 50%; width: 80px; height: 80px; margin-bottom: 20px;">
+                <i class="fas fa-water" style="font-size: 30px; color: white;"></i> <!-- Ícone de lavagem -->
+              </div>
+              <div class="text w-100">
+                <h3 class="heading mb-2">Lavagem Completa</h3>
+                <p>Oferecemos serviços de lavagem interna e externa. Uma limpeza detalhada, deixando o seu carro com aparência de novo.</p>
               </div>
             </div>
           </div>
@@ -435,14 +435,17 @@ document.getElementById('delivery-date').addEventListener('change', function() {
     </section>
     
     
+    
+    
+    
 
 		<section class="ftco-section ftco-intro" style="background-image: url(assets/images/image_6.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row justify-content-end">
 					<div class="col-md-6 heading-section heading-section-white ftco-animate">
-            <h2 class="mb-3">Queres ver mais dos nossos carros</h2>
-            <a href="{{ route('cars.public.cars') }}" class="btn btn-primary btn-lg">Vem conhecer!</a>
+            <h2 class="mb-3">Queres ver mais dos nossos serviços</h2>
+            <a href="{{ route('service.index') }}" class="btn btn-primary btn-lg">Vem conhecer mais!</a>
           </div>
 				</div>
 			</div>
