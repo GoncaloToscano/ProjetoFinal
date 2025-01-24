@@ -211,28 +211,208 @@
 
 <!-- Script para Autocompletar Carros e Calcular Data de Recolha -->
 <script>
-// Função para filtrar os carros enquanto o usuário digita
-document.getElementById('car-model').addEventListener('input', function() {
-  let query = this.value;
-  if (query.length > 2) {
-      fetch(`/search-cars?query=${query}`)
-          .then(response => response.json())
-          .then(data => {
-              const suggestionsList = document.getElementById('car-model-suggestions');
-              suggestionsList.innerHTML = ''; // Limpa as sugestões anteriores
-              data.forEach(car => {
-                  const li = document.createElement('li');
-                  li.textContent = `${car.brand} ${car.name}`;
-                  li.classList.add('suggestion-item'); // Classe para item de sugestão
-                  li.addEventListener('click', function() {
-                      document.getElementById('car-model').value = `${car.brand} ${car.name}`;
-                      suggestionsList.innerHTML = ''; // Limpa as sugestões após seleção
-                  });
-                  suggestionsList.appendChild(li);
-              });
-          });
+
+  // Lista de modelos de carros
+  const carModels = [
+  "Audi A3 (1996-2003)",
+  "Audi A3 (2004-2012)",
+  "Audi A3 (2013-2020)",
+  "Audi A4 (1994-2000)",
+  "Audi A4 (2001-2007)",
+  "Audi A4 (2008-2015)",
+  "BMW Série 3 (1998-2005)",
+  "BMW Série 3 (2006-2012)",
+  "BMW Série 3 (2013-2018)",
+  "BMW Série 5 (2003-2010)",
+  "BMW Série 5 (2011-2016)",
+  "Chevrolet Onix (2012-2016)",
+  "Chevrolet Onix (2017-2020)",
+  "Chevrolet Tracker (2001-2008)",
+  "Chevrolet Tracker (2013-2017)",
+  "Chevrolet Tracker (2018-2023)",
+  "Fiat Uno (1984-1994)",
+  "Fiat Uno (1995-2013)",
+  "Fiat Uno (2014-2021)",
+  "Fiat Argo (2017-2023)",
+  "Ford Focus (1998-2004)",
+  "Ford Focus (2005-2010)",
+  "Ford Focus (2011-2018)",
+  "Ford Fiesta (1995-2002)",
+  "Ford Fiesta (2003-2008)",
+  "Ford Fiesta (2009-2019)",
+  "Honda Civic (1996-2000)",
+  "Honda Civic (2001-2005)",
+  "Honda Civic (2006-2011)",
+  "Honda Civic (2012-2016)",
+  "Honda Civic (2017-2021)",
+  "Honda Fit (2001-2007)",
+  "Honda Fit (2008-2014)",
+  "Honda Fit (2015-2021)",
+  "Hyundai HB20 (2012-2018)",
+  "Hyundai HB20 (2019-2023)",
+  "Hyundai Creta (2016-2021)",
+  "Hyundai Creta (2022-2023)",
+  "Toyota Corolla (1998-2003)",
+  "Toyota Corolla (2004-2008)",
+  "Toyota Corolla (2009-2013)",
+  "Toyota Corolla (2014-2018)",
+  "Toyota Corolla (2019-2023)",
+  "Toyota Yaris (2006-2011)",
+  "Toyota Yaris (2012-2017)",
+  "Toyota Yaris (2018-2023)",
+  "Volkswagen Golf (1997-2003)",
+  "Volkswagen Golf (2004-2008)",
+  "Volkswagen Golf (2009-2013)",
+  "Volkswagen Golf (2014-2019)",
+  "Volkswagen Polo (1996-2001)",
+  "Volkswagen Polo (2002-2008)",
+  "Volkswagen Polo (2009-2017)",
+  "Volkswagen Polo (2018-2023)",
+  "Nissan Versa (2011-2019)",
+  "Nissan Versa (2020-2023)",
+  "Renault Sandero (2007-2013)",
+  "Renault Sandero (2014-2020)",
+  "Renault Sandero (2021-2023)",
+  "Kia Sportage (2005-2010)",
+  "Kia Sportage (2011-2015)",
+  "Kia Sportage (2016-2022)",
+  "Jeep Renegade (2015-2023)",
+  "Toyota Hilux (2005-2015)",
+  "Toyota Hilux (2016-2023)",
+  "Ferrari F430 (2004-2009)",
+  "Ferrari 458 Italia (2009-2015)",
+  "Ferrari 488 GTB (2015-2019)",
+  "Lamborghini Gallardo (2003-2013)",
+  "Lamborghini Huracan (2014-2023)",
+  "Porsche 911 (1999-2004)",
+  "Porsche 911 (2005-2011)",
+  "Porsche 911 (2012-2019)",
+  "Chevrolet Camaro (2010-2015)",
+  "Chevrolet Camaro (2016-2023)",
+  "Ford Mustang (2005-2014)",
+  "Ford Mustang (2015-2023)",
+  "Dodge Challenger (2008-2014)",
+  "Dodge Challenger (2015-2023)",
+  "Nissan GT-R (2007-2023)",
+  "Audi R8 (2006-2015)",
+  "Audi R8 (2016-2023)",
+  "BMW M3 (2007-2013)",
+  "BMW M3 (2014-2020)",
+  "Mercedes-AMG GT (2015-2023)",
+  "McLaren 570S (2015-2021)",
+  "McLaren 720S (2017-2023)",
+  "Aston Martin V8 Vantage (2005-2017)",
+  "Aston Martin V8 Vantage (2018-2023)",
+  "Renault Clio (1998-2005)",
+  "Renault Clio (2006-2012)",
+  "Renault Clio (2013-2023)",
+  "Peugeot 208 (2012-2018)",
+  "Peugeot 208 (2019-2023)",
+  "Peugeot 308 (2007-2013)",
+  "Peugeot 308 (2014-2021)",
+  "Peugeot 308 (2022-2023)",
+  "Seat Ibiza (2008-2016)",
+  "Seat Ibiza (2017-2023)",
+  "Seat Leon (2005-2012)",
+  "Seat Leon (2013-2020)",
+  "Seat Leon (2021-2023)",
+  "Opel Corsa (2006-2014)",
+  "Opel Corsa (2015-2023)",
+  "Opel Astra (2009-2015)",
+  "Opel Astra (2016-2023)",
+  "Citroën C3 (2002-2009)",
+  "Citroën C3 (2010-2016)",
+  "Citroën C3 (2017-2023)",
+  "Audi RS6 (2002-2004)",
+  "Audi RS6 (2008-2010)",
+  "Audi RS6 (2013-2018)",
+  "Audi RS6 (2019-2024)",
+  "Volkswagen Golf GTI (1976-1983)",
+  "Volkswagen Golf GTI (1984-1991)",
+  "Volkswagen Golf GTI (1992-1997)",
+  "Volkswagen Golf GTI (2004-2009)",
+  "Volkswagen Golf GTI (2013-2020)",
+  "Volkswagen Golf GTI (2020-2024)",
+  "Volkswagen Golf R (2010-2014)",
+  "Volkswagen Golf R (2015-2020)",
+  "Volkswagen Golf R (2021-2024)",
+  "Audi RS3 (2011-2012)",
+  "Audi RS3 (2015-2018)",
+  "Audi RS3 (2020-2024)",
+  "BMW M4 (2014-2020)",
+  "BMW M4 (2021-2024)",
+  "Mercedes-AMG A45 (2013-2015)",
+  "Mercedes-AMG A45 (2016-2022)",
+  "Mercedes-AMG A45 (2023-2024)",
+  "Porsche 911 Turbo (2006-2009)",
+  "Porsche 911 Turbo (2010-2016)",
+  "Porsche 911 Turbo (2017-2020)",
+  "Porsche 911 Turbo (2021-2024)"
+];
+
+
+
+
+// Referências aos elementos do DOM
+const input = document.getElementById("car-model");
+const suggestionsList = document.getElementById("car-model-suggestions");
+
+// Evento de input para atualizar sugestões
+input.addEventListener("input", () => {
+  const query = input.value.toLowerCase(); // Texto digitado pelo usuário
+  
+  // Limpa as sugestões anteriores
+  suggestionsList.innerHTML = "";
+
+  if (query) {
+    // Filtra os modelos de carros com base na entrada
+    const filteredModels = carModels.filter(model => model.toLowerCase().includes(query));
+
+    // Adiciona as sugestões à lista
+    filteredModels.forEach(model => {
+      const listItem = document.createElement("li");
+      listItem.textContent = model;
+      listItem.classList.add("suggestion-item");
+
+      // Evento de clique para preencher o input com a sugestão selecionada
+      listItem.addEventListener("click", () => {
+        input.value = model;
+        suggestionsList.innerHTML = ""; // Limpa as sugestões após a seleção
+      });
+
+      suggestionsList.appendChild(listItem);
+    });
   }
 });
+
+// Estilos básicos para as sugestões
+const style = document.createElement("style");
+style.textContent = `
+  .suggestions-list {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+`;
+document.head.appendChild(style);
+
 
 // Função para calcular a data de recolha (uma semana após a data de entrega)
 document.getElementById('delivery-date').addEventListener('change', function() {
