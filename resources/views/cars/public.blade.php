@@ -189,7 +189,10 @@
                             <div class="carousel-inner" style="height: 200px; background-size: cover;">
                                 @foreach($car->images as $index => $image)
                                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="Car Image" style="height: 200px; object-fit: cover;">
+                                        <img src="{{ asset('storage/' . $image->path) }}" 
+                                             class="d-block w-100" 
+                                             alt="Car Image" 
+                                             style="height: 200px; object-fit: cover;">
                                     </div>
                                 @endforeach
                             </div>
@@ -203,7 +206,8 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
-                        <!-- Fim do carrossel -->
+                        
+                                               
 
                         <!-- Informações do carro -->
                         <div class="text mt-3">
@@ -284,6 +288,39 @@
         {{ $cars->links('pagination::bootstrap-4') }}
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Seleciona todos os carrosséis pela classe .carousel
+        const carousels = document.querySelectorAll('.carousel');
+
+        // Função para trocar todos os carrosséis para o mesmo índice
+        function syncCarousels(activeIndex) {
+            carousels.forEach(carousel => {
+                $(carousel).carousel(activeIndex); // Força o carrossel para o índice especificado
+            });
+        }
+
+        // Adiciona o evento 'slid.bs.carousel' para monitorar quando um slide é alterado
+        carousels.forEach(carousel => {
+            $(carousel).on('slid.bs.carousel', function (event) {
+                const activeIndex = $(event.relatedTarget).index(); // Obtém o índice do slide ativo
+                syncCarousels(activeIndex); // Sincroniza todos os carrosséis para o mesmo índice
+            });
+        });
+
+        // Sincroniza os carrosséis automaticamente no intervalo de 5 segundos
+        setInterval(() => {
+            carousels.forEach(carousel => {
+                $(carousel).carousel('next'); // Avança para o próximo slide
+            });
+        }, 5000);
+    });
+</script>
+
+
+
+
 
 
 
