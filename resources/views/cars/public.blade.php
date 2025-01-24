@@ -140,35 +140,49 @@
 </section>
 
 <script>
-  // Função para atualizar os modelos com base na marca selecionada
-  document.getElementById('brand').addEventListener('change', function () {
-      var brand = this.value;
+    document.addEventListener('DOMContentLoaded', function () {
+        const carousels = document.querySelectorAll('.carousel');
+        
+        // Função para sincronizar todos os carrosséis
+        function syncCarousels(activeIndex) {
+            carousels.forEach(carousel => {
+                $(carousel).carousel(activeIndex); // Força o carrossel a ir para o índice especificado
+            });
+        }
 
-      // Se não houver marca selecionada, limpar o campo de modelos
-      if (brand === '') {
-          document.getElementById('model').innerHTML = '<option value="">Modelo</option>';
-          return;
-      }
+        // Função para reiniciar o intervalo de troca automática
+        function restartAutoScroll() {
+            carousels.forEach(carousel => {
+                // Resetando o intervalo de auto-scroll a cada 5 segundos
+                $(carousel).carousel('cycle');
+            });
+        }
 
-      // Fazer uma requisição AJAX para obter os modelos da marca selecionada
-      fetch("{{ route('cars.models.byBrand') }}?brand=" + brand)
-          .then(response => response.json())
-          .then(models => {
-              var modelSelect = document.getElementById('model');
-              
-              // Limpar os modelos existentes
-              modelSelect.innerHTML = '<option value="">Modelo</option>';
+        // Adiciona o evento 'slid.bs.carousel' para cada carrossel
+        carousels.forEach(carousel => {
+            $(carousel).on('slid.bs.carousel', function (event) {
+                const activeIndex = $(event.relatedTarget).index(); // Obtém o índice do slide ativo
+                syncCarousels(activeIndex); // Sincroniza todos os carrosséis para o mesmo índice
+            });
 
-              // Preencher o select com os modelos retornados
-              models.forEach(function(model) {
-                  var option = document.createElement('option');
-                  option.value = model.name;
-                  option.textContent = model.name;
-                  modelSelect.appendChild(option);
-              });
-          });
-  });
+            // Pausar o carrossel quando o usuário interagir manualmente
+            $(carousel).on('slide.bs.carousel', function () {
+                $(carousel).carousel('pause'); // Pausa o carrossel
+            });
+        });
+
+        // Reinicia os carrosséis para o modo automático (se o usuário não interagir)
+        setInterval(() => {
+            carousels.forEach(carousel => {
+                $(carousel).carousel('next'); // Avança o carrossel para o próximo slide
+            });
+        }, 5000);
+
+        // Reinicia a navegação automática após 5 segundos (após o ciclo)
+        setTimeout(restartAutoScroll, 5000);
+    });
 </script>
+
 <!-- filtrar FIM -->
 
 <!-- Car listing section starts here -->
