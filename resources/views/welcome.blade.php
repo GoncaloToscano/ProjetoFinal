@@ -94,7 +94,7 @@
     </nav>
     
     
-    <div class="hero-wrap ftco-degree-bg" style="background-image: url('assets/images/bg_rs6.jpg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url('assets/images/bg_g80.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
@@ -191,7 +191,7 @@
             @endif
 
               <div class="form-group">
-                <input type="submit" value="Agendar Serviço" class="btn btn-primary py-3 px-4">
+                <input type="submit" value="Agendar Serviço" class="btn btn-secondary py-3 px-4">
               </div>
             </form>
           </div>
