@@ -83,62 +83,105 @@
 
     
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/images/bg_g80.jpg');" data-stellar-background-ratio="0.5">
-  <div class="overlay"></div>
-  <div class="container">
-      <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start">
-          <div class="col-md-12 text-center ftco-animate">
-              <p class="breadcrumbs">
-                  <span class="mr-2">
-                      <a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a>
-                  </span>
-                  <span>Cars <i class="ion-ios-arrow-forward"></i></span>
-              </p>
-              <h1 class="mb-3 bread text-white">Escolha o Seu Carro</h1>
-              
-              <!-- Filtro sobre a imagem -->
-              <form action="{{ route('cars.public.cars') }}" method="GET" class="row justify-content-center mt-4">
-                  <!-- Campo Marca -->
-                  <div class="col-md-2 mb-3">
-                      <select name="brand" id="brand" class="form-control">
-                          <option value="">Marca</option>
-                          @foreach($brands as $brand)
-                              <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>{{ $brand->brand }}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                  
-                  <!-- Campo Modelo -->
-                  <div class="col-md-2 mb-3">
-                      <select name="name" id="model" class="form-control">
-                          <option value="">Modelo</option>
-                      </select>
-                  </div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start">
+            <div class="col-md-12 text-center ftco-animate">
+                <p class="breadcrumbs">
+                    <span class="mr-2">
+                        <a href="{{ url('/') }}">Home <i class="ion-ios-arrow-forward"></i></a>
+                    </span>
+                    <span>Cars <i class="ion-ios-arrow-forward"></i></span>
+                </p>
+                <h1 class="mb-3 bread text-white">Escolha o Seu Carro</h1>
+                
+                <!-- Filtro sobre a imagem -->
+                <form action="{{ route('cars.public.cars') }}" method="GET" class="row justify-content-center mt-4">
+                    <!-- Campo Marca -->
+                    <div class="col-md-2 mb-3">
+                        <select name="brand" id="brand" class="form-control">
+                            <option value="">Marca</option>
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>
+                                    {{ $brand->brand }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+  
+                    <!-- Campo Modelo -->
+                    <div class="col-md-2 mb-3">
+                        <select name="name" id="model" class="form-control">
+                            <option value="">Modelo</option>
+                            <!-- Os modelos serão carregados dinamicamente via AJAX -->
+                        </select>
+                    </div>
+  
+                    <!-- Campo Preço Mínimo -->
+                    <div class="col-md-2 mb-3">
+                        <input type="number" name="min_price" class="form-control" placeholder="Preço Mín." value="{{ request('min_price') }}">
+                    </div>
+  
+                    <!-- Campo Preço Máximo -->
+                    <div class="col-md-2 mb-3">
+                        <input type="number" name="max_price" class="form-control" placeholder="Preço Máx." value="{{ request('max_price') }}">
+                    </div>
+  
+                    <!-- Campo Tipo de Combustível -->
+                    <div class="col-md-2 mb-3">
+                        <select name="fuel_type" class="form-control">
+                            <option value="">Combustível</option>
+                            <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
+                            <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+                            <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
+                            <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
+                        </select>
+                    </div>
+  
+                    <!-- Botões de Pesquisa e Reset -->
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary filter-btn px-4">Pesquisar</button>
+                        <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Resetar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </section>
 
-                  <div class="col-md-2 mb-3">
-                      <input type="number" name="min_price" class="form-control" placeholder="Preço Mín." value="{{ request('min_price') }}">
-                  </div>
-                  <div class="col-md-2 mb-3">
-                      <input type="number" name="max_price" class="form-control" placeholder="Preço Máx." value="{{ request('max_price') }}">
-                  </div>
-                  <div class="col-md-2 mb-3">
-                      <select name="fuel_type" class="form-control">
-                          <option value="">Combustível</option>
-                          <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
-                          <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
-                          <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
-                          <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
-                      </select>
-                  </div>
-                  <div class="col-md-12 text-center">
-                      <button type="submit" class="btn btn-primary filter-btn px-4">Pesquisar</button>
-                      <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Resetar</a>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div>
-</section>
-
+  
+  <!-- JavaScript para carregar modelos dinamicamente -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#brand').on('change', function () {
+              let brand = $(this).val(); // Obtém a marca selecionada
+  
+              // Limpa os modelos anteriores
+              $('#model').html('<option value="">Modelo</option>');
+  
+              // Faz a requisição AJAX para obter os modelos
+              if (brand) {
+                  $.ajax({
+                      url: "{{ route('cars.models.byBrand') }}", // Rota que aponta para o método getModelsByBrand
+                      type: "GET",
+                      data: { brand: brand }, // Envia a marca selecionada
+                      success: function (response) {
+                          // Preenche os modelos no campo de seleção
+                          response.forEach(function (model) {
+                              $('#model').append(`<option value="${model.name}">${model.name}</option>`);
+                          });
+                      },
+                      error: function () {
+                          alert('Erro ao carregar os modelos. Tente novamente.');
+                      }
+                  });
+              }
+          });
+      });
+  </script>
+  
+  
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const carousels = document.querySelectorAll('.carousel');
@@ -183,17 +226,27 @@
     });
 </script>
 
-<!-- filtrar FIM -->
 
 <!-- Car listing section starts here -->
 <section id="carsection" class="ftco-section ftco-no-pt bg-light">
     <br>
     <div class="container">
+        @if($cars->isEmpty())
+        <div class="text-center mt-4">
+            <h3>Infelizmente, não temos nenhum veículo que corresponda à sua pesquisa.</h3>
+            <p>Tente ajustar os filtros ou explore outras opções disponíveis.</p>
+        </div>
+        @else
         <div class="row justify-content-center">
             <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-                <h2 class="mb-2">Todos os nossos veículos disponíveis!</h2>
+                <h2 class="mb-2">Os nossos veículos disponíveis!</h2>
             </div>
         </div>
+        @endif
+        
+        
+
+
         <div class="row">
             @foreach($cars as $car)
                 <div class="col-md-4 mb-4"> <!-- Cada carro ocupa 1/3 da largura -->

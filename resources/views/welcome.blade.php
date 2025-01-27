@@ -183,8 +183,8 @@
             @else
               <!-- Aviso de login necessário -->
               <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
-                <i class="fas fa-exclamation-triangle mr-2"></i> <!-- Ícone de aviso -->
                 <div>
+                  <i class="fas fa-exclamation-triangle mr-2"></i> <!-- Ícone de aviso -->
                   <strong>Precisas estar logado!</strong> Por favor, <a href="{{ route('login') }}" class="alert-link">faz login aqui</a>.
                 </div>
               </div>

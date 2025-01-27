@@ -286,17 +286,25 @@
     
     
     <!-- Test - Drive Início -->
-    @if(auth()->check()) <!-- Verifica se o usuário está autenticado -->
-      <a href="#" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Agendar Test Drive</a>
-    @else
-      <!-- Aviso de login necessário -->
-      <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
-        <i class="fas fa-exclamation-triangle mr-2"></i> <!-- Ícone de aviso -->
-        <div>
-          <strong>Você precisa estar logado!</strong> Para agendar um Test Drive, por favor, <a href="{{ route('login') }}" class="alert-link">faça login aqui</a>.
-        </div>
-      </div>
-    @endif
+<!-- Test - Drive Início -->
+<a href="#" class="btn btn-primary ml-auto" 
+   data-toggle="modal" 
+   data-target="#testDriveModal" 
+   @if(!auth()->check()) 
+     disabled 
+   @endif>
+   Agendar Test Drive
+</a>
+
+@if(!auth()->check()) 
+  <!-- Aviso de login necessário -->
+  <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+    <div>
+      <i class="fas fa-exclamation-triangle mr-2"></i> <!-- Ícone de aviso --> Para agendar um Test Drive, <strong>Precisas estar logado!</strong>  por favor, <a href="{{ route('login') }}" class="alert-link">faz login aqui</a>.
+    </div>
+  </div>
+@endif
+
     
 <!-- Modal Test Drive -->
 <div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">

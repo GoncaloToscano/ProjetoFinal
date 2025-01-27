@@ -21,37 +21,35 @@ class CarController extends Controller
  public function publicCars(Request $request)
  {
      $query = Car::query(); // Inicia a consulta para o modelo Car
- 
+  
      // Aplica filtros dinamicamente com base nos parâmetros recebidos
      if ($request->filled('name')) {
          $query->where('name', 'like', '%' . $request->name . '%');
      }
- 
+  
      if ($request->filled('brand')) {
          $query->where('brand', 'like', '%' . $request->brand . '%');
      }
- 
+  
      if ($request->filled('min_price')) {
          $query->where('price', '>=', $request->min_price);
      }
- 
+  
      if ($request->filled('max_price')) {
          $query->where('price', '<=', $request->max_price);
      }
- 
+  
      if ($request->filled('fuel_type')) {
          $query->where('fuel', $request->fuel_type);
      }
- 
-     // Obter os carros filtrados
+  
+     // Obter os carros filtrados com paginação
      $cars = $query->paginate(6); // Paginação
- 
-     // Obter as marcas distintas
+  
+     // Obter as marcas e modelos distintos
      $brands = Car::select('brand')->distinct()->get();
- 
-     // Obter todos os modelos, caso você queira mostrar todos os modelos no início
      $models = Car::select('name')->distinct()->get();
- 
+  
      // Retornar a view com os carros filtrados, marcas e modelos
      return view('cars.public', compact('cars', 'brands', 'models'));
  }
