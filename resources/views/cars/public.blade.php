@@ -348,6 +348,22 @@
 
 
   
+<style>
+.page-item.active .page-link {
+    background-color: #35353B !important;
+    border-color: #35353B !important;
+    color: white !important; /* Mantém o texto visível no botão ativo */
+}
+
+.page-link {
+    color: #35353B !important;
+}
+
+.page-link:hover {
+    background-color: #35353B;
+    color: white !important; /* Garante que o texto fique visível ao passar o mouse */
+}
+</style>
 
   <!-- Pagination section -->
   <div class="row mt-4">
