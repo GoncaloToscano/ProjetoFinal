@@ -48,6 +48,15 @@
                     Ordenar
                 </button>
             </form>
+
+            <!-- Botão para remover test drives expirados -->
+            <form action="{{ route('testdrives.deleteExpired') }}" method="POST" id="deleteExpiredForm">
+                @csrf
+                <button type="button" onclick="confirmDeleteExpired()" 
+                    class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 transition">
+                    Remover Test Drives Expirados
+                </button>
+            </form>
         </div>
 
         <!-- Tabela -->
@@ -173,6 +182,23 @@
                     document.getElementById(formId).submit();
                 }
             }); 
+        }
+
+        function confirmDeleteExpired() {
+            Swal.fire({
+                title: 'Remover Test Drives Expirados?',
+                text: 'Todos os test drives que já passaram da data e hora serão permanentemente removidos!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, remover!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteExpiredForm').submit();
+                }
+            });
         }
     </script>
 </x-app-layout>

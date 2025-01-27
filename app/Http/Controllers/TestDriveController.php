@@ -234,5 +234,20 @@ public function cancel($id)
         return back()->with('success', 'Test Drive removido com sucesso!');
     }
     
+    public function deleteExpired()
+    {
+        $now = now();
+        
+        // Remover test drives com data e hora já passadas
+        $deletedCount = TestDrive::where(function ($query) use ($now) {
+            $query->where('preferred_date', '<', $now->toDateString())
+                  ->orWhere(function ($subQuery) use ($now) {
+                      $subQuery->where('preferred_date', '=', $now->toDateString())
+                               ->where('preferred_time', '<', $now->format('H:i'));
+                  });
+        })->delete();
+    
+        return back()->with('success', "$deletedCount test drives expirados foram removidos com sucesso!");
+    }
 
 }

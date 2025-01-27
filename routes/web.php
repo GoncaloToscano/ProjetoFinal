@@ -44,6 +44,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('testdrives/{id}/cancel', [TestDriveController::class, 'cancel'])->name('testdrives.cancel'); //cancelar
     Route::post('/test-drives/{id}/confirm', [TestDriveController::class, 'confirm'])->name('testdrives.confirm'); //confirmar
     Route::delete('testdrives/{id}', [TestDriveController::class, 'destroy'])->name('testdrives.destroy'); //apagar
+    Route::post('/testdrives/delete-expired', [TestDriveController::class, 'deleteExpired'])->name('testdrives.deleteExpired');
 
     // Funcionários Admin
     Route::resource('employees', EmployeeController::class);
@@ -64,6 +65,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit'); // Editar Serviço
     Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update'); // Atualizar Serviço
     Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy'); // Remover Serviço
+    Route::post('/admin/services/delete-expired', [ServiceController::class, 'deleteExpired'])->name('admin.services.deleteExpired');
 
 
 });

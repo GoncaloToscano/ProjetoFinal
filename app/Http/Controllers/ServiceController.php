@@ -148,4 +148,23 @@ class ServiceController extends Controller
         $service->delete(); // Deleta o serviço
         return redirect()->route('admin.services.index')->with('success', 'Serviço removido com sucesso!');
     }
+
+    // Administração: Remover Serviços Expirados
+public function deleteExpired()
+{
+    $now = now(); // Data e hora atuais
+
+    // Remover serviços que já passaram da data de entrega
+    $deletedCount = Service::where(function ($query) use ($now) {
+        $query->where('delivery_date', '<', $now->toDateString())
+              ->orWhere(function ($subQuery) use ($now) {
+                  $subQuery->where('delivery_date', '=', $now->toDateString())
+                           ->where('pickup_date', '<', $now->toTimeString());
+              });
+    })->delete();
+
+    // Redirecionar com mensagem de sucesso
+    return redirect()->route('admin.services.index')->with('success', "$deletedCount serviços expirados foram removidos com sucesso!");
+}
+
 }

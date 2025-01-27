@@ -4,9 +4,21 @@
             <h2 class="text-xl font-semibold leading-tight">
                 {{ __('Gestão de Serviços') }}
             </h2>
-            <a href="{{ route('admin.services.create') }}" class="px-4 py-2 text-white bg-blue-500 rounded-md">
-                Adicionar Serviço
-            </a>
+            <div class="flex gap-2">
+                <a href="{{ route('admin.services.create') }}" class="px-4 py-2 text-white bg-blue-500 rounded-md">
+                    Adicionar Serviço
+                </a>
+                <!-- Botão de Remover Serviços Expirados -->
+                <button 
+                    type="button" 
+                    class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-red-400"
+                    onclick="confirmDeleteExpired()">
+                    Remover Serviços Expirados
+                </button>
+                <form id="deleteExpiredForm" action="{{ route('admin.services.deleteExpired') }}" method="POST" style="display:none">
+                    @csrf
+                </form>
+            </div>
         </div>
     </x-slot>
 
@@ -95,6 +107,23 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('deleteForm-' + serviceId).submit();
+                }
+            });
+        }
+
+        function confirmDeleteExpired() {
+            Swal.fire({
+                title: 'Tens a certeza?',
+                text: 'Isto irá remover todos os serviços expirados!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, apagar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteExpiredForm').submit();
                 }
             });
         }
