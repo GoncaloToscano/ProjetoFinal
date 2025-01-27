@@ -287,7 +287,7 @@
     
     <!-- Test - Drive Início -->
     @if(auth()->check()) <!-- Verifica se o usuário está autenticado -->
-      <a href="#" class="btn btn-secondary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Agendar Test Drive</a>
+      <a href="#" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#testDriveModal"> Agendar Test Drive</a>
     @else
       <!-- Aviso de login necessário -->
       <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
@@ -458,7 +458,7 @@
                                   </div>
                                   <p class="d-flex mb-0 d-block">
                                     <div class="text-center">
-                                      <a href="{{ route('cars.show', $relatedCar->id) }}" class="btn btn-secondary py-2" style="width: 200px;">Detalhes</a>
+                                      <a href="{{ route('cars.show', $relatedCar->id) }}" class="btn btn-primary py-2" style="width: 200px;">Detalhes</a>
                                   </div>
                                 </p>
                               </div>

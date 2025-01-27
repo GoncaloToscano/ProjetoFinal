@@ -191,7 +191,7 @@
             @endif
 
               <div class="form-group">
-                <input type="submit" value="Agendar Serviço" class="btn btn-secondary py-3 px-4">
+                <input type="submit" value="Agendar Serviço" class="btn btn-primary py-3 px-4">
               </div>
             </form>
           </div>
@@ -225,11 +225,6 @@
   "BMW Série 3 (2013-2018)",
   "BMW Série 5 (2003-2010)",
   "BMW Série 5 (2011-2016)",
-  "Chevrolet Onix (2012-2016)",
-  "Chevrolet Onix (2017-2020)",
-  "Chevrolet Tracker (2001-2008)",
-  "Chevrolet Tracker (2013-2017)",
-  "Chevrolet Tracker (2018-2023)",
   "Fiat Uno (1984-1994)",
   "Fiat Uno (1995-2013)",
   "Fiat Uno (2014-2021)",
@@ -543,7 +538,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
               </p>
 	            <p>No nosso stand, alugamos carros e focamo-nos em ajudá-lo a agendar serviços especializados como revisões e testar os carros que procura através dos nossos test drives! Quer esteja a descobrir o seu próximo carro ou a cuidar do seu, garantimos um atendimento profissional e de excelência.
               </p>
-	            <p><a href="{{ route('cars.public.cars') }}" class="btn btn-primary py-3 px-4">Procurar Veículos</a></p>
+	            <p><a href="{{ route('cars.public.cars') }}" class="btn btn-secondary py-3 px-4">Procurar Veículos</a></p>
 	          </div>
 					</div>
 				</div>
@@ -625,7 +620,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
 				<div class="row justify-content-end">
 					<div class="col-md-6 heading-section heading-section-white ftco-animate">
             <h2 class="mb-3">Queres ver mais dos nossos serviços</h2>
-            <a href="{{ route('service.index') }}" class="btn btn-primary btn-lg">Vem conhecer mais!</a>
+            <a href="{{ route('service.index') }}" class="btn btn-secondary btn-lg">Vem conhecer mais!</a>
           </div>
 				</div>
 			</div>

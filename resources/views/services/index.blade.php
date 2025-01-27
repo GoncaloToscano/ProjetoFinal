@@ -362,7 +362,7 @@
                 </div>
                 <h3 class="mb-3">Troca de Pneus</h3>
                 <p>Garanta a segurança do seu carro com a troca de pneus de alta qualidade.</p>
-               <a href="#form1"><button class="btn btn-primary" onclick="showForm('form1')">Agendar</button></a> 
+               <a href="#form1"><button class="btn btn-secondary" onclick="showForm('form1')">Agendar</button></a> 
               </div>
             </div>
             <!-- Serviço 2 -->
@@ -373,7 +373,7 @@
                 </div>
                 <h3 class="mb-3">Troca de Óleo</h3>
                 <p>Mantenha seu motor em perfeitas condições com uma troca de óleo profissional.</p>
-                <a href="#form2"><button class="btn btn-primary" onclick="showForm('form2')">Agendar</button></a>
+                <a href="#form2"><button class="btn btn-secondary" onclick="showForm('form2')">Agendar</button></a>
               </div>
             </div>
             <!-- Serviço 3 -->
@@ -384,7 +384,7 @@
                 </div>
                 <h3 class="mb-3">Revisão Completa</h3>
                 <p>Revise todos os sistemas do seu carro para garantir o máximo de desempenho.</p>
-                <a href="#form3"><button class="btn btn-primary" onclick="showForm('form3')">Agendar</button></a>
+                <a href="#form3"><button class="btn btn-secondary" onclick="showForm('form3')">Agendar</button></a>
               </div>
             </div>
           </div>
@@ -400,7 +400,7 @@
                 </div>
                 <h3 class="mb-3">Lavagem Detalhada</h3>
                 <p>Deixe seu carro limpo e impecável com nossa lavagem detalhada, cuidando de cada detalhe.</p>
-                <a href="#form4"><button class="btn btn-primary" onclick="showForm('form4')">Agendar</button></a>
+                <a href="#form4"><button class="btn btn-secondary" onclick="showForm('form4')">Agendar</button></a>
               </div>
             </div>
             <!-- Serviço 5 -->
@@ -411,7 +411,7 @@
                 </div>
                 <h3 class="mb-3">Polimento</h3>
                 <p>Renove a pintura do seu carro com nosso polimento, deixando-a brilhante e sem riscos.</p>
-                <a href="#form5"><button class="btn btn-primary" onclick="showForm('form5')">Agendar</button></a>
+                <a href="#form5"><button class="btn btn-secondary" onclick="showForm('form5')">Agendar</button></a>
               </div>
             </div>
             <!-- Serviço 6 -->
@@ -422,7 +422,7 @@
                 </div>
                 <h3 class="mb-3">Pintura</h3>
                 <p>Obtenha uma nova pintura no seu carro ou recupere a aparência do seu carro com nosso retoque de pintura.</p>
-                <a href="#form6"><button class="btn btn-primary" onclick="showForm('form6')">Agendar</button></a>
+                <a href="#form6"><button class="btn btn-secondary" onclick="showForm('form6')">Agendar</button></a>
               </div>
             </div>
           </div>
@@ -492,7 +492,7 @@
         </div>
         <div class="form-group">
           <input type="hidden" name="service" value="troca_de_pneus">
-          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="submit" class="btn btn-secondary">Enviar Solicitação de Serviço</button>
           <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form1')">Recolher Formulário</button></a>
         </div>
       </form>
@@ -547,7 +547,7 @@
         </div>
         <div class="form-group">
           <input type="hidden" name="service" value="troca_de_oleo">
-          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="submit" class="btn btn-secondary">Enviar Solicitação de Serviço</button>
           <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form2')">Recolher Formulário</button></a>
         </div>
       </form>
@@ -602,7 +602,7 @@
         </div>
         <div class="form-group">
           <input type="hidden" name="service" value="revisao_completa">
-          <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+          <button type="submit" class="btn btn-secondary">Enviar Solicitação de Serviço</button>
           <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form3')">Recolher Formulário</button></a>
         </div>
       </form>
@@ -657,7 +657,7 @@
       </div>
       <div class="form-group">
         <input type="hidden" name="service" value="lavagem_detalhada">
-        <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+        <button type="submit" class="btn btn-secondary">Enviar Solicitação de Serviço</button>
         <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form4')">Recolher Formulário</button></a>
       </div>
     </form>
@@ -712,7 +712,7 @@
       </div>
       <div class="form-group">
         <input type="hidden" name="service" value="polimento">
-        <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+        <button type="submit" class="btn btn-secondary">Enviar Solicitação de Serviço</button>
         <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form5')">Recolher Formulário</button></a>
       </div>
     </form>
@@ -767,7 +767,7 @@
       </div>
       <div class="form-group">
         <input type="hidden" name="service" value="pintura">
-        <button type="submit" class="btn btn-primary">Enviar Solicitação de Serviço</button>
+        <button type="submit" class="btn btn-secondary">Enviar Solicitação de Serviço</button>
         <a href="#servicos"><button type="button" class="btn btn-secondary" onclick="hideForm('form6')">Recolher Formulário</button></a>
       </div>
     </form>
@@ -801,7 +801,7 @@
             <li><strong>Modelos de luxo:</strong> € 70,00</li>
             <li><strong>Deslocamento adicional:</strong> € 10,00</li>
           </ul>
-          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form1')">Agendar</button></a>
+          <a href="#formularios"><button class="btn btn-secondary w-100" onclick="showForm('form1')">Agendar</button></a>
         </div>
       </div>
 
@@ -818,7 +818,7 @@
             <li><strong>Óleo sintético:</strong> € 35,00</li>
             <li><strong>Óleo para carros esportivos:</strong> € 50,00</li>
           </ul>
-          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form2')">Agendar</button></a>
+          <a href="#formularios"><button class="btn btn-secondary w-100" onclick="showForm('form2')">Agendar</button></a>
         </div>
       </div>
 
@@ -836,7 +836,7 @@
             <li><strong>Carros acima de 10 anos:</strong> € 100,00</li>
             <li><strong>Carros de luxo ou importados:</strong> € 120,00</li>
           </ul>
-          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form3')">Agendar</button></a>
+          <a href="#formularios"><button class="btn btn-secondary w-100" onclick="showForm('form3')">Agendar</button></a>
         </div>
       </div>
     </div>
@@ -856,7 +856,7 @@
             <li><strong>Lavagem com polimento:</strong> € 30,00</li>
             <li><strong>Lavagem de veículos grandes:</strong> € 40,00</li>
           </ul>
-          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form4')">Agendar</button></a>
+          <a href="#formularios"><button class="btn btn-secondary w-100" onclick="showForm('form4')">Agendar</button></a>
         </div>
       </div>
 
@@ -873,7 +873,7 @@
             <li><strong>Polimento com cera:</strong> € 40,00</li>
             <li><strong>Polimento profundo:</strong> € 55,00</li>
           </ul>
-          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form5')">Agendar</button></a>
+          <a href="#formularios"><button class="btn btn-secondary w-100" onclick="showForm('form5')">Agendar</button></a>
         </div>
       </div>
 
@@ -890,7 +890,7 @@
             <li><strong>Pintura completa:</strong> € 180,00</li>
             <li><strong>Pintura para carros de luxo:</strong> € 400,00</li>
           </ul>
-          <a href="#formularios"><button class="btn btn-primary w-100" onclick="showForm('form6')">Agendar</button></a>
+          <a href="#formularios"><button class="btn btn-secondary w-100" onclick="showForm('form6')">Agendar</button></a>
         </div>
       </div>
     </div>
