@@ -96,6 +96,11 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Paginação -->
+        <div class="mt-4">
+            {{ $cars->links('pagination::tailwind') }}
+        </div>
     </div>
 
     <script>

@@ -162,6 +162,16 @@ public function getModelsByBrand(Request $request)
                                 ->get();
             $relatedCars = $relatedCars->merge($remainingCars); // Junta os carros encontrados
         }
+
+        // Se ainda não houver 4 carros, tenta buscar por cor
+        if ($relatedCars->count() < 4) {
+            $remainingCars = Car::where('color', $car->color)
+                                ->where('id', '!=', $car->id)
+                                ->take(4 - $relatedCars->count())
+                                ->get();
+            $relatedCars = $relatedCars->merge($remainingCars);
+        }
+
     
         // Se ainda não houver 4 carros, tenta buscar por marca, sem o ano específico
         if ($relatedCars->count() < 4) {

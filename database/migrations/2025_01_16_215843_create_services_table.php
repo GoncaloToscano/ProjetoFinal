@@ -20,10 +20,11 @@ class CreateServicesTable extends Migration
             $table->date('delivery_date');
             $table->date('pickup_date');
             $table->string('service');
+            $table->string('user_name'); 
+            $table->string('user_email'); 
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
