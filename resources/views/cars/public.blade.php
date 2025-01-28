@@ -141,7 +141,7 @@
                     <!-- Botões de Pesquisa e Reset -->
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-primary filter-btn px-4">Pesquisar</button>
-                        <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Resetar</a>
+                        <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Limpar</a>
                     </div>
                 </form>
             </div>
