@@ -700,58 +700,62 @@ document.getElementById('delivery-date').addEventListener('change', function() {
     </section>
 
       <!-- Inicio secção suporte-->
-<section>
-<!-- Contact Form HTML -->
-<div id="contactos" class="container contact-form">
-  <div class="contact-image">
-      <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+      <section>
+  <!-- Contact Form HTML -->
+  <div id="contactos" class="container contact-form">
+    <br>
+    <div class="contact-image">
+        <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+    </div>
+    <form action="{{ route('suporte.enviar') }}" method="POST">
+        @csrf
+        <h3>Envie-nos uma Mensagem</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="nome" class="form-control" placeholder="Seu Nome *" required />
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Seu E-mail *" required />
+                </div>
+                <div class="form-group">
+                    <input type="text" name="telefone" class="form-control" placeholder="Seu Telefone *" required />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btnContact" value="Enviar Mensagem" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem *" style="height: 150px;" required></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
   </div>
-  <form action="{{ route('suporte.enviar') }}" method="POST">
-      @csrf
-      <h3>Envie-nos uma Mensagem</h3>
-      <div class="row">
-          <div class="col-md-6">
-              <div class="form-group">
-                  <input type="text" name="nome" class="form-control" placeholder="Seu Nome *" required />
-              </div>
-              <div class="form-group">
-                  <input type="email" name="email" class="form-control" placeholder="Seu E-mail *" required />
-              </div>
-              <div class="form-group">
-                  <input type="text" name="telefone" class="form-control" placeholder="Seu Telefone *" required />
-              </div>
-              <div class="form-group">
-                  <input type="submit" class="btnContact" value="Enviar Mensagem" />
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="form-group">
-                  <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem *" style="height: 150px;" required></textarea>
-              </div>
-          </div>
-      </div>
-  </form>
-</div>
 </section>
 
-
-<!-- Styling for the contact form (Scoped to the contact form only) -->
+<!-- Styling for the contact form -->
 <style>
-  /* Styles only for the contact form */
+  body {
+      background: #f1f1f1; /* Fundo geral mais escuro */
+  }
+
   .contact-form {
-      background: #fff;
+      background: #ffffff; /* Fundo branco do formulário */
       margin-top: 10%;
       margin-bottom: 5%;
       width: 70%;
       border-radius: 1rem;
       padding: 2rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Sombra mais evidente */
+      border: 1px solid #dcdcdc; /* Borda mais contrastante */
   }
 
   .contact-form .form-control {
       border-radius: 1rem;
       box-shadow: none;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
   }
 
   .contact-image {
@@ -790,7 +794,6 @@ document.getElementById('delivery-date').addEventListener('change', function() {
       background-color: #c82333;
   }
 
-  /* Styling for form inputs */
   input.form-control, textarea.form-control {
       padding: 1rem;
       font-size: 1rem;
@@ -800,7 +803,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
       margin-bottom: 1.5rem;
   }
 </style>
-  <!-- Fim secção suporte-->
+
 
 <!-- Concessionárias -->
 <section class="ftco-section testimony-section bg-light" id="concessionarias">

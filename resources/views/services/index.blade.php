@@ -321,6 +321,31 @@
         animation: slideUp 0.5s ease forwards;
     }
 
+
+    .service-item {
+  background: #f9fafb; /* Fundo pastel */
+  border: 1px solid #e5e7eb; /* Borda discreta */
+  border-radius: 0.5rem; /* Bordas arredondadas */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra inicial */
+}
+
+.service-item:hover {
+  transform: translateY(-10px); /* Elevação maior no hover */
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3); /* Sombra mais intensa */
+  background: #ede9fe; /* Fundo com destaque maior (tom lavanda) */
+}
+
+.service-image img {
+  border-radius: 0.25rem;
+  transition: transform 0.3s ease;
+}
+
+.service-image img:hover {
+  transform: scale(1.05); /* Ampliação sutil da imagem no hover */
+}
+
+
 </style>
 
   <!-- Script para notificação -->
@@ -356,7 +381,7 @@
           <div class="row">
             <!-- Serviço 1 -->
             <div class="col-md-4 mb-4 d-flex">
-              <div class="service-item bg-light p-4 text-center d-flex flex-column">
+              <div class="service-item p-4 text-center d-flex flex-column">
                 <div class="service-image">
                   <img src="assets/images/troca_pneus.jpg" alt="Troca de Pneus" class="img-fluid">
                 </div>
@@ -367,7 +392,7 @@
             </div>
             <!-- Serviço 2 -->
             <div class="col-md-4 mb-4 d-flex">
-              <div class="service-item bg-light p-4 text-center d-flex flex-column">
+              <div class="service-item p-4 text-center d-flex flex-column">
                 <div class="service-image">
                   <img src="assets/images/troca_oleo.jpg" alt="Troca de Óleo" class="img-fluid">
                 </div>
@@ -378,7 +403,7 @@
             </div>
             <!-- Serviço 3 -->
             <div class="col-md-4 mb-4 d-flex">
-              <div class="service-item bg-light p-4 text-center d-flex flex-column">
+              <div class="service-item p-4 text-center d-flex flex-column">
                 <div class="service-image">
                   <img src="assets/images/revisao_carro.jpg" alt="Revisão Completa" class="img-fluid">
                 </div>
@@ -394,7 +419,7 @@
           <div class="row">
             <!-- Serviço 4 -->
             <div class="col-md-4 mb-4 d-flex">
-              <div class="service-item bg-light p-4 text-center d-flex flex-column">
+              <div class="service-item p-4 text-center d-flex flex-column">
                 <div class="service-image">
                   <img src="assets/images/lavagem_carros.jpg" alt="Lavagem Detalhada" class="img-fluid">
                 </div>
@@ -405,7 +430,7 @@
             </div>
             <!-- Serviço 5 -->
             <div class="col-md-4 mb-4 d-flex">
-              <div class="service-item bg-light p-4 text-center d-flex flex-column">
+              <div class="service-item p-4 text-center d-flex flex-column">
                 <div class="service-image">
                   <img src="assets/images/polimento_carro.jpg" alt="Polimento" class="img-fluid">
                 </div>
@@ -416,7 +441,7 @@
             </div>
             <!-- Serviço 6 -->
             <div class="col-md-4 mb-4 d-flex">
-              <div class="service-item bg-light p-4 text-center d-flex flex-column">
+              <div class="service-item p-4 text-center d-flex flex-column">
                 <div class="service-image">
                   <img src="assets/images/pintura_carro.jpg" alt="Pintura" class="img-fluid">
                 </div>
@@ -428,6 +453,7 @@
           </div>
         </div>
       </div>
+
 
       <!-- Controles do Carrossel -->
       <a class="carousel-control-prev" href="#servicesCarousel" role="button" data-slide="prev">
