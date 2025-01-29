@@ -19,10 +19,11 @@ class SendNotificationJob implements ShouldQueue
     public $message;
 
     /**
-     * Cria uma nova instância do Job.
+     * Cria uma nova instância do Job que recebe os valores para o email
      */
     public function __construct($email, $subject, $message)
     {
+        /* Criei as propriedades para armazenar o e-mail, assunto e mensagem */
         $this->email = $email;
         $this->subject = $subject;
         $this->message = $message;

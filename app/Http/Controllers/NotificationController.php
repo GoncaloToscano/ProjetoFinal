@@ -31,7 +31,7 @@ class NotificationController extends Controller
 
         $emails = [];
 
-        // Se o usuário escolheu enviar para todos os inscritos na newsletter
+        // Se o utilizador escolheu enviar para todos os inscritos na newsletter
         if ($request->has('send_to_newsletter') && $request->send_to_newsletter) {
             $newsletterSubscribers = User::where('newsletter', true)->pluck('email')->toArray();
             $emails = array_merge($emails, $newsletterSubscribers);
@@ -42,7 +42,7 @@ class NotificationController extends Controller
             $emails = array_merge($emails, $data['recipients']);
         }
 
-        // Remove duplicatas para evitar e-mails duplicados
+        // Remove duplos e-mails para evitar duplicados
         $emails = array_unique($emails);
 
         // Envia os e-mails de forma assíncrona, com delay entre cada envio
