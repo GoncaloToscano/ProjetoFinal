@@ -63,6 +63,11 @@
                                     </a>
                                 @endif
 
+                                <!-- Link para editar o perfil -->
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                    {{ __('Perfil') }}
+                                </a>
+
                                 <!-- Link de Logout que aparece para todos os usuários -->
                                 <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
                                     @csrf
