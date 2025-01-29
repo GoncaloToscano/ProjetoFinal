@@ -8,6 +8,7 @@
 <link href="{{ asset('assets/css/font.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap') }}" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="{{ asset('assets/css/open-iconic-bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
@@ -205,7 +206,7 @@
           <!-- Aluguel de Carro -->
           <div class="col-md-8 d-flex align-items-center">
             <div class="services-wrap rounded-right w-100">
-              <h3 class="heading-section mb-4">Aluga um carro conosco!</h3>
+              <h3 class="heading-section mb-4">Os nossos serviços</h3>
               <!-- Aqui você pode manter as opções de aluguer de carro -->
             </div>
           </div>
@@ -615,22 +616,53 @@ document.getElementById('delivery-date').addEventListener('change', function() {
       </div>
     </section>
     
-    
-    
-    
-    
+    <section class="ftco-section ftco-intro" style="background-image: url(assets/images/bg_veiculos_1.jpeg); background-size: cover; background-position: center; padding: 80px 0;">
+    <!-- Início secção newsletter -->
+    <section class="ftco-section newsletter-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 text-center mb-4">
+                    <h2 class="text-white fw-bold">Subscreva a nossa Newsletter</h2>
+                    <p class="text-white">Receba as nossas últimas novidades diretamente no seu e-mail.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="p-4" style="background-color: #515159; border-radius: 10px;" class="shadow-lg text-white">
+                        <form class="contact-form" action="{{ route('newsletter.enviar') }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <input type="email" class="form-control p-3 border-0 bg-dark text-white" name="email" placeholder="Escreva o seu e-mail" required style="border-radius: 30px 0 0 30px; background-color: #66667A;">
+                                <button type="submit" class="btn text-white fw-bold px-4" style="background-color: #762E99; border-radius: 0 30px 30px 0;">Subscrever</button>
+                            </div>
+                        </form>
+                                                @if(session('success') || session('error'))
+                            <div class="mt-3">
+                                @if(session('success'))
+                                    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center shadow-lg p-3 rounded" role="alert">
+                                        <i class="bi bi-check-circle-fill me-2"></i>
+                                        <strong>Sucesso!</strong> {{ session('success') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
 
-		<section class="ftco-section ftco-intro" style="background-image: url(assets/images/image_6.jpg);">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row justify-content-end">
-					<div class="col-md-6 heading-section heading-section-white ftco-animate">
-            <h2 class="mb-3">Queres ver mais dos nossos serviços</h2>
-            <a href="{{ route('service.index') }}" class="btn btn-secondary btn-lg">Vem conhecer mais!</a>
-          </div>
-				</div>
-			</div>
-		</section>
+                                @if(session('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center shadow-lg p-3 rounded" role="alert">
+                                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                        <strong> Erro!</strong> {{ session('error') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
 
 
     <section class="ftco-section testimony-section bg-light">
@@ -705,41 +737,44 @@ document.getElementById('delivery-date').addEventListener('change', function() {
       </div>
     </section>
 
-      <!-- Inicio secção suporte-->
-      <section>
-  <!-- Contact Form HTML -->
-  <div id="contactos" class="container contact-form">
-    <br>
-    <div class="contact-image">
-        <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
-    </div>
-    <form action="{{ route('suporte.enviar') }}" method="POST">
-        @csrf
-        <h3>Envie-nos uma Mensagem</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" name="nome" class="form-control" placeholder="Seu Nome *" required />
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Seu E-mail *" required />
-                </div>
-                <div class="form-group">
-                    <input type="text" name="telefone" class="form-control" placeholder="Seu Telefone *" required />
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btnContact" value="Enviar Mensagem" />
-                </div>
+
+
+
+  <!-- Inicio secção suporte-->
+    <section >
+          <!-- Contact Form HTML -->
+          <div  id="contactos" class="container contact-form">
+            <br>
+            <div class="contact-image">
+                <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem *" style="height: 150px;" required></textarea>
+            <form action="{{ route('suporte.enviar') }}" method="POST">
+                @csrf
+                <h3>Envie-nos uma Mensagem</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="nome" class="form-control" placeholder="Seu Nome *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Seu E-mail *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="telefone" class="form-control" placeholder="Seu Telefone *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnContact" value="Enviar Mensagem" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea name="mensagem" class="form-control" placeholder="Sua Mensagem *" style="height: 150px;" required></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </form>
-  </div>
-</section>
+            </form>
+          </div>
+      </section>
 
 <!-- Styling for the contact form -->
 <style>

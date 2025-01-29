@@ -90,8 +90,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/perfil', [ProfilePublicController::class, 'updateProfile'])->name('profilepublic.update');
 });
 
-
-
+Route::post('/newsletter/enviar', 'App\Http\Controllers\NewsletterController@enviar')->name('newsletter.enviar');
 
 // Rotas para demonstração de botões (exemplo de sidebar dropdown links)
 Route::get('/buttons/text', function () {
