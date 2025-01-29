@@ -99,4 +99,37 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Utilizador removido com sucesso!');
     }
+
+
+    public function editProfile()
+    {
+        $user = Auth::user();
+        return view('profilepublic.edit', compact('user'));
+    }
+    
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+    
+        // Validação dos dados
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed', // A senha é opcional
+        ]);
+    
+        // Atualizando os dados do usuário
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+    
+        // Se o usuário inseriu uma nova senha, criptografá-la antes de salvar
+        if (!empty($validated['password'])) {
+            $user->password = bcrypt($validated['password']);
+        }
+    
+        $user->save();
+    
+        return redirect()->route('profile.edit')->with('success', 'Perfil atualizado com sucesso.');
+    }
+    
 }

@@ -82,6 +82,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+use App\Http\Controllers\ProfilePublicController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfilePublicController::class, 'editProfile'])->name('profilepublic.edit');
+    Route::post('/perfil', [ProfilePublicController::class, 'updateProfile'])->name('profilepublic.update');
+});
+
+
+
+
 // Rotas para demonstração de botões (exemplo de sidebar dropdown links)
 Route::get('/buttons/text', function () {
         return view('buttons-showcase.text');
