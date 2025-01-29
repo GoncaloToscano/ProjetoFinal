@@ -42,6 +42,7 @@
                             type="checkbox" 
                             id="send-to-newsletter" 
                             name="send_to_newsletter" 
+                            value="1" 
                             class="mr-2"
                         >
                         <label for="send-to-newsletter" class="text-gray-700 dark:text-gray-300 font-medium">

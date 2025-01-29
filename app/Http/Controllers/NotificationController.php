@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Jobs\SendNotificationJob;
+use App\Models\Newsletter;
 
 class NotificationController extends Controller
 {
@@ -28,29 +29,33 @@ class NotificationController extends Controller
             'recipients' => 'nullable|array',
             'send_to_newsletter' => 'nullable|boolean',
         ]);
-
+    
         $emails = [];
-
+    
         // Se o utilizador escolheu enviar para todos os inscritos na newsletter
         if ($request->has('send_to_newsletter') && $request->send_to_newsletter) {
-            $newsletterSubscribers = User::where('newsletter', true)->pluck('email')->toArray();
+            $newsletterSubscribers = Newsletter::pluck('email')->toArray();
             $emails = array_merge($emails, $newsletterSubscribers);
         }
-
+    
         // Adiciona os destinatários selecionados manualmente
         if (!empty($data['recipients'])) {
             $emails = array_merge($emails, $data['recipients']);
         }
-
-        // Remove duplos e-mails para evitar duplicados
+    
+        // **Remover e-mails duplicados**
         $emails = array_unique($emails);
-
-        // Envia os e-mails de forma assíncrona, com delay entre cada envio
-        foreach ($emails as $index => $email) {
+    
+        // **Enviar e-mails de forma assíncrona, evitando envios repetidos**
+        $delay = 0;
+        foreach ($emails as $email) {
             SendNotificationJob::dispatch($email, $data['subject'], $data['message'])
-                ->delay(now()->addSeconds($index * 10)); // Envio a cada 10 segundos
+                ->delay(now()->addSeconds($delay));
+    
+            $delay += 10; // Envia a cada 10 segundos
         }
-
+    
         return redirect()->route('notifications.index')->with('success', 'Os e-mails estão sendo enviados em segundo plano!');
     }
+    
 }
