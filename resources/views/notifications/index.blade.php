@@ -10,31 +10,6 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Enviar Comunicado</h3>
 
-                <!-- Campo para visualizar destinatários selecionados -->
-                <div class="mb-6">
-                    <label for="selected-recipients" class="block text-gray-700 dark:text-gray-300 font-medium">Destinatários Selecionados</label>
-                    <div 
-                        id="selected-recipients" 
-                        class="w-full mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 rounded-md shadow-sm p-3 min-h-[3rem] overflow-y-auto">
-                        <span class="text-gray-500 dark:text-gray-400">Nenhum destinatário selecionado</span>
-                    </div>
-                    <!-- Botões para selecionar todos os destinatários e limpar seleções -->
-                    <div class="mt-2 flex space-x-2">
-                        <button 
-                            type="button" 
-                            id="select-all" 
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Selecionar Todos
-                        </button>
-                        <button 
-                            type="button" 
-                            id="clear-selections" 
-                            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Limpar Seleções
-                        </button>
-                    </div>
-                </div>
-
                 <form action="{{ route('notifications.send') }}" method="POST">
                     @csrf
 
@@ -62,6 +37,42 @@
                         ></textarea>
                     </div>
 
+                    <div class="mb-4 flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="send-to-newsletter" 
+                            name="send_to_newsletter" 
+                            class="mr-2"
+                        >
+                        <label for="send-to-newsletter" class="text-gray-700 dark:text-gray-300 font-medium">
+                            Enviar para todos os inscritos na newsletter
+                        </label>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="selected-recipients" class="block text-gray-700 dark:text-gray-300 font-medium">Destinatários Selecionados</label>
+                        <div 
+                            id="selected-recipients" 
+                            class="w-full mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 rounded-md shadow-sm p-3 min-h-[3rem] overflow-y-auto">
+                            <span class="text-gray-500 dark:text-gray-400">Nenhum destinatário selecionado</span>
+                        </div>
+
+                        <div class="mt-2 flex space-x-2">
+                            <button 
+                                type="button" 
+                                id="select-all" 
+                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                                Selecionar Todos
+                            </button>
+                            <button 
+                                type="button" 
+                                id="clear-selections" 
+                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                Limpar Seleções
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="mb-4">
                         <label for="recipients" class="block text-gray-700 dark:text-gray-300 font-medium">Destinatários</label>
                         <input 
@@ -86,7 +97,7 @@
                     <div class="flex justify-end">
                         <button 
                             type="submit" 
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                             Enviar
                         </button>
                     </div>
@@ -102,8 +113,8 @@
             const searchInput = document.getElementById('search-recipients');
             const selectAllButton = document.getElementById('select-all');
             const clearSelectionsButton = document.getElementById('clear-selections');
+            const newsletterCheckbox = document.getElementById('send-to-newsletter');
 
-            // Função para atualizar os destinatários selecionados
             function updateSelectedRecipients() {
                 const selectedOptions = Array.from(recipientsSelect.selectedOptions);
                 selectedRecipientsDiv.innerHTML = selectedOptions.length > 0
@@ -111,44 +122,44 @@
                         `<span class='flex justify-between'>
                             <span>${option.textContent}</span>
                             <button type='button' class='text-red-500' data-email='${option.value}'>Remover</button>
-                        </span>`
-                    ).join('')
+                        </span>`).join('')
                     : '<span class="text-gray-500 dark:text-gray-400">Nenhum destinatário selecionado</span>';
                 
-                // Adicionar evento de remoção aos botões de "Remover"
                 document.querySelectorAll('[data-email]').forEach(button => {
                     button.addEventListener('click', () => {
                         const emailToRemove = button.getAttribute('data-email');
-                        const optionToRemove = Array.from(recipientsSelect.options)
-                            .find(option => option.value === emailToRemove);
-                        optionToRemove.selected = false;
+                        Array.from(recipientsSelect.options).forEach(option => {
+                            if (option.value === emailToRemove) option.selected = false;
+                        });
                         updateSelectedRecipients();
                     });
                 });
             }
 
-            // Atualiza a lista sempre que a seleção de destinatários mudar
             recipientsSelect.addEventListener('change', updateSelectedRecipients);
 
-            // Filtro de pesquisa de emails
             searchInput.addEventListener('input', () => {
                 const filter = searchInput.value.toLowerCase();
                 Array.from(recipientsSelect.options).forEach(option => {
-                    const text = option.textContent.toLowerCase();
-                    option.style.display = text.includes(filter) ? '' : 'none';
+                    option.style.display = option.textContent.toLowerCase().includes(filter) ? '' : 'none';
                 });
             });
 
-            // Selecionar todos os destinatários
             selectAllButton.addEventListener('click', () => {
                 Array.from(recipientsSelect.options).forEach(option => option.selected = true);
                 updateSelectedRecipients();
             });
 
-            // Limpar todas as seleções
             clearSelectionsButton.addEventListener('click', () => {
                 Array.from(recipientsSelect.options).forEach(option => option.selected = false);
                 updateSelectedRecipients();
+            });
+
+            newsletterCheckbox.addEventListener('change', () => {
+                recipientsSelect.disabled = newsletterCheckbox.checked;
+                if (newsletterCheckbox.checked) {
+                    clearSelectionsButton.click();
+                }
             });
         });
     </script>
