@@ -4,24 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
+use App\Mail\NewsletterWelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class NewsletterController extends Controller
 {
     public function enviar(Request $request)
     {
-        $email = $request->input('email');
+        $request->validate([
+            'email' => 'required|email|unique:newsletters,email',
+        ]);
 
-        // Verifique se o email já está cadastrado
-        $newsletter = Newsletter::where('email', $email)->first();
-        if ($newsletter) {
-            return redirect()->back()->with('error', 'Esse e-mail já está registrado na nossa newsletter!');
-        }
+        $email = $request->input('email');
 
         // Cadastra o email
         $newsletter = new Newsletter();
         $newsletter->email = $email;
         $newsletter->save();
 
-        return redirect()->back()->with('success', 'Subscreveste à nossa newsletter com sucesso!');
+        // Envia o e-mail de boas-vindas
+        Mail::to($email)->send(new NewsletterWelcomeMail($email));
+
+        return redirect()->back()->with('success', 'Subscreveste à nossa newsletter com sucesso! Verifica o teu e-mail.');
     }
 }
