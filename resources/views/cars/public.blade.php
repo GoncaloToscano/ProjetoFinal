@@ -240,6 +240,11 @@
 <div class="row mb-4">
     <div class="col-md-6">
         <form method="GET" action="{{ route('cars.public.cars') }}">
+            <!-- Mantém os filtros aplicados -->
+            @foreach(request()->except('sort', '_token') as $key => $value)
+                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+            @endforeach
+
             <div class="input-group shadow-sm" style="border-radius: 8px; overflow: hidden;">
                 <div class="input-group-prepend">
                     <span class="input-group-text bg-primary text-white"><i class="fas fa-filter"></i></span>
@@ -260,6 +265,9 @@
         </form>
     </div>
 </div>
+
+
+
 
 
 
