@@ -101,54 +101,86 @@
                 <h1 class="mb-3 bread text-white">Escolha o Seu Carro</h1>
                 
                 <!-- Filtro sobre a imagem -->
-                <form action="{{ route('cars.public.cars') }}" method="GET" class="row justify-content-center mt-4">
-                    <!-- Campo Marca -->
-                    <div class="col-md-2 mb-3">
-                        <select name="brand" id="brand" class="form-control">
-                            <option value="">Marca</option>
-                            @foreach($brands as $brand)
-                                <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>
-                                    {{ $brand->brand }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-  
-                    <!-- Campo Modelo -->
-                    <div class="col-md-2 mb-3">
-                        <select name="name" id="model" class="form-control">
-                            <option value="">Modelo</option>
-                            <!-- Os modelos serão carregados dinamicamente via AJAX -->
-                        </select>
-                    </div>
-  
-                    <!-- Campo Preço Mínimo -->
-                    <div class="col-md-2 mb-3">
-                        <input type="number" name="min_price" class="form-control" placeholder="Preço Mín." value="{{ request('min_price') }}">
-                    </div>
-  
-                    <!-- Campo Preço Máximo -->
-                    <div class="col-md-2 mb-3">
-                        <input type="number" name="max_price" class="form-control" placeholder="Preço Máx." value="{{ request('max_price') }}">
-                    </div>
-  
-                    <!-- Campo Tipo de Combustível -->
-                    <div class="col-md-2 mb-3">
-                        <select name="fuel_type" class="form-control">
-                            <option value="">Combustível</option>
-                            <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
-                            <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
-                            <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
-                            <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
-                        </select>
-                    </div>
-  
-                    <!-- Botões de Pesquisa e Reset -->
-                    <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary filter-btn px-4">Pesquisar</button>
-                        <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Limpar</a>
-                    </div>
-                </form>
+                    <form action="{{ route('cars.public.cars') }}" method="GET" class="row justify-content-center mt-4">
+                        <!-- Campo Marca -->
+                        <div class="col-md-2 mb-3">
+                            <select name="brand" id="brand" class="form-control custom-dropdown">
+                                <option value="">Marca</option>
+                                @foreach($brands as $brand)
+                                    <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>
+                                        {{ $brand->brand }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Campo Modelo -->
+                        <div class="col-md-2 mb-3">
+                            <select name="name" id="model" class="form-control custom-dropdown">
+                                <option value="">Modelo</option>
+                                <!-- Os modelos serão carregados dinamicamente via AJAX -->
+                            </select>
+                        </div>
+
+                        <!-- Campo Preço Mínimo -->
+                        <div class="col-md-2 mb-3">
+                            <input type="number" name="min_price" class="form-control custom-input" placeholder="Preço Mín." value="{{ request('min_price') }}">
+                        </div>
+
+                        <!-- Campo Preço Máximo -->
+                        <div class="col-md-2 mb-3">
+                            <input type="number" name="max_price" class="form-control custom-input" placeholder="Preço Máx." value="{{ request('max_price') }}">
+                        </div>
+
+                        <!-- Campo Tipo de Combustível -->
+                        <div class="col-md-2 mb-3">
+                            <select name="fuel_type" class="form-control custom-dropdown">
+                                <option value="">Combustível</option>
+                                <option value="Gasolina" {{ request('fuel_type') == 'Gasolina' ? 'selected' : '' }}>Gasolina</option>
+                                <option value="Diesel" {{ request('fuel_type') == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+                                <option value="Elétrico" {{ request('fuel_type') == 'Elétrico' ? 'selected' : '' }}>Elétrico</option>
+                                <option value="Híbrido" {{ request('fuel_type') == 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
+                            </select>
+                        </div>
+
+                        <!-- Botões de Pesquisa e Reset -->
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-primary filter-btn px-4">Pesquisar</button>
+                            <a href="{{ route('cars.public.cars') }}" class="btn btn-secondary filter-btn px-4">Limpar</a>
+                        </div>
+                    </form>
+
+                    <style>
+                    /* Estilização do dropdown */
+                    .custom-dropdown {
+                        border-radius: 8px;
+                        border: 1px solid #ced4da;
+                        padding: 10px;
+                        background-color: #fff;
+                        font-size: 16px;
+                        transition: all 0.3s ease;
+                    }
+
+                    .custom-dropdown:focus {
+                        border-color: #007bff;
+                        box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+                    }
+
+                    /* Estilização dos inputs */
+                    .custom-input {
+                        border-radius: 8px;
+                        border: 1px solid #ced4da;
+                        padding: 10px;
+                        font-size: 16px;
+                        transition: all 0.3s ease;
+                    }
+
+                    .custom-input:focus {
+                        border-color: #007bff;
+                        box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+                    }
+                    </style>
+
             </div>
         </div>
     </div>
@@ -236,37 +268,38 @@
 <section id="carsection" class="ftco-section ftco-no-pt bg-light">
     <br>
     <div class="container">
-<!-- Opções de ordenação -->
-<div class="row mb-4">
-    <div class="col-md-6">
-        <form method="GET" action="{{ route('cars.public.cars') }}">
-            <!-- Mantém os filtros aplicados -->
-            @foreach(request()->except('sort', '_token') as $key => $value)
-                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-            @endforeach
+        <!-- Opções de ordenação -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form method="GET" action="{{ route('cars.public.cars') }}">
+                    <!-- Mantém os filtros aplicados -->
+                    @foreach(request()->except('sort', '_token') as $key => $value)
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endforeach
 
-            <div class="input-group shadow-sm" style="border-radius: 8px; overflow: hidden;">
-                <div class="input-group-prepend">
-                    <span class="input-group-text bg-primary text-white"><i class="fas fa-filter"></i></span>
-                </div>
-                <select name="sort" class="custom-select border-0">
-                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Mais Recentes</option>
-                    <option value="price" {{ request('sort') == 'price' ? 'selected' : '' }}>Preço: Menor para Maior</option>
-                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
-                    <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Ano: Menor para Maior</option>
-                    <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Ano: Maior para Menor</option>
-                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
-                    <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
-                </select>
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary text-white">
-                        <i class="fas fa-sort-amount-down-alt"></i> Ordenar
-                    </button>
-                </div>
+                    <div class="input-group shadow-sm" style="border-radius: 8px; overflow: hidden;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-primary text-white"><i class="fas fa-filter"></i></span>
+                        </div>
+                        <select name="sort" class="custom-select border-0">
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Mais Recentes</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Mais Antigo</option>
+                            <option value="price" {{ request('sort') == 'price' ? 'selected' : '' }}>Preço: Menor para Maior</option>
+                            <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
+                            <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Ano: Menor para Maior</option>
+                            <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Ano: Maior para Menor</option>
+                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
+                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary text-white">
+                                <i class="fas fa-sort-amount-down-alt"></i> Ordenar
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
 
 
 

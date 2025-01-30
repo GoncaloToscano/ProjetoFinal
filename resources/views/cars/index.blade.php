@@ -9,6 +9,7 @@
     </x-slot>
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+        
         <!-- Formulário de Pesquisa -->
         <form method="GET" action="{{ route('cars.index') }}" class="mb-4 flex flex-col sm:flex-row gap-2">
             <input 
@@ -26,6 +27,39 @@
             </div>
         </form>
 
+        <!-- Opções de ordenação -->
+        <div class="flex flex-col md:flex-row md:justify-between mb-4">
+            <div>
+                <form method="GET" action="{{ route('cars.index') }}" class="flex flex-col sm:flex-row gap-2">
+                    <!-- Mantém os filtros aplicados -->
+                    @foreach(request()->except('sort', '_token') as $key => $value)
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endforeach
+
+                    <div class="relative">
+                        <select name="sort" class="appearance-none w-full sm:w-auto border border-gray-300 rounded-md p-2 pl-10 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Mais Recentes</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Mais Antigo</option>
+                            <option value="price" {{ request('sort') == 'price' ? 'selected' : '' }}>Preço: Menor para Maior</option>
+                            <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
+                            <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Ano: Menor para Maior</option>
+                            <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Ano: Maior para Menor</option>
+                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
+                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
+                        </select>
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                            <i class="fas fa-sort-amount-down-alt"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                        Ordenar
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabela de Carros -->
         <div class="overflow-x-auto">
             <table class="min-w-full table-auto">
                 <thead>
@@ -48,50 +82,17 @@
                         <td class="border p-2">{{ $car->kms }} km</td>
                         <td class="border p-2">
                             <div class="flex flex-col sm:flex-row gap-2">
-                                <!-- Botão de Editar -->
-                                <a href="{{ route('cars.edit', $car->id) }}" class="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition w-full sm:w-auto text-left">
+                                <a href="{{ route('cars.edit', $car->id) }}" class="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition">
                                     Editar
                                 </a>
-                                <!-- Formulário de Remover -->
-                                <form action="{{ route('cars.destroy', $car->id) }}" method="POST" style="display:inline" id="deleteForm-{{ $car->id }}">
+                                <form action="{{ route('cars.destroy', $car->id) }}" method="POST" id="deleteForm-{{ $car->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 transition w-full sm:w-auto text-left" onclick="confirmDelete({{ $car->id }})">Remover</button>
+                                    <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 transition" onclick="confirmDelete({{ $car->id }})">Remover</button>
                                 </form>
-                                <!-- Botão "Ver Mais" -->
-                                <button class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition w-full sm:w-auto text-left" onclick="openModal({{ $car->id }})">Ver Mais</button>
                             </div>
                         </td>
                     </tr>
-
-                    <!-- Modal de Detalhes -->
-                    <div id="modal-{{ $car->id }}" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
-                            <h2 class="text-3xl font-semibold mb-4 text-gray-800 dark:text-white">{{ $car->name }}</h2>
-                            <div class="space-y-2 mb-4">
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Marca:</strong> {{ $car->brand }}</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Ano:</strong> {{ $car->year }}</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Preço:</strong> {{ number_format($car->price, 2, ',', '.') }} €</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Quilometragem:</strong> {{ $car->kms }} km</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Combustível:</strong> {{ $car->fuel }}</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Cor:</strong> {{ $car->color }}</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Potência:</strong> {{ $car->power }} CV</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Cilindrada:</strong> {{ $car->engine_capacity }} cm³</p>
-                                <p class="text-gray-700 dark:text-gray-300"><strong>Caixa:</strong> {{ $car->gearbox }}</p>
-                            </div>
-                            <div class="space-y-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white">Imagens:</h3>
-                                <div class="grid grid-cols-3 gap-4">
-                                    @foreach ($car->images as $image)
-                                        <img src="{{ asset('storage/'.$image->path) }}" alt="Car Image" class="w-full h-48 object-cover rounded-lg shadow-md">
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="mt-6 flex justify-end">
-                                <button onclick="closeModal({{ $car->id }})" class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Fechar</button>
-                            </div>
-                        </div>
-                    </div>
                     @endforeach
                 </tbody>
             </table>
@@ -104,17 +105,6 @@
     </div>
 
     <script>
-        // Função para abrir o modal
-        function openModal(carId) {
-            document.getElementById('modal-' + carId).classList.remove('hidden');
-        }
-
-        // Função para fechar o modal
-        function closeModal(carId) {
-            document.getElementById('modal-' + carId).classList.add('hidden');
-        }
-
-        // Função para confirmar a remoção do carro
         function confirmDelete(carId) {
             Swal.fire({
                 title: 'Tens a certeza?',

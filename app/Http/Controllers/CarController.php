@@ -45,6 +45,9 @@ class CarController extends Controller
  
      // Aplicação da ordenação
      switch ($request->sort) {
+        case 'oldest':
+             $query->orderBy('created_at', 'asc');
+             break;
          case 'price_asc':
              $query->orderBy('price', 'asc');
              break;
@@ -99,26 +102,59 @@ public function getModelsByBrand(Request $request)
 
     // Exibir lista de carros dashboard
     public function index(Request $request)
-    {
-        // Inicia a consulta para o modelo Car
-        $query = Car::with('images');
-        
-        // Se houver um parâmetro 'search', filtra os carros pelo nome ou marca
-        if ($request->filled('search')) {
-            $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('name', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('brand', 'like', '%' . $searchTerm . '%');
-            });
-        }
-    
-        // Obter todos os carros com suas imagens associadas
-        $cars = $query->paginate(6); // Paginação com 6 carros por página
+{
+    // Inicia a consulta para o modelo Car com relacionamento de imagens
+    $query = Car::with('images');
 
-    
-        // Passa os carros filtrados para a view
-        return view('cars.index', compact('cars'));
+    // Se houver um parâmetro 'search', filtra os carros pelo nome ou marca
+    if ($request->filled('search')) {
+        $searchTerm = $request->search;
+        $query->where(function ($q) use ($searchTerm) {
+            $q->where('name', 'like', '%' . $searchTerm . '%')
+              ->orWhere('brand', 'like', '%' . $searchTerm . '%');
+        });
     }
+
+    // Aplica a ordenação com base no parâmetro 'sort'
+    if ($request->filled('sort')) {
+        switch ($request->sort) {
+            case 'latest':
+                $query->latest(); // Ordena pelos mais recentes
+                break;
+            case 'oldest':
+                $query->oldest(); // Ordena pelos mais antigos
+                break;
+            case 'price':
+                $query->orderBy('price', 'asc'); // Ordena do menor para o maior preço
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc'); // Ordena do maior para o menor preço
+                break;
+            case 'year_asc':
+                $query->orderBy('year', 'asc'); // Ordena do ano mais antigo para o mais novo
+                break;
+            case 'year_desc':
+                $query->orderBy('year', 'desc'); // Ordena do ano mais novo para o mais antigo
+                break;
+            case 'name_asc':
+                $query->orderBy('name', 'asc'); // Ordena de A-Z
+                break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc'); // Ordena de Z-A
+                break;
+        }
+    } else {
+        // Ordenação padrão (mais recentes)
+        $query->latest();
+    }
+
+    // Paginação com 6 carros por página
+    $cars = $query->paginate(6);
+
+    // Passa os carros filtrados para a view
+    return view('cars.index', compact('cars'));
+}
+
     
 
     // Exibir formulário de criação de carro
