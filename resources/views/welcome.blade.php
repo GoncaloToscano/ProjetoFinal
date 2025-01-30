@@ -203,11 +203,13 @@
             </form>
           </div>
 
-          <!-- Aluguel de Carro -->
+          <!-- Serviços de Carro -->
           <div class="col-md-8 d-flex align-items-center">
             <div class="services-wrap rounded-right w-100">
               <h3 class="heading-section mb-4">Os nossos serviços</h3>
-              <!-- Aqui você pode manter as opções de aluguer de carro -->
+              <p>Os nossos serviços, oferecem aos nossos clientes o melhor de tudo, desde a manutenção até aos test drives com duas concessionárias prontas a realizar o seu sonho.</p>
+              <p>Serviços em toda a linha automóvel, conhece mais dos nossos serviços <a href="{{ route('service.index') }}">aqui</a></p>
+	            <p><a href="{{ route('service.index') }}" class="btn btn-secondary py-3 px-4">Mais serviços</a></p>
             </div>
           </div>
         </div>
@@ -616,7 +618,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
       </div>
     </section>
     
-    <section class="ftco-section ftco-intro" style="background-image: url(assets/images/bg_veiculos_1.jpeg); background-size: cover; background-position: center; padding: 80px 0;">
+    <section class="ftco-section ftco-intro" style="background-image: url(assets/images/bg_veiculos_1.jpeg); background-size: cover; background-position: center; padding: 0px 0;">
     <!-- Início secção newsletter -->
     <section class="ftco-section newsletter-section">
         <div class="container">
@@ -665,82 +667,84 @@ document.getElementById('delivery-date').addEventListener('change', function() {
 
 
 
-    <section class="ftco-section testimony-section bg-light">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-          	<span class="subheading">Testimonial</span>
-            <h2 class="mb-3">Happy Clients</h2>
+<section class="ftco-section testimony-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">A Nossa Equipa</span>
+        <h2 class="mb-3">Conheça a nossa equipa</h2>
+      </div>
+    </div>
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+          <div class="item">
+            <div class="testimony-wrap rounded text-center py-4 pb-5">
+              <div class="user-img mb-2" style="background-image: url(assets/images/person_1.jpg)">
+              </div>
+              <div class="text pt-4">
+                <p class="mb-4">Com anos de experiência, ajudamos a encontrar o carro ideal para si, garantindo sempre a melhor solução.</p>
+                <p class="name">João Silva</p>
+                <span class="position">Consultor de Vendas</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row ftco-animate">
-          <div class="col-md-12">
-            <div class="carousel-testimony owl-carousel ftco-owl">
-              <div class="item">
-                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                  <div class="user-img mb-2" style="background-image: url(assets/images/person_1.jpg)">
-                  </div>
-                  <div class="text pt-4">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">Marketing Manager</span>
-                  </div>
-                </div>
+          <div class="item">
+            <div class="testimony-wrap rounded text-center py-4 pb-5">
+              <div class="user-img mb-2" style="background-image: url(assets/images/person_2.jpg)">
               </div>
-              <div class="item">
-                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                  <div class="user-img mb-2" style="background-image: url(assets/images/person_2.jpg)">
-                  </div>
-                  <div class="text pt-4">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">Interface Designer</span>
-                  </div>
-                </div>
+              <div class="text pt-4">
+                <p class="mb-4">Garantimos que cada viatura cumpre os mais altos padrões de qualidade e segurança antes da entrega.</p>
+                <p class="name">Ana Marques</p>
+                <span class="position">Responsável de Qualidade</span>
               </div>
-              <div class="item">
-                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                  <div class="user-img mb-2" style="background-image: url(assets/images/person_3.jpg)">
-                  </div>
-                  <div class="text pt-4">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">UI Designer</span>
-                  </div>
-                </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap rounded text-center py-4 pb-5">
+              <div class="user-img mb-2" style="background-image: url(assets/images/person_3.jpg)">
               </div>
-              <div class="item">
-                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                  <div class="user-img mb-2" style="background-image: url(assets/images/person_1.jpg)">
-                  </div>
-                  <div class="text pt-4">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">Web Developer</span>
-                  </div>
-                </div>
+              <div class="text pt-4">
+                <p class="mb-4">Oferecemos soluções de financiamento à medida das suas necessidades, tornando a compra do seu carro mais acessível.</p>
+                <p class="name">Carlos Mendes</p>
+                <span class="position">Especialista em Financiamento</span>
               </div>
-              <div class="item">
-                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                  <div class="user-img mb-2" style="background-image: url(assets/images/person_1.jpg)">
-                  </div>
-                  <div class="text pt-4">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">System Analyst</span>
-                  </div>
-                </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap rounded text-center py-4 pb-5">
+              <div class="user-img mb-2" style="background-image: url(assets/images/person_1.jpg)">
+              </div>
+              <div class="text pt-4">
+                <p class="mb-4">A nossa equipa de marketing garante que está sempre a par das melhores oportunidades e promoções.</p>
+                <p class="name">Marta Ferreira</p>
+                <span class="position">Gestora de Marketing</span>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap rounded text-center py-4 pb-5">
+              <div class="user-img mb-2" style="background-image: url(assets/images/person_1.jpg)">
+              </div>
+              <div class="text pt-4">
+                <p class="mb-4">Com um serviço de pós-venda dedicado, garantimos que o seu carro continua sempre em perfeitas condições.</p>
+                <p class="name">Ricardo Costa</p>
+                <span class="position">Técnico de Pós-Venda</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
 
 
 
   <!-- Inicio secção suporte-->
+  <section class="ftco-section ftco-intro" style="background-image: url(assets/images/image_3.jpg); background-size: cover; background-position: center; padding: 0px 0;">
     <section >
           <!-- Contact Form HTML -->
           <div  id="contactos" class="container contact-form">
@@ -774,6 +778,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
                 </div>
             </form>
           </div>
+      </section>
       </section>
 
 <!-- Styling for the contact form -->
