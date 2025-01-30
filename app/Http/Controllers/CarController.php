@@ -20,37 +20,56 @@ class CarController extends Controller
  // Exibir todos os carros com filtros opcionais
  public function publicCars(Request $request)
  {
-     $query = Car::query(); // Inicia a consulta para o modelo Car
-  
-     // Aplica filtros dinamicamente com base nos parâmetros recebidos
+     $query = Car::query(); // Inicia a consulta ao modelo Car
+ 
+     // Aplicação dos filtros
      if ($request->filled('name')) {
          $query->where('name', 'like', '%' . $request->name . '%');
      }
-  
+ 
      if ($request->filled('brand')) {
          $query->where('brand', 'like', '%' . $request->brand . '%');
      }
-  
+ 
      if ($request->filled('min_price')) {
          $query->where('price', '>=', $request->min_price);
      }
-  
+ 
      if ($request->filled('max_price')) {
          $query->where('price', '<=', $request->max_price);
      }
-  
+ 
      if ($request->filled('fuel_type')) {
          $query->where('fuel', $request->fuel_type);
      }
-  
-     // Obter os carros filtrados com paginação
-     $cars = $query->paginate(6); // Paginação
-  
-     // Obter as marcas e modelos distintos
+ 
+     // Aplicação da ordenação
+     switch ($request->sort) {
+         case 'price_asc':
+             $query->orderBy('price', 'asc');
+             break;
+         case 'price_desc':
+             $query->orderBy('price', 'desc');
+             break;
+         case 'name_asc':
+             $query->orderBy('brand', 'asc');
+             break;
+         case 'name_desc':
+             $query->orderBy('brand', 'desc');
+             break;
+         default:
+             $query->orderBy('created_at', 'desc'); // Ordenação padrão (Mais Recentes)
+             break;
+     }
+ 
+     // Paginação preservando os filtros
+     $cars = $query->paginate(6)->appends($request->query());
+ 
+     // Obter marcas e modelos distintos para os filtros
      $brands = Car::select('brand')->distinct()->get();
      $models = Car::select('name')->distinct()->get();
-  
-     // Retornar a view com os carros filtrados, marcas e modelos
+ 
+     // Retornar a view
      return view('cars.public', compact('cars', 'brands', 'models'));
  }
  
@@ -89,6 +108,7 @@ public function getModelsByBrand(Request $request)
     
         // Obter todos os carros com suas imagens associadas
         $cars = $query->paginate(6); // Paginação com 6 carros por página
+
     
         // Passa os carros filtrados para a view
         return view('cars.index', compact('cars'));

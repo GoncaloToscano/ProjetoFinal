@@ -236,6 +236,34 @@
 <section id="carsection" class="ftco-section ftco-no-pt bg-light">
     <br>
     <div class="container">
+<!-- Opções de ordenação -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form method="GET" action="{{ route('cars.public.cars') }}">
+            <div class="input-group shadow-sm" style="border-radius: 8px; overflow: hidden;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"><i class="fas fa-filter"></i></span>
+                </div>
+                <select name="sort" class="custom-select border-0">
+                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Mais Recentes</option>
+                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Preço: Menor para Maior</option>
+                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
+                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
+                    <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary text-white">
+                        <i class="fas fa-sort-amount-down-alt"></i> Ordenar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
         @if($cars->isEmpty())
         <div class="text-center mt-4">
             <h3>Infelizmente, não temos nenhum veículo que corresponda à sua pesquisa.</h3>
@@ -249,14 +277,10 @@
         </div>
         @endif
         
-        
-
-
         <div class="row">
             @foreach($cars as $car)
-                <div class="col-md-4 mb-4"> <!-- Cada carro ocupa 1/3 da largura -->
+                <div class="col-md-4 mb-4">
                     <div class="car-wrap rounded ftco-animate">
-                        <!-- Carrossel de imagens -->
                         <div id="carousel-{{ $car->id }}" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner" style="height: 200px; background-size: cover;">
                                 @foreach($car->images as $index => $image)
@@ -268,7 +292,6 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <!-- Controles do carrossel -->
                             <a class="carousel-control-prev" href="#carousel-{{ $car->id }}" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -278,10 +301,7 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
-                        
-                                               
 
-                        <!-- Informações do carro -->
                         <div class="text mt-3">
                             <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
                             <div class="d-flex mb-3">
@@ -310,7 +330,6 @@
                                 <p><strong>Marca:</strong> {{ $car->brand }}</p>
                                 <p><strong>Preço:</strong> {{ $car->price }}€</p>
                                 <p>Entre em contato sem compromisso para obter mais informações, marcar encontro ou esclarecer dúvidas sobre este veículo.</p>
-                                <!-- Formulário de Contato -->
                                 <form action="{{ route('contact.admin') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="car_id" value="{{ $car->id }}">
@@ -337,18 +356,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- Fim do Modal -->
             @endforeach
-
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
         </div>
     </div>
 </section>
+
 
 
 
