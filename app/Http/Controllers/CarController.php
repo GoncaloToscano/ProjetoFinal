@@ -57,6 +57,12 @@ class CarController extends Controller
          case 'name_desc':
              $query->orderBy('brand', 'desc');
              break;
+        case 'year_asc':
+             $query->orderBy('year', 'asc');
+             break;
+         case 'year_desc':
+             $query->orderBy('year', 'desc');
+             break;
          default:
              $query->orderBy('created_at', 'desc'); // Ordenação padrão (Mais Recentes)
              break;

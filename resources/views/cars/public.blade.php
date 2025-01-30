@@ -251,8 +251,10 @@
                 </div>
                 <select name="sort" class="custom-select border-0">
                     <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Mais Recentes</option>
-                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Preço: Menor para Maior</option>
+                    <option value="price" {{ request('sort') == 'price' ? 'selected' : '' }}>Preço: Menor para Maior</option>
                     <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
+                    <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Ano: Menor para Maior</option>
+                    <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Ano: Maior para Menor</option>
                     <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
                     <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
                 </select>
