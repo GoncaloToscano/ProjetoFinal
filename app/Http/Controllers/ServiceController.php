@@ -75,7 +75,7 @@ class ServiceController extends Controller
         }
 
         // Paginação com os dados filtrados
-        $services = $query->paginate(10);
+        $services = $query->paginate(8);
         
         // Retorna a view com os dados dos serviços
         return view('services.admin-index', compact('services'));

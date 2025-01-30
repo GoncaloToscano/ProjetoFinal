@@ -55,6 +55,7 @@
                     <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                         Ordenar
                     </button>
+                    
                 </form>
             </div>
         </div>
@@ -90,21 +91,64 @@
                                     @method('DELETE')
                                     <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 transition" onclick="confirmDelete({{ $car->id }})">Remover</button>
                                 </form>
+
+                                <button class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition" onclick="openModal({{ $car->id }})">Ver Mais</button>
+
                             </div>
                         </td>
                     </tr>
+                    <!-- Modal de Detalhes -->
+                    <div id="modal-{{ $car->id }}" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
+                            <h2 class="text-3xl font-semibold mb-4 text-gray-800 dark:text-white">{{ $car->name }}</h2>
+                            <div class="space-y-2 mb-4">
+                                <p><strong>Marca:</strong> {{ $car->brand }}</p>
+                                <p><strong>Ano:</strong> {{ $car->year }}</p>
+                                <p><strong>Preço:</strong> {{ number_format($car->price, 2, ',', '.') }} €</p>
+                                <p><strong>Quilometragem:</strong> {{ $car->kms }} km</p>
+                                <p><strong>Combustível:</strong> {{ $car->fuel }}</p>
+                                <p><strong>Cor:</strong> {{ $car->color }}</p>
+                                <p><strong>Potência:</strong> {{ $car->power }} CV</p>
+                                <p><strong>Cilindrada:</strong> {{ $car->engine_capacity }} cm³</p>
+                                <p><strong>Caixa:</strong> {{ $car->gearbox }}</p>
+                            </div>
+                            <div class="space-y-4">
+                                <h3 class="font-semibold">Imagens:</h3>
+                                <div class="grid grid-cols-3 gap-4">
+                                    @foreach ($car->images as $image)
+                                        <img src="{{ asset('storage/'.$image->path) }}" alt="Car Image" class="w-full h-48 object-cover rounded-lg shadow-md">
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-end">
+                                <button onclick="closeModal({{ $car->id }})" class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </tbody>
             </table>
+               <!-- Paginação -->
+                <div class="mt-4">
+                     {{ $cars->links('pagination::tailwind') }}
+                </div>
+            </div>
         </div>
+    </div>  
 
-        <!-- Paginação -->
-        <div class="mt-4">
-            {{ $cars->links('pagination::tailwind') }}
-        </div>
-    </div>
+     
 
     <script>
+
+        function openModal(carId) {
+            document.getElementById('modal-' + carId).classList.remove('hidden');
+            
+        }
+
+        function closeModal(carId) {
+            document.getElementById('modal-' + carId).classList.add('hidden');
+        }
+
         function confirmDelete(carId) {
             Swal.fire({
                 title: 'Tens a certeza?',
@@ -123,3 +167,4 @@
         }
     </script>
 </x-app-layout>
+
