@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Enviar Comunicado</h3>
 
-                <form action="{{ route('notifications.send') }}" method="POST">
+                <form action="{{ route('notifications.send') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-4">
@@ -37,6 +37,19 @@
                         ></textarea>
                     </div>
 
+                    <div class="mb-4">
+                        <label for="attachments" class="block text-gray-700 dark:text-gray-300 font-medium">Anexos (Imagens ou PDFs)</label>
+                        <input 
+                            type="file" 
+                            name="attachments[]" 
+                            id="attachments" 
+                            multiple 
+                            class="w-full mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:border-indigo-300"
+                            accept=".jpg,.jpeg,.png,.pdf"
+                        >
+                        <small class="text-gray-500 dark:text-gray-400">Você pode anexar imagens (JPG, PNG) ou PDFs. Tamanho máximo: 5MB por arquivo.</small>
+                    </div>
+
                     <div class="mb-4 flex items-center">
                         <input 
                             type="checkbox" 
@@ -59,18 +72,8 @@
                         </div>
 
                         <div class="mt-2 flex space-x-2">
-                            <button 
-                                type="button" 
-                                id="select-all" 
-                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-                                Selecionar Todos
-                            </button>
-                            <button 
-                                type="button" 
-                                id="clear-selections" 
-                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Limpar Seleções
-                            </button>
+                            <button type="button" id="select-all" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Selecionar Todos</button>
+                            <button type="button" id="clear-selections" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Limpar Seleções</button>
                         </div>
                     </div>
 
@@ -96,11 +99,7 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button 
-                            type="submit" 
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-                            Enviar
-                        </button>
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
                     </div>
                 </form>
             </div>
