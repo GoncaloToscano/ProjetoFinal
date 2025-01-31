@@ -19,15 +19,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-<style>
-  
-.navbar {
-  background-color: transparent !important;
-  box-shadow: none !important;  /* Se quiser remover qualquer sombra */
-}
 
-</style>
 </head>
 <body>
   
@@ -51,7 +45,7 @@
               <li class="nav-item"><a href="{{ url('/#concessionarias') }}" class="nav-link">Concessionárias</a></li>
                 <li class="nav-item"><a href="{{ url('/#contactos') }}" class="nav-link">Contactos</a></li>
 
-                <ul class="navbar-nav ml-auto">
+                                <ul class="navbar-nav ml-auto">
                     @guest
                         <li class="nav-item">
                             <a href="{{ url('/login') }}" class="nav-link">Login</a>
@@ -60,35 +54,44 @@
 
                     @auth
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-md-inline mr-2">{{ Auth::user()->name }}</span>
+                                <i class="fas fa-user-circle fa-lg text-primary"></i>
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow-lg border-0 rounded-lg p-2 animate__animated animate__fadeIn" aria-labelledby="navbarDropdown">
                                 <!-- Link de Dashboard para administradores -->
-                                @if(Auth::user()->role == 'admin')  <!-- Verifica a role do usuário -->
-                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                        {{ __('Dashboard') }}  <!-- Link visível apenas para administradores -->
+                                @if(Auth::user()->role == 'admin')  
+                                    <a class="dropdown-item d-flex align-items-center text-dark font-weight-bold" href="{{ route('dashboard') }}">
+                                        <i class="fas fa-tachometer-alt mr-2"></i> {{ __('Dashboard') }}
                                     </a>
+                                    <div class="dropdown-divider"></div>
                                 @endif
 
                                 <!-- Link para editar o perfil -->
-                                <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                    {{ __('Perfil') }}
+                                <a class="dropdown-item d-flex align-items-center text-dark" href="{{ route('profile.edit') }}">
+                                    <i class="fas fa-user-edit mr-2"></i> {{ __('Perfil') }}
                                 </a>
 
-                                <!-- Link de Logout que aparece para todos os usuários -->
-                                <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Link de Logout -->
+                                <form action="{{ route('logout') }}" method="POST" class="m-0 p-0">
                                     @csrf
-                                    <button type="submit" class="btn btn-link text-decoration-none">
-                                        {{ __('Logout') }}
+                                    <button type="submit" class="dropdown-item d-flex align-items-center text-danger w-100 border-0 bg-transparent focus-none">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Sair') }}
                                     </button>
                                 </form>
                             </div>
                         </li>
                     @endauth
                 </ul>
-
+                <style>
+                .focus-none:focus {
+                    outline: none !important;
+                    box-shadow: none !important;
+                }
+                </style>
             </ul>
         </div>
     </div>
