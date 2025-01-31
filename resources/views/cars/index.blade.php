@@ -8,6 +8,10 @@
         </div>
     </x-slot>
 
+    <!-- Swiper.js CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         
         <!-- Formulário de Pesquisa -->
@@ -98,33 +102,54 @@
                         </td>
                     </tr>
                     <!-- Modal de Detalhes -->
-                    <div id="modal-{{ $car->id }}" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
-                            <h2 class="text-3xl font-semibold mb-4 text-gray-800 dark:text-white">{{ $car->name }}</h2>
-                            <div class="space-y-2 mb-4">
-                                <p><strong>Marca:</strong> {{ $car->brand }}</p>
-                                <p><strong>Ano:</strong> {{ $car->year }}</p>
-                                <p><strong>Preço:</strong> {{ number_format($car->price, 2, ',', '.') }} €</p>
-                                <p><strong>Quilometragem:</strong> {{ $car->kms }} km</p>
-                                <p><strong>Combustível:</strong> {{ $car->fuel }}</p>
-                                <p><strong>Cor:</strong> {{ $car->color }}</p>
-                                <p><strong>Potência:</strong> {{ $car->power }} CV</p>
-                                <p><strong>Cilindrada:</strong> {{ $car->engine_capacity }} cm³</p>
-                                <p><strong>Caixa:</strong> {{ $car->gearbox }}</p>
-                            </div>
-                            <div class="space-y-4">
-                                <h3 class="font-semibold">Imagens:</h3>
-                                <div class="grid grid-cols-3 gap-4">
-                                    @foreach ($car->images as $image)
-                                        <img src="{{ asset('storage/'.$image->path) }}" alt="Car Image" class="w-full h-48 object-cover rounded-lg shadow-md">
-                                    @endforeach
+                        <div id="modal-{{ $car->id }}" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transition-opacity">
+                            <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl w-11/12 md:w-2/3 lg:w-1/2 max-h-screen overflow-hidden transform transition-all scale-95">
+                                
+                                <!-- Modal Header -->
+                                <div class="flex justify-between items-center border-b pb-4">
+                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $car->name }}</h2>
+                                    <button onclick="closeModal({{ $car->id }})" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <!-- Modal Body -->
+                                <div class="overflow-y-auto max-h-[80vh] p-4">
+                                    <!-- Car Info -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-2">
+                                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Informações do Carro</h3>
+                                            <p><strong>Marca:</strong> {{ $car->brand }}</p>
+                                            <p><strong>Ano:</strong> {{ $car->year }}</p>
+                                            <p><strong>Preço:</strong> <span class="text-green-600 font-semibold">{{ number_format($car->price, 2, ',', '.') }} €</span></p>
+                                            <p><strong>Quilometragem:</strong> {{ number_format($car->kms, 0, ',', '.') }} km</p>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Especificações Técnicas</h3>
+                                            <p><strong>Combustível:</strong> {{ $car->fuel }}</p>
+                                            <p><strong>Cor:</strong> {{ $car->color }}</p>
+                                            <p><strong>Potência:</strong> {{ $car->power }} CV</p>
+                                            <p><strong>Cilindrada:</strong> {{ number_format($car->engine_capacity, 0, ',', '.') }} cm³</p>
+                                            <p><strong>Caixa:</strong> {{ $car->gearbox }}</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Car Images - Display lado a lado -->
+                                    <div class="mt-6">
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Galeria de Imagens</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            @foreach ($car->images as $image)
+                                                <div class="flex justify-center">
+                                                    <img src="{{ asset('storage/'.$image->path) }}" alt="Car Image" class="w-full h-48 object-cover rounded-lg shadow-md">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mt-6 flex justify-end">
-                                <button onclick="closeModal({{ $car->id }})" class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Fechar</button>
-                            </div>
                         </div>
-                    </div>
                     @endforeach
                 </tbody>
             </table>
@@ -145,9 +170,9 @@
             
         }
 
-        function closeModal(carId) {
-            document.getElementById('modal-' + carId).classList.add('hidden');
-        }
+        function closeModal(id) {
+        document.getElementById("modal-" + id).classList.add("hidden");
+    }
 
         function confirmDelete(carId) {
             Swal.fire({
