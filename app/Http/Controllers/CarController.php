@@ -205,7 +205,7 @@ public function getModelsByBrand(Request $request)
         return redirect()->route('cars.index')->with('success', 'Carro adicionado com sucesso!');
     }
 
-    // Em CarController.php
+
     public function show(Car $car)
     {
         // Primeira tentativa: busca carros pela marca e ano, excluindo o carro atual
@@ -238,6 +238,15 @@ public function getModelsByBrand(Request $request)
         // Se ainda não houver 4 carros, tenta buscar por marca, sem o ano específico
         if ($relatedCars->count() < 4) {
             $remainingCars = Car::where('brand', $car->brand)
+                                ->where('id', '!=', $car->id)
+                                ->take(4 - $relatedCars->count())
+                                ->get();
+            $relatedCars = $relatedCars->merge($remainingCars);
+        }
+
+        // Se ainda não houver 4 carros, tenta buscar com dois anos de diferença no máximo
+        if ($relatedCars->count() < 4) {
+            $remainingCars = Car::where('year', '>=', $car->year - 2)
                                 ->where('id', '!=', $car->id)
                                 ->take(4 - $relatedCars->count())
                                 ->get();
