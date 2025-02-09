@@ -37,7 +37,7 @@ class ContactController extends Controller
         ";
     
         // Enviar o e-mail
-        Mail::raw($emailBody, function ($message) {
+        Mail::send('emails.contact', ['data' => $data], function ($message) {
             $message->to('projetolaraveltpsi1223@gmail.com') 
                     ->subject('Contato sobre carro');
         });
