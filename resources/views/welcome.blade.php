@@ -650,7 +650,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
                                 <button type="submit" class="btn text-white fw-bold px-4" style="background-color: #762E99; border-radius: 0 30px 30px 0;">Subscrever</button>
                             </div>
                         </form>
-                                                @if(session('success') || session('error'))
+                            @if(session('success') || session('error'))
                             <div class="mt-3">
                                 @if(session('success'))
                                     <div class="alert alert-success alert-dismissible fade show d-flex align-items-center shadow-lg p-3 rounded" role="alert">
@@ -707,7 +707,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
               </div>
               <div class="text pt-4">
                 <p class="mb-4">Garantimos que cada viatura cumpre os mais altos padrões de qualidade e segurança antes da entrega.</p>
-                <p class="name">Ana Marques</p>
+                <p class="name">Pedro Marques</p>
                 <span class="position">Responsável de Qualidade</span>
               </div>
             </div>
@@ -729,8 +729,8 @@ document.getElementById('delivery-date').addEventListener('change', function() {
               </div>
               <div class="text pt-4">
                 <p class="mb-4">A nossa equipa de marketing garante que está sempre a par das melhores oportunidades e promoções.</p>
-                <p class="name">Marta Ferreira</p>
-                <span class="position">Gestora de Marketing</span>
+                <p class="name">Rúben Ferreira</p>
+                <span class="position">Gestor de Marketing</span>
               </div>
             </div>
           </div>
@@ -946,7 +946,7 @@ document.getElementById('delivery-date').addEventListener('change', function() {
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">N 10, Km16 Coina, 2840-074, Paio Pires</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+351913588321</span></a></li>
 	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">driveride@gmail.com</span></a></li>
 	              </ul>

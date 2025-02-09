@@ -124,7 +124,7 @@ public function getModelsByBrand(Request $request)
             case 'oldest':
                 $query->oldest(); // Ordena pelos mais antigos
                 break;
-            case 'price':
+            case 'price_asc':
                 $query->orderBy('price', 'asc'); // Ordena do menor para o maior preço
                 break;
             case 'price_desc':

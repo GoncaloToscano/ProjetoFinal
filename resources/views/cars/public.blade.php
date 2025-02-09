@@ -295,7 +295,7 @@
                         <select name="sort" class="custom-select border-0">
                             <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Mais Recentes</option>
                             <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Mais Antigo</option>
-                            <option value="price" {{ request('sort') == 'price' ? 'selected' : '' }}>Preço: Menor para Maior</option>
+                            <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Preço: Menor para Maior</option>
                             <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
                             <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Ano: Menor para Maior</option>
                             <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Ano: Maior para Menor</option>
@@ -519,7 +519,7 @@
               <h2 class="ftco-heading-2">Have a Questions?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                  <li><span class="icon icon-map-marker"></span><span class="text">N 10, Km16 Coina, 2840-074, Paio Pires</span></li>
                   <li><a href="#"><span class="icon icon-phone"></span><span class="text">+351913588321</span></a></li>
                   <li><a href="#"><span class="icon icon-envelope"></span><span class="text">driveride@gmail.com</span></a></li>
                 </ul>

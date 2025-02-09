@@ -369,13 +369,37 @@
                   </div>
 
                   <div class="form-group">
-                      <label for="preferred_time">Hora Preferencial</label>
-                      <input type="time" class="form-control @error('preferred_time') is-invalid @enderror" id="preferred_time" name="preferred_time" required
-                          value="{{ old('preferred_time') }}">
-                      @error('preferred_time')
-                          <div class="invalid-feedback">{{ $message }}</div>
-                      @enderror
-                  </div>
+    <label for="preferred_time">Hora Preferencial</label>
+    <input type="time" class="form-control @error('preferred_time') is-invalid @enderror" 
+           id="preferred_time" name="preferred_time" required 
+           value="{{ old('preferred_time') }}" min="09:00" max="19:00">
+
+    @error('preferred_time')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+
+    <small id="timeHelp" class="form-text text-muted">Selecione um horário entre 09:00 e 19:00.</small>
+</div>
+
+<script>
+document.getElementById('preferred_time').addEventListener('input', function() {
+    const selectedTime = this.value;
+    const timeHelp = document.getElementById('timeHelp');
+    
+    if (selectedTime < "09:00" || selectedTime > "19:00") {
+        // Exibe um aviso amigável ao invés de um alert
+        timeHelp.textContent = "Por favor, selecione um horário entre 09:00 e 19:00.";
+        timeHelp.classList.add('text-danger'); // Adiciona cor de erro
+        this.classList.add('is-invalid'); // Adiciona a classe de erro ao campo
+    } else {
+        timeHelp.textContent = "Selecione um horário entre 09:00 e 19:00.";
+        timeHelp.classList.remove('text-danger');
+        this.classList.remove('is-invalid'); // Remove a classe de erro
+    }
+});
+</script>
+
+
 
                   <div class="form-group">
                       <label for="observations">Observações</label>
@@ -573,7 +597,7 @@
           <h2 class="ftco-heading-2">Have a Questions?</h2>
           <div class="block-23 mb-3">
             <ul>
-              <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+              <li><span class="icon icon-map-marker"></span><span class="text">N 10, Km16 Coina, 2840-074, Paio Pires</span></li>
               <li><a href="#"><span class="icon icon-phone"></span><span class="text">+351913588321</span></a></li>
               <li><a href="#"><span class="icon icon-envelope"></span><span class="text">driveride@gmail.com</span></a></li>
             </ul>

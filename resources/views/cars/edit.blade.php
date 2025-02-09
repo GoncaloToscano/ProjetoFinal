@@ -229,7 +229,7 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
-                                    Swal.fire('Deletado!', 'A imagem foi excluída.', 'success');
+                                    Swal.fire('Apagado!', 'A imagem foi excluída.', 'success');
                                     event.target.closest('div.relative').remove();
                                 } else {
                                     Swal.fire('Erro!', 'Não foi possível excluir a imagem.', 'error');

@@ -37,19 +37,6 @@
                         ></textarea>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="attachments" class="block text-gray-700 dark:text-gray-300 font-medium">Anexos (Imagens ou PDFs)</label>
-                        <input 
-                            type="file" 
-                            name="attachments[]" 
-                            id="attachments" 
-                            multiple 
-                            class="w-full mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:border-indigo-300"
-                            accept=".jpg,.jpeg,.png,.pdf"
-                        >
-                        <small class="text-gray-500 dark:text-gray-400">Você pode anexar imagens (JPG, PNG) ou PDFs. Tamanho máximo: 5MB por arquivo.</small>
-                    </div>
-
                     <div class="mb-4 flex items-center">
                         <input 
                             type="checkbox" 
