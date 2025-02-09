@@ -48,8 +48,6 @@
                             <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preço: Maior para Menor</option>
                             <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Ano: Menor para Maior</option>
                             <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Ano: Maior para Menor</option>
-                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nome: A-Z</option>
-                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nome: Z-A</option>
                         </select>
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
                             <i class="fas fa-sort-amount-down-alt"></i>
