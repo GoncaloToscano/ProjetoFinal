@@ -174,6 +174,25 @@
                   <input type="date" class="form-control" id="delivery-date" name="delivery_date" required>
                 </div>
 
+                <!-- Data de Entrega não anterior à atual -->
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var deliveryDateInput = document.getElementById("delivery-date");
+
+                        // Obtém a data atual no formato YYYY-MM-DD
+                        var today = new Date();
+                        var year = today.getFullYear();
+                        var month = String(today.getMonth() + 1).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+                        var day = String(today.getDate()).padStart(2, '0');
+
+                        var minDate = `${year}-${month}-${day}`;
+
+                        // Define o valor mínimo do campo de data
+                        deliveryDateInput.setAttribute("min", minDate);
+                    });
+                </script>
+
+
                 <!-- Data de Recolha (Automaticamente Calculada) -->
                 <div class="form-group mr-2">
                   <label for="pickup-date" class="label">Data-Recolha</label>

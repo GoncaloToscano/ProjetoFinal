@@ -246,31 +246,32 @@
 
   <!-- Estilos da notificação -->
   <style>
-    .toast {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%) translateY(-100px); /* Inicia acima da tela */
-        background-color: #4CAF50; /* Cor verde */
-        color: white;
-        padding: 20px 30px;
-        border-radius: 10px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        font-size: 16px;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
-        z-index: 1050;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    .toast.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(0); /* Desce para a posição final */
-    }
+/* Exibir a notificação */
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
 
     .toast.success {
         background-color: #4CAF50; /* Verde */
@@ -334,9 +335,12 @@
         }
     }
 
-    .toast.hide {
-        animation: slideUp 0.5s ease forwards;
-    }
+/* Ocultar com animação */
+.toast.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-20px); /* Desce um pouco antes de desaparecer */
+}
 
 
     .service-item {
@@ -367,18 +371,27 @@
 
   <!-- Script para notificação -->
   <script>
-    $(document).ready(function() {
-        @if(session('success'))
-            // Exibe a notificação com animação
-            $('#toast').fadeIn(500); // Exibe com animação suave
+    document.addEventListener("DOMContentLoaded", function () {
+        var toast = document.getElementById("toast");
 
-            // Oculta a notificação após 5 segundos
-            setTimeout(function() {
-                $('#toast').fadeOut(500); // Oculta com animação suave
-            }, 5000);  // 5000 milissegundos = 5 segundos
-        @endif
+        if (toast) {
+            // Exibe a notificação
+            toast.classList.add("show");
+
+            // Aguarda 3 segundos e inicia a remoção
+            setTimeout(function () {
+                toast.classList.add("hide"); // Aplica animação de saída
+                
+                // Após 0.5s (tempo da animação), remove do DOM
+                setTimeout(function () {
+                    toast.remove();
+                }, 500);
+            }, 3000); // Exibe por 3 segundos antes de ocultar
+        }
     });
-  </script>
+</script>
+
+
 
 <!-- Seção de Serviços -->
 <section id="servicos" class="services-section py-5">
