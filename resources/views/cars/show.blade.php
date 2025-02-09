@@ -372,13 +372,14 @@
     <label for="preferred_time">Hora Preferencial</label>
     <input type="time" class="form-control @error('preferred_time') is-invalid @enderror" 
            id="preferred_time" name="preferred_time" required 
-           value="{{ old('preferred_time') }}" min="09:00" max="19:00">
+           value="{{ old('preferred_time') }}" min="09:00" max="19:00"
+           step="900">
 
     @error('preferred_time')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 
-    <small id="timeHelp" class="form-text text-muted">Selecione um horário entre 09:00 e 19:00.</small>
+    <small id="timeHelp" class="form-text text-muted">Selecione um horário entre 09:00 e 19:00, em intervalos de 15 minutos.</small>
 </div>
 
 <script>
@@ -386,18 +387,22 @@ document.getElementById('preferred_time').addEventListener('input', function() {
     const selectedTime = this.value;
     const timeHelp = document.getElementById('timeHelp');
     
-    if (selectedTime < "09:00" || selectedTime > "19:00") {
-        // Exibe um aviso amigável ao invés de um alert
-        timeHelp.textContent = "Por favor, selecione um horário entre 09:00 e 19:00.";
+    const timeParts = selectedTime.split(':');
+    const minutes = parseInt(timeParts[1]);
+
+    // Verifica se os minutos são múltiplos de 15
+    if (minutes % 15 !== 0) {
+        timeHelp.textContent = "Por favor, selecione um horário em intervalos de 15 minutos.";
         timeHelp.classList.add('text-danger'); // Adiciona cor de erro
         this.classList.add('is-invalid'); // Adiciona a classe de erro ao campo
     } else {
-        timeHelp.textContent = "Selecione um horário entre 09:00 e 19:00.";
+        timeHelp.textContent = "Selecione um horário entre 09:00 e 19:00, em intervalos de 15 minutos.";
         timeHelp.classList.remove('text-danger');
         this.classList.remove('is-invalid'); // Remove a classe de erro
     }
 });
 </script>
+
 
 
 
